@@ -6,41 +6,41 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- [#36](https://github.com/zendframework/zend-config/pull/36) adds support for
+- [zendframework/zend-config#36](https://github.com/zendframework/zend-config/pull/36) adds support for
   [PSR-11](http://www.php-fig.org/psr/psr-11/).
 
-- [#36](https://github.com/zendframework/zend-config/pull/36) adds the class
-  `Zend\Config\StandaloneReaderPluginManager` for managing config reader plugins.
+- [zendframework/zend-config#36](https://github.com/zendframework/zend-config/pull/36) adds the class
+  `Laminas\Config\StandaloneReaderPluginManager` for managing config reader plugins.
   This implementation implements the PSR-11 `ContainerInterface`, and uses a
   hard-coded list of reader plugins.
 
-- [#36](https://github.com/zendframework/zend-config/pull/36) adds the class
-  `Zend\Config\StandaloneWriterPluginManager` for managing config writer plugins.
+- [zendframework/zend-config#36](https://github.com/zendframework/zend-config/pull/36) adds the class
+  `Laminas\Config\StandaloneWriterPluginManager` for managing config writer plugins.
   This implementation implements the PSR-11 `ContainerInterface`, and uses a
   hard-coded list of writer plugins.
 
 ### Changes
 
-- [#36](https://github.com/zendframework/zend-config/pull/36) updates the
-  `Zend\Config\Factory::getReaderPluginManager()` method to lazy-load a
+- [zendframework/zend-config#36](https://github.com/zendframework/zend-config/pull/36) updates the
+  `Laminas\Config\Factory::getReaderPluginManager()` method to lazy-load a
   `StandaloneReaderPluginManager` by default, instead of a
   `ReaderPluginManager`, allowing usage out-of-the-box without requiring
-  zend-servicemanager.
+  laminas-servicemanager.
 
-- [#36](https://github.com/zendframework/zend-config/pull/36) updates the
-  `Zend\Config\Factory::setReaderPluginManager()` method to typehint against
+- [zendframework/zend-config#36](https://github.com/zendframework/zend-config/pull/36) updates the
+  `Laminas\Config\Factory::setReaderPluginManager()` method to typehint against
   `Psr\Container\ContainerInterface` instead of `ReaderPluginManager`. If you
   were extending and overriding that method, you will need to update your
   signature.
 
-- [#36](https://github.com/zendframework/zend-config/pull/36) updates the
-  `Zend\Config\Factory::getWriterPluginManager()` method to lazy-load a
+- [zendframework/zend-config#36](https://github.com/zendframework/zend-config/pull/36) updates the
+  `Laminas\Config\Factory::getWriterPluginManager()` method to lazy-load a
   `StandaloneWriterPluginManager` by default, instead of a
   `WriterPluginManager`, allowing usage out-of-the-box without requiring
-  zend-servicemanager.
+  laminas-servicemanager.
 
-- [#36](https://github.com/zendframework/zend-config/pull/36) updates the
-  `Zend\Config\Factory::setWriterPluginManager()` method to typehint against
+- [zendframework/zend-config#36](https://github.com/zendframework/zend-config/pull/36) updates the
+  `Laminas\Config\Factory::setWriterPluginManager()` method to typehint against
   `Psr\Container\ContainerInterface` instead of `WriterPluginManager`. If you
   were extending and overriding that method, you will need to update your
   signature.
@@ -51,8 +51,8 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Removed
 
-- [#36](https://github.com/zendframework/zend-config/pull/36) removes usage of
-  zend-json as a JSON de/serializer in the JSON writer and reader; the
+- [zendframework/zend-config#36](https://github.com/zendframework/zend-config/pull/36) removes usage of
+  laminas-json as a JSON de/serializer in the JSON writer and reader; the
   component now requires ext/json is installed to use these features.
 
 ### Fixed
@@ -63,12 +63,12 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- [#6](https://github.com/zendframework/zend-config/pull/6) adds the ability for
+- [zendframework/zend-config#6](https://github.com/zendframework/zend-config/pull/6) adds the ability for
   the `PhpArray` writer to optionally translate strings that evaluate to known
   classes to `ClassName::class` syntax; the feature works for both keys and
   values.
-- [#21](https://github.com/zendframework/zend-config/pull/21) adds revised
-  documentation, and publishes it to https://zendframework.github.io/zend-config/
+- [zendframework/zend-config#21](https://github.com/zendframework/zend-config/pull/21) adds revised
+  documentation, and publishes it to https://docs.laminas.dev/laminas-config/
 
 ### Deprecated
 
@@ -80,11 +80,11 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- [#8](https://github.com/zendframework/zend-config/pull/8),
-  [#18](https://github.com/zendframework/zend-config/pull/18), and
-  [#20](https://github.com/zendframework/zend-config/pull/20) update the
+- [zendframework/zend-config#8](https://github.com/zendframework/zend-config/pull/8),
+  [zendframework/zend-config#18](https://github.com/zendframework/zend-config/pull/18), and
+  [zendframework/zend-config#20](https://github.com/zendframework/zend-config/pull/20) update the
   code base to make it forwards-compatible with the v3.0 versions of
-  zend-stdlib and zend-servicemanager. Primarily, this involved:
+  laminas-stdlib and laminas-servicemanager. Primarily, this involved:
   - Updating the `AbstractConfigFactory` to implement the new methods in the
     v3 `AbstractFactoryInterface` definition, and updating the v2 methods to
     proxy to those.
@@ -94,5 +94,5 @@ All notable changes to this project will be documented in this file, in reverse 
     the new `InvokableFactory`); additionally, they each now implement both
     `validatePlugin()` from v2 and `validate()` from v3.
   - Pinning to stable versions of already updated components.
-  - Selectively omitting zend-i18n-reliant tests when testing against
-    zend-servicemanager v3.
+  - Selectively omitting laminas-i18n-reliant tests when testing against
+    laminas-servicemanager v3.

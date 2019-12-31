@@ -1,16 +1,17 @@
 <?php
+
 /**
- * @see       https://github.com/zendframework/zend-config for the canonical source repository
- * @copyright Copyright (c) 2005-2017 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   https://github.com/zendframework/zend-config/blob/master/LICENSE.md New BSD License
+ * @see       https://github.com/laminas/laminas-config for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-config/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-config/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Config;
+namespace Laminas\Config;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\AbstractPluginManager;
-use Zend\ServiceManager\Exception\InvalidServiceException;
-use Zend\ServiceManager\Factory\InvokableFactory;
+use Laminas\ServiceManager\AbstractPluginManager;
+use Laminas\ServiceManager\Exception\InvalidServiceException;
+use Laminas\ServiceManager\Factory\InvokableFactory;
 
 class ReaderPluginManager extends AbstractPluginManager
 {
@@ -28,6 +29,20 @@ class ReaderPluginManager extends AbstractPluginManager
         'javaproperties' => Reader\JavaProperties::class,
         'javaProperties' => Reader\JavaProperties::class,
         'JavaProperties' => Reader\JavaProperties::class,
+
+        // Legacy Zend Framework aliases
+        \Zend\Config\Reader\Ini::class => Reader\Ini::class,
+        \Zend\Config\Reader\Json::class => Reader\Json::class,
+        \Zend\Config\Reader\Xml::class => Reader\Xml::class,
+        \Zend\Config\Reader\Yaml::class => Reader\Yaml::class,
+        \Zend\Config\Reader\JavaProperties::class => Reader\JavaProperties::class,
+
+        // v2 normalized FQCNs
+        'zendconfigreaderini' => Reader\Ini::class,
+        'zendconfigreaderjson' => Reader\Json::class,
+        'zendconfigreaderxml' => Reader\Xml::class,
+        'zendconfigreaderyaml' => Reader\Yaml::class,
+        'zendconfigreaderjavaproperties' => Reader\JavaProperties::class,
     ];
 
     protected $factories = [
@@ -39,11 +54,11 @@ class ReaderPluginManager extends AbstractPluginManager
         // Legacy (v2) due to alias resolution; canonical form of resolved
         // alias is used to look up the factory, while the non-normalized
         // resolved alias is used as the requested name passed to the factory.
-        'zendconfigreaderini'            => InvokableFactory::class,
-        'zendconfigreaderjson'           => InvokableFactory::class,
-        'zendconfigreaderxml'            => InvokableFactory::class,
-        'zendconfigreaderyaml'           => InvokableFactory::class,
-        'zendconfigreaderjavaproperties' => InvokableFactory::class,
+        'laminasconfigreaderini'            => InvokableFactory::class,
+        'laminasconfigreaderjson'           => InvokableFactory::class,
+        'laminasconfigreaderxml'            => InvokableFactory::class,
+        'laminasconfigreaderyaml'           => InvokableFactory::class,
+        'laminasconfigreaderjavaproperties' => InvokableFactory::class,
     ];
 
     /**

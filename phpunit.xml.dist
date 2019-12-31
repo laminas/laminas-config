@@ -4,7 +4,7 @@
          bootstrap="vendor/autoload.php"
          colors="true">
     <testsuites>
-        <testsuite name="zend-config Test Suite">
+        <testsuite name="laminas-config Test Suite">
             <directory>./test/</directory>
         </testsuite>
     </testsuites>
@@ -24,9 +24,9 @@
     <php>
         <ini name="date.timezone" value="UTC"/>
 
-        <env name="TESTS_ZEND_CONFIG_YAML_ENABLED" value="false" />
-        <env name="TESTS_ZEND_CONFIG_YAML_LIB_INCLUDE" value="" />
-        <env name="TESTS_ZEND_CONFIG_WRITER_YAML_CALLBACK" value="" />
-        <env name="TESTS_ZEND_CONFIG_READER_YAML_CALLBACK" value="" />
+        <env name="TESTS_LAMINAS_CONFIG_YAML_ENABLED" value="false" />
+        <env name="TESTS_LAMINAS_CONFIG_YAML_LIB_INCLUDE" value="" />
+        <env name="TESTS_LAMINAS_CONFIG_WRITER_YAML_CALLBACK" value="" />
+        <env name="TESTS_LAMINAS_CONFIG_READER_YAML_CALLBACK" value="" />
     </php>
 </phpunit>

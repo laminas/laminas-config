@@ -1,11 +1,12 @@
 <?php
+
 /**
- * @see       https://github.com/zendframework/zend-config for the canonical source repository
- * @copyright Copyright (c) 2005-2017 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   https://github.com/zendframework/zend-config/blob/master/LICENSE.md New BSD License
+ * @see       https://github.com/laminas/laminas-config for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-config/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-config/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Config\Processor;
+namespace Laminas\Config\Processor;
 
 class Constant extends Token implements ProcessorInterface
 {
@@ -24,7 +25,7 @@ class Constant extends Token implements ProcessorInterface
      *                                      false to process all PHP constants
      * @param string $prefix                Optional prefix
      * @param string $suffix                Optional suffix
-     * @return \Zend\Config\Processor\Constant
+     * @return \Laminas\Config\Processor\Constant
      */
     public function __construct($userOnly = true, $prefix = '', $suffix = '')
     {

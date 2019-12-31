@@ -1,31 +1,32 @@
 <?php
+
 /**
- * @see       https://github.com/zendframework/zend-config for the canonical source repository
- * @copyright Copyright (c) 2005-2017 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   https://github.com/zendframework/zend-config/blob/master/LICENSE.md New BSD License
+ * @see       https://github.com/laminas/laminas-config for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-config/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-config/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Config\Reader;
+namespace LaminasTest\Config\Reader;
 
-use Zend\Config\Exception;
-use Zend\Config\Reader\Yaml as YamlReader;
+use Laminas\Config\Exception;
+use Laminas\Config\Reader\Yaml as YamlReader;
 
 /**
- * @group      Zend_Config
+ * @group      Laminas_Config
  */
 class YamlTest extends AbstractReaderTestCase
 {
     public function setUp()
     {
-        if (! getenv('TESTS_ZEND_CONFIG_YAML_ENABLED')) {
-            $this->markTestSkipped('Yaml test for Zend\Config skipped');
+        if (! getenv('TESTS_LAMINAS_CONFIG_YAML_ENABLED')) {
+            $this->markTestSkipped('Yaml test for Laminas\Config skipped');
         }
 
-        if (getenv('TESTS_ZEND_CONFIG_YAML_LIB_INCLUDE')) {
-            require_once getenv('TESTS_ZEND_CONFIG_YAML_LIB_INCLUDE');
+        if (getenv('TESTS_LAMINAS_CONFIG_YAML_LIB_INCLUDE')) {
+            require_once getenv('TESTS_LAMINAS_CONFIG_YAML_LIB_INCLUDE');
         }
 
-        $yamlReader = explode('::', getenv('TESTS_ZEND_CONFIG_READER_YAML_CALLBACK'));
+        $yamlReader = explode('::', getenv('TESTS_LAMINAS_CONFIG_READER_YAML_CALLBACK'));
         if (isset($yamlReader[1])) {
             $this->reader = new YamlReader([$yamlReader[0], $yamlReader[1]]);
         } else {
