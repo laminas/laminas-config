@@ -1,30 +1,29 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-config for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-config/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-config/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Config\Writer;
+namespace LaminasTest\Config\Writer;
 
+use Laminas\Config\Config;
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\Config\Config;
 
 /**
- * @group      Zend_Config
+ * @group      Laminas_Config
  */
 abstract class AbstractWriterTestCase extends TestCase
 {
     /**
-     * @var \Zend\Config\Reader\ReaderInterface
+     * @var \Laminas\Config\Reader\ReaderInterface
      */
     protected $reader;
 
     /**
      *
-     * @var \Zend\Config\Writer\WriterInterface
+     * @var \Laminas\Config\Writer\WriterInterface
      */
     protected $writer;
 
@@ -42,7 +41,7 @@ abstract class AbstractWriterTestCase extends TestCase
     protected function getTestAssetFileName()
     {
         if (empty($this->tmpfile)) {
-            $this->tmpfile = tempnam(sys_get_temp_dir(), 'zend-config-writer');
+            $this->tmpfile = tempnam(sys_get_temp_dir(), 'laminas-config-writer');
         }
         return $this->tmpfile;
     }
@@ -59,19 +58,19 @@ abstract class AbstractWriterTestCase extends TestCase
 
     public function testNoFilenameSet()
     {
-        $this->setExpectedException('Zend\Config\Exception\InvalidArgumentException', 'No file name specified');
+        $this->setExpectedException('Laminas\Config\Exception\InvalidArgumentException', 'No file name specified');
         $this->writer->toFile('', '');
     }
 
     public function testFileNotValid()
     {
-        $this->setExpectedException('Zend\Config\Exception\RuntimeException');
+        $this->setExpectedException('Laminas\Config\Exception\RuntimeException');
         $this->writer->toFile('.', new Config(array()));
     }
 
     public function testFileNotWritable()
     {
-        $this->setExpectedException('Zend\Config\Exception\RuntimeException');
+        $this->setExpectedException('Laminas\Config\Exception\RuntimeException');
         chmod($this->getTestAssetFileName(), 0444);
         $this->writer->toFile($this->getTestAssetFileName(), new Config(array()));
     }
