@@ -1,18 +1,17 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-config for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-config/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-config/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Config\Reader;
+namespace LaminasTest\Config\Reader;
 
-use Zend\Config\Reader\JavaProperties;
+use Laminas\Config\Reader\JavaProperties;
 
 /**
- * @group      Zend_Config
+ * @group      Laminas_Config
  */
 class JavaPropertiesTest extends AbstractReaderTestCase
 {
@@ -73,7 +72,7 @@ ASSET;
 
         $expectedErrorMessage = 'Cannot process @include statement for a string';
 
-        $this->setExpectedException('Zend\Config\Exception\RuntimeException', $expectedErrorMessage);
+        $this->setExpectedException('Laminas\Config\Exception\RuntimeException', $expectedErrorMessage);
         $arrayJavaPropterties = $this->reader->fromString($JavaProperties);
     }
 }
