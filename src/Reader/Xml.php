@@ -1,23 +1,21 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Config
+ * @see       https://github.com/laminas/laminas-config for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-config/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-config/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Config\Reader;
+namespace Laminas\Config\Reader;
 
+use Laminas\Config\Exception;
 use XMLReader;
-use Zend\Config\Exception;
 
 /**
  * XML config reader.
  *
- * @category   Zend
- * @package    Zend_Config
+ * @category   Laminas
+ * @package    Laminas_Config
  * @subpackage Reader
  */
 class Xml implements ReaderInterface

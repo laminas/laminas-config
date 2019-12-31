@@ -1,18 +1,16 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Config
+ * @see       https://github.com/laminas/laminas-config for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-config/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-config/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Config\Processor;
+namespace Laminas\Config\Processor;
 
 /**
- * @category   Zend
- * @package    Zend_Config
+ * @category   Laminas
+ * @package    Laminas_Config
  * @subpackage Processor
  */
 class Constant extends Token implements ProcessorInterface
@@ -31,7 +29,7 @@ class Constant extends Token implements ProcessorInterface
      * @param bool   $userOnly              True to process only user-defined constants, false to process all PHP constants
      * @param string $prefix                Optional prefix
      * @param string $suffix                Optional suffix
-     * @return \Zend\Config\Processor\Constant
+     * @return \Laminas\Config\Processor\Constant
      */
     public function __construct($userOnly = true, $prefix = '', $suffix = '')
     {
