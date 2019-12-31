@@ -1,32 +1,31 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-config for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-config/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-config/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Config\Reader;
+namespace LaminasTest\Config\Reader;
 
-use Zend\Config\Reader\Yaml as YamlReader;
+use Laminas\Config\Reader\Yaml as YamlReader;
 
 /**
- * @group      Zend_Config
+ * @group      Laminas_Config
  */
 class YamlTest extends AbstractReaderTestCase
 {
     public function setUp()
     {
-        if (!constant('TESTS_ZEND_CONFIG_YAML_ENABLED')) {
-            $this->markTestSkipped('Yaml test for Zend\Config skipped');
+        if (!constant('TESTS_LAMINAS_CONFIG_YAML_ENABLED')) {
+            $this->markTestSkipped('Yaml test for Laminas\Config skipped');
         }
 
-        if (constant('TESTS_ZEND_CONFIG_YAML_LIB_INCLUDE')) {
-            require_once constant('TESTS_ZEND_CONFIG_YAML_LIB_INCLUDE');
+        if (constant('TESTS_LAMINAS_CONFIG_YAML_LIB_INCLUDE')) {
+            require_once constant('TESTS_LAMINAS_CONFIG_YAML_LIB_INCLUDE');
         }
 
-        $yamlReader = explode('::', constant('TESTS_ZEND_CONFIG_READER_YAML_CALLBACK'));
+        $yamlReader = explode('::', constant('TESTS_LAMINAS_CONFIG_READER_YAML_CALLBACK'));
         if (isset($yamlReader[1])) {
             $this->reader = new YamlReader(array($yamlReader[0], $yamlReader[1]));
         } else {
@@ -47,7 +46,7 @@ class YamlTest extends AbstractReaderTestCase
 
     public function testInvalidIniFile()
     {
-        $this->setExpectedException('Zend\Config\Exception\RuntimeException');
+        $this->setExpectedException('Laminas\Config\Exception\RuntimeException');
         $arrayIni = $this->reader->fromFile($this->getTestAssetPath('invalid'));
     }
 
