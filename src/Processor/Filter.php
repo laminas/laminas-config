@@ -1,47 +1,46 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-config for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-config/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-config/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Config\Processor;
+namespace Laminas\Config\Processor;
 
-use Zend\Config\Config;
-use Zend\Config\Exception;
-use Zend\Filter\FilterInterface as ZendFilter;
+use Laminas\Config\Config;
+use Laminas\Config\Exception;
+use Laminas\Filter\FilterInterface as LaminasFilter;
 
 class Filter implements ProcessorInterface
 {
     /**
-     * @var ZendFilter
+     * @var LaminasFilter
      */
     protected $filter;
 
     /**
-     * Filter all config values using the supplied Zend\Filter
+     * Filter all config values using the supplied Laminas\Filter
      *
-     * @param ZendFilter $filter
+     * @param LaminasFilter $filter
      */
-    public function __construct(ZendFilter $filter)
+    public function __construct(LaminasFilter $filter)
     {
         $this->setFilter($filter);
     }
 
     /**
-     * @param  ZendFilter $filter
+     * @param  LaminasFilter $filter
      * @return Filter
      */
-    public function setFilter(ZendFilter $filter)
+    public function setFilter(LaminasFilter $filter)
     {
         $this->filter = $filter;
         return $this;
     }
 
     /**
-     * @return ZendFilter
+     * @return LaminasFilter
      */
     public function getFilter()
     {
