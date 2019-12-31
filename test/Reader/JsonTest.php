@@ -1,18 +1,17 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-config for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-config/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-config/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Config\Reader;
+namespace LaminasTest\Config\Reader;
 
-use Zend\Config\Reader\Json;
+use Laminas\Config\Reader\Json;
 
 /**
- * @group      Zend_Config
+ * @group      Laminas_Config
  */
 class JsonTest extends AbstractReaderTestCase
 {
@@ -34,7 +33,7 @@ class JsonTest extends AbstractReaderTestCase
 
     public function testInvalidJsonFile()
     {
-        $this->setExpectedException('Zend\Config\Exception\RuntimeException');
+        $this->setExpectedException('Laminas\Config\Exception\RuntimeException');
         $arrayJson = $this->reader->fromFile($this->getTestAssetPath('invalid'));
     }
 
@@ -59,7 +58,7 @@ class JsonTest extends AbstractReaderTestCase
     {
         $json = '{"foo":"bar"';
 
-        $this->setExpectedException('Zend\Config\Exception\RuntimeException');
+        $this->setExpectedException('Laminas\Config\Exception\RuntimeException');
         $arrayIni = $this->reader->fromString($json);
     }
 
