@@ -28,12 +28,12 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- [#54](https://github.com/zendframework/zend-config/pull/54) adds support for PHP 7.3.
-- [#58](https://github.com/zendframework/zend-config/pull/58) adds
+- [zendframework/zend-config#54](https://github.com/zendframework/zend-config/pull/54) adds support for PHP 7.3.
+- [zendframework/zend-config#58](https://github.com/zendframework/zend-config/pull/58) adds
   `$processSections` to INI reader, allowing control over whether sections
   should be parsed or not
-- [#63](https://github.com/zendframework/zend-config/pull/63) adds .yml to
-  Zend\Config\Factory as an alternative extension for yaml
+- [zendframework/zend-config#63](https://github.com/zendframework/zend-config/pull/63) adds .yml to
+  Laminas\Config\Factory as an alternative extension for yaml
 
 ### Changed
 
@@ -55,11 +55,11 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- [#47](https://github.com/zendframework/zend-config/pull/47) adds `Zend\Config\Writer\JavaProperties`, a complement to
-  `Zend\Config\Reader\JavaProperties`, for writing JavaProperties files from configuration. The writer supports
+- [zendframework/zend-config#47](https://github.com/zendframework/zend-config/pull/47) adds `Laminas\Config\Writer\JavaProperties`, a complement to
+  `Laminas\Config\Reader\JavaProperties`, for writing JavaProperties files from configuration. The writer supports
   specifying an alternate key/value delimiter (the default is ":") via the constructor.
 
-- [#46](https://github.com/zendframework/zend-config/pull/46) adds a constructor option to the JavaProperties reader to allow
+- [zendframework/zend-config#46](https://github.com/zendframework/zend-config/pull/46) adds a constructor option to the JavaProperties reader to allow
   users to indicate keys and values from the configuration should be trimmed of whitespace:
 
   ```php
@@ -69,10 +69,10 @@ All notable changes to this project will be documented in this file, in reverse 
   );
   ```
 
-- [#45](https://github.com/zendframework/zend-config/pull/45) adds the ability to specify an alternate key/value delimiter to
+- [zendframework/zend-config#45](https://github.com/zendframework/zend-config/pull/45) adds the ability to specify an alternate key/value delimiter to
   the JavaProperties config reader via the constructor: `$reader = new JavaProperties("=");`.
 
-- [#42](https://github.com/zendframework/zend-config/pull/42) adds support for PHP 7.1 and 7.2.
+- [zendframework/zend-config#42](https://github.com/zendframework/zend-config/pull/42) adds support for PHP 7.1 and 7.2.
 
 ### Changed
 
@@ -84,7 +84,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Removed
 
-- [#42](https://github.com/zendframework/zend-config/pull/42) removes support for HHVM.
+- [zendframework/zend-config#42](https://github.com/zendframework/zend-config/pull/42) removes support for HHVM.
 
 ### Fixed
 
@@ -94,12 +94,12 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- [#37](https://github.com/zendframework/zend-config/pull/37) adds a new method,
+- [zendframework/zend-config#37](https://github.com/zendframework/zend-config/pull/37) adds a new method,
   `enableKeyProcessing()`, and constructor argument, `$enableKeyProcessing =
   false`,  to each of the `Token` and `Constant` processors. These allow enabling
   processing of tokens and/or constants encountered in configuration key values.
 
-- [#37](https://github.com/zendframework/zend-config/pull/37) adds the ability
+- [zendframework/zend-config#37](https://github.com/zendframework/zend-config/pull/37) adds the ability
   for the `Constant` processor to process class constants, including the
   `::class` pseudo-constant.
 
@@ -119,41 +119,41 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- [#36](https://github.com/zendframework/zend-config/pull/36) adds support for
+- [zendframework/zend-config#36](https://github.com/zendframework/zend-config/pull/36) adds support for
   [PSR-11](http://www.php-fig.org/psr/psr-11/).
 
-- [#36](https://github.com/zendframework/zend-config/pull/36) adds the class
-  `Zend\Config\StandaloneReaderPluginManager` for managing config reader plugins.
+- [zendframework/zend-config#36](https://github.com/zendframework/zend-config/pull/36) adds the class
+  `Laminas\Config\StandaloneReaderPluginManager` for managing config reader plugins.
   This implementation implements the PSR-11 `ContainerInterface`, and uses a
   hard-coded list of reader plugins.
 
-- [#36](https://github.com/zendframework/zend-config/pull/36) adds the class
-  `Zend\Config\StandaloneWriterPluginManager` for managing config writer plugins.
+- [zendframework/zend-config#36](https://github.com/zendframework/zend-config/pull/36) adds the class
+  `Laminas\Config\StandaloneWriterPluginManager` for managing config writer plugins.
   This implementation implements the PSR-11 `ContainerInterface`, and uses a
   hard-coded list of writer plugins.
 
 ### Changes
 
-- [#36](https://github.com/zendframework/zend-config/pull/36) updates the
-  `Zend\Config\Factory::getReaderPluginManager()` method to lazy-load a
+- [zendframework/zend-config#36](https://github.com/zendframework/zend-config/pull/36) updates the
+  `Laminas\Config\Factory::getReaderPluginManager()` method to lazy-load a
   `StandaloneReaderPluginManager` by default, instead of a
   `ReaderPluginManager`, allowing usage out-of-the-box without requiring
-  zend-servicemanager.
+  laminas-servicemanager.
 
-- [#36](https://github.com/zendframework/zend-config/pull/36) updates the
-  `Zend\Config\Factory::setReaderPluginManager()` method to typehint against
+- [zendframework/zend-config#36](https://github.com/zendframework/zend-config/pull/36) updates the
+  `Laminas\Config\Factory::setReaderPluginManager()` method to typehint against
   `Psr\Container\ContainerInterface` instead of `ReaderPluginManager`. If you
   were extending and overriding that method, you will need to update your
   signature.
 
-- [#36](https://github.com/zendframework/zend-config/pull/36) updates the
-  `Zend\Config\Factory::getWriterPluginManager()` method to lazy-load a
+- [zendframework/zend-config#36](https://github.com/zendframework/zend-config/pull/36) updates the
+  `Laminas\Config\Factory::getWriterPluginManager()` method to lazy-load a
   `StandaloneWriterPluginManager` by default, instead of a
   `WriterPluginManager`, allowing usage out-of-the-box without requiring
-  zend-servicemanager.
+  laminas-servicemanager.
 
-- [#36](https://github.com/zendframework/zend-config/pull/36) updates the
-  `Zend\Config\Factory::setWriterPluginManager()` method to typehint against
+- [zendframework/zend-config#36](https://github.com/zendframework/zend-config/pull/36) updates the
+  `Laminas\Config\Factory::setWriterPluginManager()` method to typehint against
   `Psr\Container\ContainerInterface` instead of `WriterPluginManager`. If you
   were extending and overriding that method, you will need to update your
   signature.
@@ -164,8 +164,8 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Removed
 
-- [#36](https://github.com/zendframework/zend-config/pull/36) removes usage of
-  zend-json as a JSON de/serializer in the JSON writer and reader; the
+- [zendframework/zend-config#36](https://github.com/zendframework/zend-config/pull/36) removes usage of
+  laminas-json as a JSON de/serializer in the JSON writer and reader; the
   component now requires ext/json is installed to use these features.
 
 ### Fixed
@@ -176,12 +176,12 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- [#6](https://github.com/zendframework/zend-config/pull/6) adds the ability for
+- [zendframework/zend-config#6](https://github.com/zendframework/zend-config/pull/6) adds the ability for
   the `PhpArray` writer to optionally translate strings that evaluate to known
   classes to `ClassName::class` syntax; the feature works for both keys and
   values.
-- [#21](https://github.com/zendframework/zend-config/pull/21) adds revised
-  documentation, and publishes it to https://zendframework.github.io/zend-config/
+- [zendframework/zend-config#21](https://github.com/zendframework/zend-config/pull/21) adds revised
+  documentation, and publishes it to https://docs.laminas.dev/laminas-config/
 
 ### Deprecated
 
@@ -193,11 +193,11 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- [#8](https://github.com/zendframework/zend-config/pull/8),
-  [#18](https://github.com/zendframework/zend-config/pull/18), and
-  [#20](https://github.com/zendframework/zend-config/pull/20) update the
+- [zendframework/zend-config#8](https://github.com/zendframework/zend-config/pull/8),
+  [zendframework/zend-config#18](https://github.com/zendframework/zend-config/pull/18), and
+  [zendframework/zend-config#20](https://github.com/zendframework/zend-config/pull/20) update the
   code base to make it forwards-compatible with the v3.0 versions of
-  zend-stdlib and zend-servicemanager. Primarily, this involved:
+  laminas-stdlib and laminas-servicemanager. Primarily, this involved:
   - Updating the `AbstractConfigFactory` to implement the new methods in the
     v3 `AbstractFactoryInterface` definition, and updating the v2 methods to
     proxy to those.
@@ -207,5 +207,5 @@ All notable changes to this project will be documented in this file, in reverse 
     the new `InvokableFactory`); additionally, they each now implement both
     `validatePlugin()` from v2 and `validate()` from v3.
   - Pinning to stable versions of already updated components.
-  - Selectively omitting zend-i18n-reliant tests when testing against
-    zend-servicemanager v3.
+  - Selectively omitting laminas-i18n-reliant tests when testing against
+    laminas-servicemanager v3.

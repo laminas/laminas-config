@@ -1,16 +1,16 @@
-# Zend\\Config\\Processor
+# Laminas\\Config\\Processor
 
-`Zend\Config\Processor` provides the ability to perform operations on a
-`Zend\Config\Config` object. `Zend\Config\Processor` is itself an interface that
+`Laminas\Config\Processor` provides the ability to perform operations on a
+`Laminas\Config\Config` object. `Laminas\Config\Processor` is itself an interface that
 defining two methods: `process()` and `processValue()`.
 
-zend-config provides the following concrete implementations:
+laminas-config provides the following concrete implementations:
 
-- `Zend\Config\Processor\Constant`: manage PHP constant values.
-- `Zend\Config\Processor\Filter`: filter the configuration data using `Zend\Filter`.
-- `Zend\Config\Processor\Queue`: manage a queue of operations to apply to configuration data.
-- `Zend\Config\Processor\Token`: find and replace specific tokens.
-- `Zend\Config\Processor\Translator`: translate configuration values in other languages using `Zend\I18n\Translator`.
+- `Laminas\Config\Processor\Constant`: manage PHP constant values.
+- `Laminas\Config\Processor\Filter`: filter the configuration data using `Laminas\Filter`.
+- `Laminas\Config\Processor\Queue`: manage a queue of operations to apply to configuration data.
+- `Laminas\Config\Processor\Token`: find and replace specific tokens.
+- `Laminas\Config\Processor\Translator`: translate configuration values in other languages using `Laminas\I18n\Translator`.
 
 > ### What gets processed?
 >
@@ -29,18 +29,18 @@ zend-config provides the following concrete implementations:
 > calling `enableKeyProcessing()` on their instances, or passing a boolean
 > `true` value for the fourth constructor argument.
 
-## Zend\\Config\\Processor\\Constant
+## Laminas\\Config\\Processor\\Constant
 
-### Using Zend\\Config\\Processor\\Constant
+### Using Laminas\\Config\\Processor\\Constant
 
-This example illustrates the basic usage of `Zend\Config\Processor\Constant`:
+This example illustrates the basic usage of `Laminas\Config\Processor\Constant`:
 
 ```php
 define ('TEST_CONST', 'bar');
 
 // Provide the second parameter as boolean true to allow modifications:
-$config = new Zend\Config\Config(['foo' => 'TEST_CONST'], true);
-$processor = new Zend\Config\Processor\Constant();
+$config = new Laminas\Config\Config(['foo' => 'TEST_CONST'], true);
+$processor = new Laminas\Config\Processor\Constant();
 
 echo $config->foo . ',';
 $processor->process($config);
@@ -53,7 +53,7 @@ As of version 3.1.0, you can also tell the `Constant` processor to process keys:
 
 ```php
 // At instantiation:
-$processor = new Zend\Config\Processor\Constant(true, '', '', true);
+$processor = new Laminas\Config\Processor\Constant(true, '', '', true);
 
 // Or later, via a method call:
 $processor->enableKeyProcessing();
@@ -61,16 +61,16 @@ $processor->enableKeyProcessing();
 
 When enabled, any constant values found in keys will also be replaced.
 
-## Zend\\Config\\Processor\\Filter
+## Laminas\\Config\\Processor\\Filter
 
-### Using Zend\\Config\\Processor\\Filter
+### Using Laminas\\Config\\Processor\\Filter
 
-This example illustrates basic usage of `Zend\Config\Processor\Filter`:
+This example illustrates basic usage of `Laminas\Config\Processor\Filter`:
 
 ```php
-use Zend\Filter\StringToUpper;
-use Zend\Config\Processor\Filter as FilterProcessor;
-use Zend\Config\Config;
+use Laminas\Filter\StringToUpper;
+use Laminas\Config\Processor\Filter as FilterProcessor;
+use Laminas\Config\Config;
 
 // Provide the second parameter as boolean true to allow modifications:
 $config = new Config(['foo' => 'bar'], true);
@@ -85,18 +85,18 @@ echo $config->foo;
 
 This example returns the output: `bar,BAR`.
 
-## Zend\\Config\\Processor\\Queue
+## Laminas\\Config\\Processor\\Queue
 
-### Using Zend\\Config\\Processor\\Queue
+### Using Laminas\\Config\\Processor\\Queue
 
-This example illustrates basic usage of `Zend\Config\Processor\Queue`:
+This example illustrates basic usage of `Laminas\Config\Processor\Queue`:
 
 ```php
-use Zend\Filter\StringToLower;
-use Zend\Filter\StringToUpper;
-use Zend\Config\Processor\Filter as FilterProcessor;
-use Zend\Config\Processor\Queue;
-use Zend\Config\Config;
+use Laminas\Filter\StringToLower;
+use Laminas\Filter\StringToUpper;
+use Laminas\Config\Processor\Filter as FilterProcessor;
+use Laminas\Config\Processor\Queue;
+use Laminas\Config\Config;
 
 // Provide the second parameter as boolean true to allow modifications:
 $config = new Config(['foo' => 'bar'], true);
@@ -117,15 +117,15 @@ echo $config->foo;
 This example returns the output: `bar`. The filters in the queue are applied in
 *FIFO* (First In, First Out) order .
 
-## Zend\\Config\\Processor\\Token
+## Laminas\\Config\\Processor\\Token
 
-### Using Zend\\Config\\Processor\\Token
+### Using Laminas\\Config\\Processor\\Token
 
-This example illustrates basic usage of `Zend\Config\Processor\Token`:
+This example illustrates basic usage of `Laminas\Config\Processor\Token`:
 
 ```php
-use Zend\Config\Config;
-use Zend\Config\Processor\Token as TokenProcessor;
+use Laminas\Config\Config;
+use Laminas\Config\Processor\Token as TokenProcessor;
 
 // Provide the second parameter as boolean true to allow modifications:
 $config = new Config(['foo' => 'Value is TOKEN'], true);
@@ -143,7 +143,7 @@ As of version 3.1.0, you can also tell the `Token` processor to process keys:
 
 ```php
 // At instantiation:
-$processor = new Zend\Config\Processor\Token($tokens, '', '', true);
+$processor = new Laminas\Config\Processor\Token($tokens, '', '', true);
 
 // Or later, via a method call:
 $processor->enableKeyProcessing();
@@ -158,8 +158,8 @@ format `%env(ENV_VAR)%` with values from environment by setting Token
 processor `$prefix` and `$suffix` parameters to `%env(` and `)%` respectively:
 
 ```php
-use Zend\Config\Config;
-use Zend\Config\Processor\Token as TokenProcessor;
+use Laminas\Config\Config;
+use Laminas\Config\Processor\Token as TokenProcessor;
 
 putenv('AMQP_PASSWORD=guest');
 
@@ -189,16 +189,16 @@ print_r($config->toArray());
 Do note, however, that only values present in environment will be replaced.
 This allows multiple fallback processors to be provided as a queue.
 
-## Zend\\Config\\Processor\\Translator
+## Laminas\\Config\\Processor\\Translator
 
-### Using Zend\\Config\\Processor\\Translator
+### Using Laminas\\Config\\Processor\\Translator
 
-This example illustrates basic usage of `Zend\Config\Processor\Translator`:
+This example illustrates basic usage of `Laminas\Config\Processor\Translator`:
 
 ```php
-use Zend\Config\Config;
-use Zend\Config\Processor\Translator as TranslatorProcessor;
-use Zend\I18n\Translator\Translator;
+use Laminas\Config\Config;
+use Laminas\Config\Processor\Translator as TranslatorProcessor;
+use Laminas\I18n\Translator\Translator;
 
 // Provide the second parameter as boolean true to allow modifications:
 $config = new Config(['animal' => 'dog'], true);
