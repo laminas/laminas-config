@@ -1,22 +1,20 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Config
+ * @see       https://github.com/laminas/laminas-config for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-config/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-config/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Config;
+namespace LaminasTest\Config;
 
-use Zend\Config\Config;
+use Laminas\Config\Config;
 
 /**
- * @category   Zend
- * @package    Zend_Config
+ * @category   Laminas
+ * @package    Laminas_Config
  * @subpackage UnitTests
- * @group      Zend_Config
+ * @group      Laminas_Config
  */
 class ConfigTest extends \PHPUnit_Framework_TestCase
 {
@@ -156,14 +154,14 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     public function testNoModifications()
     {
-        $this->setExpectedException('Zend\Config\Exception\RuntimeException', 'Config is read only');
+        $this->setExpectedException('Laminas\Config\Exception\RuntimeException', 'Config is read only');
         $config = new Config($this->all);
         $config->hostname = 'test';
     }
 
     public function testNoNestedModifications()
     {
-        $this->setExpectedException('Zend\Config\Exception\RuntimeException', 'Config is read only');
+        $this->setExpectedException('Laminas\Config\Exception\RuntimeException', 'Config is read only');
         $config = new Config($this->all);
         $config->db->host = 'test';
     }
@@ -234,12 +232,12 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     public function testErrorWriteToReadOnly()
     {
-        $this->setExpectedException('Zend\Config\Exception\RuntimeException', 'Config is read only');
+        $this->setExpectedException('Laminas\Config\Exception\RuntimeException', 'Config is read only');
         $config = new Config($this->all);
         $config->test = '32';
     }
 
-    public function testZF343()
+    public function testLaminas43()
     {
         $config_array = array(
             'controls' => array(
@@ -254,7 +252,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(array(), $form_config->controls->visible->attribs->toArray());
     }
 
-    public function testZF402()
+    public function testLaminas402()
     {
         $configArray = array(
             'data1'  => 'someValue',
@@ -276,14 +274,14 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($count === 4);
     }
 
-    public function testZf1019_HandlingInvalidKeyNames()
+    public function testLaminas1019_HandlingInvalidKeyNames()
     {
         $config = new Config($this->leadingdot);
         $array = $config->toArray();
         $this->assertContains('dot-test', $array['.test']);
     }
 
-    public function testZF1019_EmptyKeys()
+    public function testLaminas1019_EmptyKeys()
     {
         $config = new Config($this->invalidkey);
         $array = $config->toArray();
@@ -291,7 +289,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertContains('test', $array['']);
     }
 
-    public function testZF1417_DefaultValues()
+    public function testLaminas1417_DefaultValues()
     {
         $config = new Config($this->all);
         $value = $config->get('notthere', 'default');
@@ -307,7 +305,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue(isset($config->hostname)); // top level
 
-        $this->setExpectedException('Zend\Config\Exception\InvalidArgumentException', 'is read only');
+        $this->setExpectedException('Laminas\Config\Exception\InvalidArgumentException', 'is read only');
         unset($config->hostname);
     }
 
@@ -339,12 +337,12 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('bar', $configA->text);
 
         // config->numerical-> ...
-        $this->assertInstanceOf('\Zend\Config\Config', $configA->numerical);
+        $this->assertInstanceOf('\Laminas\Config\Config', $configA->numerical);
         $this->assertEquals('first', $configA->numerical->{0});
         $this->assertEquals('second', $configA->numerical->{1});
 
         // config->numerical->{2}-> ...
-        $this->assertInstanceOf('\Zend\Config\Config', $configA->numerical->{2});
+        $this->assertInstanceOf('\Laminas\Config\Config', $configA->numerical->{2});
         $this->assertEquals('third', $configA->numerical->{2}->{0});
         $this->assertEquals(null, $configA->numerical->{2}->{1});
 
@@ -353,19 +351,19 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('fifth', $configA->numerical->{4});
 
         // config->numerical->{5}
-        $this->assertInstanceOf('\Zend\Config\Config', $configA->numerical->{5});
+        $this->assertInstanceOf('\Laminas\Config\Config', $configA->numerical->{5});
         $this->assertEquals('sixth', $configA->numerical->{5}->{0});
         $this->assertEquals(null, $configA->numerical->{5}->{1});
 
         // config->misaligned
-        $this->assertInstanceOf('\Zend\Config\Config', $configA->misaligned);
+        $this->assertInstanceOf('\Laminas\Config\Config', $configA->misaligned);
         $this->assertEquals('foo', $configA->misaligned->{2});
         $this->assertEquals('bar', $configA->misaligned->{3});
         $this->assertEquals('baz', $configA->misaligned->{4});
         $this->assertEquals(null, $configA->misaligned->{0});
 
         // config->mixed
-        $this->assertInstanceOf('\Zend\Config\Config', $configA->mixed);
+        $this->assertInstanceOf('\Laminas\Config\Config', $configA->mixed);
         $this->assertEquals('bar', $configA->mixed->foo);
         $this->assertSame(false, $configA->mixed->{0});
         $this->assertSame(null, $configA->mixed->{1});
@@ -426,7 +424,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Ensures that toArray() supports objects of types other than Zend_Config
+     * Ensures that toArray() supports objects of types other than Laminas_Config
      *
      * @return void
      */
@@ -459,11 +457,11 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $config->b = 'b';
 
         $config->setReadOnly();
-        $this->setExpectedException('Zend\Config\Exception\RuntimeException', 'Config is read only');
+        $this->setExpectedException('Laminas\Config\Exception\RuntimeException', 'Config is read only');
         $config->c = 'c';
     }
 
-    public function testZF3408_countNotDecreasingOnUnset()
+    public function testLaminas408_countNotDecreasingOnUnset()
     {
         $configData = array(
             'a' => 'a',
@@ -476,7 +474,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(count($config), 2);
     }
 
-    public function testZF4107_ensureCloneDoesNotKeepNestedReferences()
+    public function testLaminas4107_ensureCloneDoesNotKeepNestedReferences()
     {
         $parent = new Config(array('key' => array('nested' => 'parent')), true);
         $newConfig = clone $parent;
@@ -488,7 +486,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @group ZF-3575
+     * @group Laminas-3575
      *
      */
     public function testMergeHonoursAllowModificationsFlagAtAllLevels()
@@ -508,7 +506,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @group ZF-5771a
+     * @group Laminas-5771a
      *
      */
     public function testUnsettingFirstElementDuringForeachDoesNotSkipAnElement()
@@ -523,7 +521,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         foreach ($config as $key => $value) {
             $keyList[] = $key;
             if ($key == 'first') {
-                unset($config->$key); // uses magic Zend\Config\Config::__unset() method
+                unset($config->$key); // uses magic Laminas\Config\Config::__unset() method
             }
         }
 
@@ -533,7 +531,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @group ZF-5771
+     * @group Laminas-5771
      *
      */
     public function testUnsettingAMiddleElementDuringForeachDoesNotSkipAnElement()
@@ -548,7 +546,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         foreach ($config as $key => $value) {
             $keyList[] = $key;
             if ($key == 'second') {
-                unset($config->$key); // uses magic Zend\Config\Config::__unset() method
+                unset($config->$key); // uses magic Laminas\Config\Config::__unset() method
             }
         }
 
@@ -558,7 +556,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @group ZF-5771
+     * @group Laminas-5771
      *
      */
     public function testUnsettingLastElementDuringForeachDoesNotSkipAnElement()
@@ -573,7 +571,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         foreach ($config as $key => $value) {
             $keyList[] = $key;
             if ($key == 'third') {
-                unset($config->$key); // uses magic Zend\Config\Config::__unset() method
+                unset($config->$key); // uses magic Laminas\Config\Config::__unset() method
             }
         }
 
@@ -583,7 +581,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @group ZF-4728
+     * @group Laminas-4728
      *
      */
     public function testSetReadOnlyAppliesToChildren()
@@ -596,7 +594,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($config->one->two->isReadOnly(), 'Second level children are writable');
     }
 
-    public function testZF6995_toArrayDoesNotDisturbInternalIterator()
+    public function testLaminas6995_toArrayDoesNotDisturbInternalIterator()
     {
         $config = new Config(range(1,10));
         $config->rewind();
@@ -608,9 +606,9 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @depends testMerge
-     * @link http://framework.zend.com/issues/browse/ZF2-186
+     * @link https://getlaminas.org/issues/browse/Laminas-186
      */
-    public function testZF2_186_mergeReplacingUnnamedConfigSettings()
+    public function testLaminas_186_mergeReplacingUnnamedConfigSettings()
     {
         $arrayA = array(
             'flag' => true,
