@@ -1,19 +1,17 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Config
+ * @see       https://github.com/laminas/laminas-config for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-config/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-config/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Config;
+namespace Laminas\Config;
 
 use ArrayAccess;
 use Countable;
 use Iterator;
-use Zend\Stdlib\ArrayUtils;
+use Laminas\Stdlib\ArrayUtils;
 
 /**
  * Provides a property based interface to an array.
@@ -23,8 +21,8 @@ use Zend\Stdlib\ArrayUtils;
  * Implements Countable, Iterator and ArrayAccess
  * to facilitate easy access to the data.
  *
- * @category   Zend
- * @package    Zend_Config
+ * @category   Laminas
+ * @package    Laminas_Config
  */
 class Config implements Countable, Iterator, ArrayAccess
 {
@@ -140,7 +138,7 @@ class Config implements Countable, Iterator, ArrayAccess
     }
 
     /**
-     * Deep clone of this instance to ensure that nested Zend\Configs are also
+     * Deep clone of this instance to ensure that nested Laminas\Configs are also
      * cloned.
      *
      * @return void
