@@ -6,12 +6,12 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- [#6](https://github.com/zendframework/zend-config/pull/6) adds the ability for
+- [zendframework/zend-config#6](https://github.com/zendframework/zend-config/pull/6) adds the ability for
   the `PhpArray` writer to optionally translate strings that evaluate to known
   classes to `ClassName::class` syntax; the feature works for both keys and
   values.
-- [#21](https://github.com/zendframework/zend-config/pull/21) adds revised
-  documentation, and publishes it to https://zendframework.github.io/zend-config/
+- [zendframework/zend-config#21](https://github.com/zendframework/zend-config/pull/21) adds revised
+  documentation, and publishes it to https://docs.laminas.dev/laminas-config/
 
 ### Deprecated
 
@@ -23,11 +23,11 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- [#8](https://github.com/zendframework/zend-config/pull/8),
-  [#18](https://github.com/zendframework/zend-config/pull/18), and
-  [#20](https://github.com/zendframework/zend-config/pull/20) update the
+- [zendframework/zend-config#8](https://github.com/zendframework/zend-config/pull/8),
+  [zendframework/zend-config#18](https://github.com/zendframework/zend-config/pull/18), and
+  [zendframework/zend-config#20](https://github.com/zendframework/zend-config/pull/20) update the
   code base to make it forwards-compatible with the v3.0 versions of
-  zend-stdlib and zend-servicemanager. Primarily, this involved:
+  laminas-stdlib and laminas-servicemanager. Primarily, this involved:
   - Updating the `AbstractConfigFactory` to implement the new methods in the
     v3 `AbstractFactoryInterface` definition, and updating the v2 methods to
     proxy to those.
@@ -37,5 +37,5 @@ All notable changes to this project will be documented in this file, in reverse 
     the new `InvokableFactory`); additionally, they each now implement both
     `validatePlugin()` from v2 and `validate()` from v3.
   - Pinning to stable versions of already updated components.
-  - Selectively omitting zend-i18n-reliant tests when testing against
-    zend-servicemanager v3.
+  - Selectively omitting laminas-i18n-reliant tests when testing against
+    laminas-servicemanager v3.

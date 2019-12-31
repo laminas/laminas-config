@@ -1,18 +1,17 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-config for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-config/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-config/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Config;
+namespace Laminas\Config;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\AbstractPluginManager;
-use Zend\ServiceManager\Exception\InvalidServiceException;
-use Zend\ServiceManager\Factory\InvokableFactory;
+use Laminas\ServiceManager\AbstractPluginManager;
+use Laminas\ServiceManager\Exception\InvalidServiceException;
+use Laminas\ServiceManager\Factory\InvokableFactory;
 
 class WriterPluginManager extends AbstractPluginManager
 {
@@ -31,6 +30,20 @@ class WriterPluginManager extends AbstractPluginManager
         'Yaml'     => Writer\Yaml::class,
         'xml'      => Writer\Xml::class,
         'Xml'      => Writer\Xml::class,
+
+        // Legacy Zend Framework aliases
+        \Zend\Config\Writer\Ini::class => Writer\Ini::class,
+        \Zend\Config\Writer\Json::class => Writer\Json::class,
+        \Zend\Config\Writer\PhpArray::class => Writer\PhpArray::class,
+        \Zend\Config\Writer\Yaml::class => Writer\Yaml::class,
+        \Zend\Config\Writer\Xml::class => Writer\Xml::class,
+
+        // v2 normalized FQCNs
+        'zendconfigwriterini' => Writer\Ini::class,
+        'zendconfigwriterjson' => Writer\Json::class,
+        'zendconfigwriterphparray' => Writer\PhpArray::class,
+        'zendconfigwriteryaml' => Writer\Yaml::class,
+        'zendconfigwriterxml' => Writer\Xml::class,
     ];
 
     protected $factories = [
@@ -42,11 +55,11 @@ class WriterPluginManager extends AbstractPluginManager
         // Legacy (v2) due to alias resolution; canonical form of resolved
         // alias is used to look up the factory, while the non-normalized
         // resolved alias is used as the requested name passed to the factory.
-        'zendconfigwriterini'      => InvokableFactory::class,
-        'zendconfigwriterjson'     => InvokableFactory::class,
-        'zendconfigwriterphparray' => InvokableFactory::class,
-        'zendconfigwriteryaml'     => InvokableFactory::class,
-        'zendconfigwriterxml'      => InvokableFactory::class,
+        'laminasconfigwriterini'      => InvokableFactory::class,
+        'laminasconfigwriterjson'     => InvokableFactory::class,
+        'laminasconfigwriterphparray' => InvokableFactory::class,
+        'laminasconfigwriteryaml'     => InvokableFactory::class,
+        'laminasconfigwriterxml'      => InvokableFactory::class,
     ];
 
     /**

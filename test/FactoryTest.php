@@ -1,21 +1,20 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-config for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-config/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-config/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Config;
+namespace LaminasTest\Config;
 
 use Interop\Container\ContainerInterface;
-use Zend\Config\Factory;
-use Zend\Config\ReaderPluginManager;
-use Zend\Config\WriterPluginManager;
+use Laminas\Config\Factory;
+use Laminas\Config\ReaderPluginManager;
+use Laminas\Config\WriterPluginManager;
 
 /**
- * @group      Zend_Config
+ * @group      Laminas_Config
  */
 class FactoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -25,7 +24,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     protected function getTestAssetFileName($ext)
     {
         if (empty($this->tmpfiles[$ext])) {
-            $this->tmpfiles[$ext] = tempnam(sys_get_temp_dir(), 'zend-config-writer').'.'.$ext;
+            $this->tmpfiles[$ext] = tempnam(sys_get_temp_dir(), 'laminas-config-writer').'.'.$ext;
         }
         return $this->tmpfiles[$ext];
     }
@@ -141,10 +140,10 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertInternalType('array', $configArray);
 
         $configObject = Factory::fromFile($files[0], true);
-        $this->assertInstanceOf('Zend\Config\Config', $configObject);
+        $this->assertInstanceOf('Laminas\Config\Config', $configObject);
 
         $configObject = Factory::fromFiles($files, true);
-        $this->assertInstanceOf('Zend\Config\Config', $configObject);
+        $this->assertInstanceOf('Laminas\Config\Config', $configObject);
     }
 
     public function testNonExistentFileThrowsRuntimeException()
@@ -164,7 +163,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         Factory::registerReader('dum', new Reader\TestAssets\DummyReader());
 
         $configObject = Factory::fromFile(__DIR__ . '/TestAssets/dummy.dum', true);
-        $this->assertInstanceOf('Zend\Config\Config', $configObject);
+        $this->assertInstanceOf('Laminas\Config\Config', $configObject);
 
         $this->assertEquals($configObject['one'], 1);
     }
@@ -179,7 +178,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         Factory::registerReader('dum', 'DummyReader');
 
         $configObject = Factory::fromFile(__DIR__ . '/TestAssets/dummy.dum', true);
-        $this->assertInstanceOf('Zend\Config\Config', $configObject);
+        $this->assertInstanceOf('Laminas\Config\Config', $configObject);
 
         $this->assertEquals($configObject['one'], 1);
     }

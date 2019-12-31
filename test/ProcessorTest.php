@@ -1,28 +1,27 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-config for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-config/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-config/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Config;
+namespace LaminasTest\Config;
 
-use Zend\Config\Config;
-use Zend\Config\Processor\Token as TokenProcessor;
-use Zend\Config\Processor\Translator as TranslatorProcessor;
-use Zend\Config\Processor\Filter as FilterProcessor;
-use Zend\Config\Processor\Constant as ConstantProcessor;
-use Zend\Config\Processor\Queue as Queue;
-use Zend\I18n\Translator\Translator;
-use Zend\I18n\Translator\Loader\PhpArray;
-use Zend\Filter\StringToLower;
-use Zend\Filter\StringToUpper;
-use Zend\Filter\PregReplace;
+use Laminas\Config\Config;
+use Laminas\Config\Processor\Constant as ConstantProcessor;
+use Laminas\Config\Processor\Filter as FilterProcessor;
+use Laminas\Config\Processor\Queue as Queue;
+use Laminas\Config\Processor\Token as TokenProcessor;
+use Laminas\Config\Processor\Translator as TranslatorProcessor;
+use Laminas\Filter\PregReplace;
+use Laminas\Filter\StringToLower;
+use Laminas\Filter\StringToUpper;
+use Laminas\I18n\Translator\Loader\PhpArray;
+use Laminas\I18n\Translator\Translator;
 
 /**
- * @group      Zend_Config
+ * @group      Laminas_Config
  */
 class ProcessorTest extends \PHPUnit_Framework_TestCase
 {
@@ -156,7 +155,7 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
         $queue->insert($processor1);
         $queue->insert($processor2);
 
-        $this->assertInstanceOf('\Zend\Config\Processor\Queue', $queue);
+        $this->assertInstanceOf('\Laminas\Config\Processor\Queue', $queue);
         $this->assertEquals(2, $queue->count());
         $this->assertTrue($queue->contains($processor1));
         $this->assertTrue($queue->contains($processor2));
@@ -180,7 +179,7 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
     {
         $processor = new TokenProcessor();
         $this->setExpectedException(
-            'Zend\Config\Exception\InvalidArgumentException',
+            'Laminas\Config\Exception\InvalidArgumentException',
             'Cannot use ' . gettype([]) . ' as token name.'
         );
         $processor->addToken([], 'bar');
@@ -202,7 +201,7 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
         $processor->addToken('BARETOKEN', 'some replaced value');
 
         $this->setExpectedException(
-            'Zend\Config\Exception\InvalidArgumentException',
+            'Laminas\Config\Exception\InvalidArgumentException',
             'Cannot process config because it is read-only'
         );
         $processor->process($config);
@@ -279,7 +278,7 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @group ZF2-5772
+     * @group Laminas-5772
      */
     public function testTokenChangeParamsRetainsType()
     {
@@ -306,7 +305,7 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @group ZF2-5772
+     * @group Laminas-5772
      */
     public function testTokenChangeParamsReplacesInNumerics()
     {
@@ -335,7 +334,7 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @group ZF2-5772
+     * @group Laminas-5772
      */
     public function testIgnoresEmptyStringReplacement()
     {
@@ -408,7 +407,7 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
     public function testTranslator()
     {
         if (! class_exists(ExtensionNotLoadedException::class)) {
-            $this->markTestSkipped(sprintf('%s skipped to allow testing against zend-servicemanager v3', __FUNCTION__));
+            $this->markTestSkipped(sprintf('%s skipped to allow testing against laminas-servicemanager v3', __FUNCTION__));
         }
 
         if (!extension_loaded('intl')) {
@@ -431,7 +430,7 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
     public function testTranslatorWithoutIntl()
     {
         if (! class_exists(ExtensionNotLoadedException::class)) {
-            $this->markTestSkipped(sprintf('%s skipped to allow testing against zend-servicemanager v3', __FUNCTION__));
+            $this->markTestSkipped(sprintf('%s skipped to allow testing against laminas-servicemanager v3', __FUNCTION__));
         }
 
         if (extension_loaded('intl')) {
@@ -439,8 +438,8 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
         }
 
         $this->setExpectedException(
-            'Zend\I18n\Exception\ExtensionNotLoadedException',
-            'Zend\I18n\Translator component requires the intl PHP extension'
+            'Laminas\I18n\Exception\ExtensionNotLoadedException',
+            'Laminas\I18n\Translator component requires the intl PHP extension'
         );
 
         $config     = new Config($this->translatorData, true);
@@ -454,7 +453,7 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
     public function testTranslatorReadOnly()
     {
         if (! class_exists(ExtensionNotLoadedException::class)) {
-            $this->markTestSkipped(sprintf('%s skipped to allow testing against zend-servicemanager v3', __FUNCTION__));
+            $this->markTestSkipped(sprintf('%s skipped to allow testing against laminas-servicemanager v3', __FUNCTION__));
         }
 
         $config     = new Config($this->translatorData, false);
@@ -462,7 +461,7 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
         $processor  = new TranslatorProcessor($translator);
 
         $this->setExpectedException(
-            'Zend\Config\Exception\InvalidArgumentException',
+            'Laminas\Config\Exception\InvalidArgumentException',
             'Cannot process config because it is read-only'
         );
         $processor->process($config);
@@ -471,7 +470,7 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
     public function testTranslatorSingleValue()
     {
         if (! class_exists(ExtensionNotLoadedException::class)) {
-            $this->markTestSkipped(sprintf('%s skipped to allow testing against zend-servicemanager v3', __FUNCTION__));
+            $this->markTestSkipped(sprintf('%s skipped to allow testing against laminas-servicemanager v3', __FUNCTION__));
         }
 
         if (!extension_loaded('intl')) {
@@ -488,7 +487,7 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
     public function testTranslatorSingleValueWithoutIntl()
     {
         if (! class_exists(ExtensionNotLoadedException::class)) {
-            $this->markTestSkipped(sprintf('%s skipped to allow testing against zend-servicemanager v3', __FUNCTION__));
+            $this->markTestSkipped(sprintf('%s skipped to allow testing against laminas-servicemanager v3', __FUNCTION__));
         }
 
         if (extension_loaded('intl')) {
@@ -496,8 +495,8 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
         }
 
         $this->setExpectedException(
-            'Zend\I18n\Exception\ExtensionNotLoadedException',
-            'Zend\I18n\Translator component requires the intl PHP extension'
+            'Laminas\I18n\Exception\ExtensionNotLoadedException',
+            'Laminas\I18n\Translator component requires the intl PHP extension'
         );
 
         $translator = new Translator();
@@ -513,7 +512,7 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
         $filter = new StringToLower();
         $processor = new FilterProcessor($filter);
 
-        $this->assertInstanceOf('Zend\Filter\StringToLower', $processor->getFilter());
+        $this->assertInstanceOf('Laminas\Filter\StringToLower', $processor->getFilter());
         $processor->process($config);
 
         $this->assertEquals('some mixedcase value', $config->simple);
@@ -527,7 +526,7 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
         $processor = new FilterProcessor($filter);
 
         $this->setExpectedException(
-            'Zend\Config\Exception\InvalidArgumentException',
+            'Laminas\Config\Exception\InvalidArgumentException',
             'Cannot process config because it is read-only'
         );
         $processor->process($config);
@@ -578,7 +577,7 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
         $queue->insert($lowerProcessor);
 
         $this->setExpectedException(
-            'Zend\Config\Exception\InvalidArgumentException',
+            'Laminas\Config\Exception\InvalidArgumentException',
             'Cannot process config because it is read-only'
         );
         $queue->process($config);

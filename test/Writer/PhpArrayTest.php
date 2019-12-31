@@ -1,22 +1,21 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-config for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-config/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-config/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Config\Writer;
+namespace LaminasTest\Config\Writer;
 
-use Zend\Config\Writer\PhpArray;
-use Zend\Config\Config;
-use ZendTest\Config\Writer\TestAssets\DummyClassA;
-use ZendTest\Config\Writer\TestAssets\DummyClassB;
-use ZendTest\Config\Writer\TestAssets\PhpReader;
+use Laminas\Config\Config;
+use Laminas\Config\Writer\PhpArray;
+use LaminasTest\Config\Writer\TestAssets\DummyClassA;
+use LaminasTest\Config\Writer\TestAssets\DummyClassB;
+use LaminasTest\Config\Writer\TestAssets\PhpReader;
 
 /**
- * @group      Zend_Config
+ * @group      Laminas_Config
  */
 class PhpArrayTest extends AbstractWriterTestCase
 {
@@ -29,7 +28,7 @@ class PhpArrayTest extends AbstractWriterTestCase
     }
 
     /**
-     * @group ZF-8234
+     * @group Laminas-8234
      */
     public function testRender()
     {
