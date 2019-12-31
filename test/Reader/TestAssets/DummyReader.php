@@ -1,17 +1,15 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Config
+ * @see       https://github.com/laminas/laminas-config for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-config/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-config/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Config\Reader\TestAssets;
+namespace LaminasTest\Config\Reader\TestAssets;
 
-use Zend\Config\Reader\ReaderInterface;
-use Zend\Config\Exception;
+use Laminas\Config\Exception;
+use Laminas\Config\Reader\ReaderInterface;
 
 class DummyReader implements ReaderInterface
 {
