@@ -1,32 +1,30 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Config
+ * @see       https://github.com/laminas/laminas-config for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-config/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-config/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Config;
+namespace LaminasTest\Config;
 
-use Zend\Config\Config;
-use Zend\Config\Processor\Token as TokenProcessor;
-use Zend\Config\Processor\Translator as TranslatorProcessor;
-use Zend\Config\Processor\Filter as FilterProcessor;
-use Zend\Config\Processor\Constant as ConstantProcessor;
-use Zend\Config\Processor\Queue as Queue;
-use Zend\I18n\Translator\Translator;
-use Zend\I18n\Translator\Loader\PhpArray;
-use Zend\Filter\StringToLower;
-use Zend\Filter\StringToUpper;
-use Zend\Filter\PregReplace;
+use Laminas\Config\Config;
+use Laminas\Config\Processor\Constant as ConstantProcessor;
+use Laminas\Config\Processor\Filter as FilterProcessor;
+use Laminas\Config\Processor\Queue as Queue;
+use Laminas\Config\Processor\Token as TokenProcessor;
+use Laminas\Config\Processor\Translator as TranslatorProcessor;
+use Laminas\Filter\PregReplace;
+use Laminas\Filter\StringToLower;
+use Laminas\Filter\StringToUpper;
+use Laminas\I18n\Translator\Loader\PhpArray;
+use Laminas\I18n\Translator\Translator;
 
 /**
- * @category   Zend
- * @package    Zend_Config
+ * @category   Laminas
+ * @package    Laminas_Config
  * @subpackage UnitTests
- * @group      Zend_Config
+ * @group      Laminas_Config
  */
 class ProcessorTest extends \PHPUnit_Framework_TestCase
 {
@@ -154,7 +152,7 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
         $queue->insert($processor1);
         $queue->insert($processor2);
 
-        $this->assertInstanceOf('\Zend\Config\Processor\Queue', $queue);
+        $this->assertInstanceOf('\Laminas\Config\Processor\Queue', $queue);
         $this->assertEquals(2, $queue->count());
         $this->assertTrue($queue->contains($processor1));
         $this->assertTrue($queue->contains($processor2));
@@ -177,7 +175,7 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
     public function testAddInvalidToken()
     {
         $processor = new TokenProcessor();
-        $this->setExpectedException('Zend\Config\Exception\InvalidArgumentException',
+        $this->setExpectedException('Laminas\Config\Exception\InvalidArgumentException',
                                     'Cannot use ' . gettype(array()) . ' as token name.');
         $processor->addToken(array(), 'bar');
     }
@@ -197,7 +195,7 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
         $processor = new TokenProcessor();
         $processor->addToken('BARETOKEN', 'some replaced value');
 
-        $this->setExpectedException('Zend\Config\Exception\InvalidArgumentException',
+        $this->setExpectedException('Laminas\Config\Exception\InvalidArgumentException',
                                     'Cannot process config because it is read-only');
         $processor->process($config);
     }
@@ -352,7 +350,7 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
         $translator = new Translator();
         $processor  = new TranslatorProcessor($translator);
 
-        $this->setExpectedException('Zend\Config\Exception\InvalidArgumentException',
+        $this->setExpectedException('Laminas\Config\Exception\InvalidArgumentException',
                                     'Cannot process config because it is read-only');
         $processor->process($config);
     }
@@ -385,7 +383,7 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
         $filter = new StringToLower();
         $processor = new FilterProcessor($filter);
 
-        $this->setExpectedException('Zend\Config\Exception\InvalidArgumentException',
+        $this->setExpectedException('Laminas\Config\Exception\InvalidArgumentException',
                                     'Cannot process config because it is read-only');
         $processor->process($config);
     }
@@ -434,7 +432,7 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
         $queue = new Queue();
         $queue->insert($lowerProcessor);
 
-        $this->setExpectedException('Zend\Config\Exception\InvalidArgumentException',
+        $this->setExpectedException('Laminas\Config\Exception\InvalidArgumentException',
                                     'Cannot process config because it is read-only');
         $queue->process($config);
     }
