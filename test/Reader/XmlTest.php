@@ -1,18 +1,17 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-config for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-config/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-config/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Config\Reader;
+namespace LaminasTest\Config\Reader;
 
-use Zend\Config\Reader\Xml;
+use Laminas\Config\Reader\Xml;
 
 /**
- * @group      Zend_Config
+ * @group      Laminas_Config
  */
 class XmlTest extends AbstractReaderTestCase
 {
@@ -40,7 +39,7 @@ class XmlTest extends AbstractReaderTestCase
     public function testInvalidXmlFile()
     {
         $this->reader = new Xml();
-        $this->setExpectedException('Zend\Config\Exception\RuntimeException');
+        $this->setExpectedException('Laminas\Config\Exception\RuntimeException');
         $arrayXml = $this->reader->fromFile($this->getTestAssetPath('invalid'));
     }
 
@@ -48,11 +47,11 @@ class XmlTest extends AbstractReaderTestCase
     {
         $xml = <<<ECS
 <?xml version="1.0" encoding="UTF-8"?>
-<zend-config>
+<laminas-config>
     <test>foo</test>
     <bar>baz</bar>
     <bar>foo</bar>
-</zend-config>
+</laminas-config>
 
 ECS;
 
@@ -66,16 +65,16 @@ ECS;
     {
         $xml = <<<ECS
 <?xml version="1.0" encoding="UTF-8"?>
-<zend-config>
+<laminas-config>
     <bar>baz</baz>
-</zend-config>
+</laminas-config>
 
 ECS;
-        $this->setExpectedException('Zend\Config\Exception\RuntimeException');
+        $this->setExpectedException('Laminas\Config\Exception\RuntimeException');
         $arrayXml = $this->reader->fromString($xml);
     }
 
-    public function testZF300_MultipleKeysOfTheSameName()
+    public function testLaminas00_MultipleKeysOfTheSameName()
     {
         $config = $this->reader->fromFile($this->getTestAssetPath('array'));
 
@@ -85,7 +84,7 @@ ECS;
         $this->assertEquals('5', $config['three']['four'][0]['five']);
     }
 
-    public function testZF300_ArraysWithMultipleChildren()
+    public function testLaminas00_ArraysWithMultipleChildren()
     {
         $config = $this->reader->fromFile($this->getTestAssetPath('array'));
 
