@@ -1,30 +1,31 @@
 <?php
+
 /**
- * @see       https://github.com/zendframework/zend-config for the canonical source repository
- * @copyright Copyright (c) 2005-2017 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   https://github.com/zendframework/zend-config/blob/master/LICENSE.md New BSD License
+ * @see       https://github.com/laminas/laminas-config for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-config/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-config/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Config\Writer;
+namespace LaminasTest\Config\Writer;
 
+use Laminas\Config\Config;
+use Laminas\Config\Exception\InvalidArgumentException;
+use Laminas\Config\Exception\RuntimeException;
 use PHPUnit\Framework\TestCase;
-use Zend\Config\Config;
-use Zend\Config\Exception\InvalidArgumentException;
-use Zend\Config\Exception\RuntimeException;
 
 /**
- * @group      Zend_Config
+ * @group      Laminas_Config
  */
 abstract class AbstractWriterTestCase extends TestCase
 {
     /**
-     * @var \Zend\Config\Reader\ReaderInterface
+     * @var \Laminas\Config\Reader\ReaderInterface
      */
     protected $reader;
 
     /**
      *
-     * @var \Zend\Config\Writer\WriterInterface
+     * @var \Laminas\Config\Writer\WriterInterface
      */
     protected $writer;
 
@@ -42,7 +43,7 @@ abstract class AbstractWriterTestCase extends TestCase
     protected function getTestAssetFileName()
     {
         if (empty($this->tmpfile)) {
-            $this->tmpfile = tempnam(sys_get_temp_dir(), 'zend-config-writer');
+            $this->tmpfile = tempnam(sys_get_temp_dir(), 'laminas-config-writer');
         }
         return $this->tmpfile;
     }

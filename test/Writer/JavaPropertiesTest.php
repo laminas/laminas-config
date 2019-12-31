@@ -1,15 +1,16 @@
 <?php
+
 /**
- * @see       https://github.com/zendframework/zend-config for the canonical source repository
- * @copyright Copyright (c) 2018 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   https://github.com/zendframework/zend-config/blob/master/LICENSE.md New BSD License
+ * @see       https://github.com/laminas/laminas-config for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-config/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-config/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Config\Writer;
+namespace LaminasTest\Config\Writer;
 
-use Zend\Config\Config;
-use Zend\Config\Reader\JavaProperties as JavaPropertiesReader;
-use Zend\Config\Writer\JavaProperties as JavaPropertiesWriter;
+use Laminas\Config\Config;
+use Laminas\Config\Reader\JavaProperties as JavaPropertiesReader;
+use Laminas\Config\Writer\JavaProperties as JavaPropertiesWriter;
 
 class JavaPropertiesTest extends AbstractWriterTestCase
 {

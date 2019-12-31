@@ -1,18 +1,19 @@
 <?php
+
 /**
- * @see       https://github.com/zendframework/zend-config for the canonical source repository
- * @copyright Copyright (c) 2005-2017 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   https://github.com/zendframework/zend-config/blob/master/LICENSE.md New BSD License
+ * @see       https://github.com/laminas/laminas-config for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-config/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-config/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Config\Reader;
+namespace LaminasTest\Config\Reader;
 
+use Laminas\Config\Exception;
+use Laminas\Config\Reader\ReaderInterface;
 use PHPUnit\Framework\TestCase;
-use Zend\Config\Exception;
-use Zend\Config\Reader\ReaderInterface;
 
 /**
- * @group      Zend_Config
+ * @group      Laminas_Config
  */
 abstract class AbstractReaderTestCase extends TestCase
 {

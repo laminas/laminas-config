@@ -1,44 +1,44 @@
-# Zend\\Config\\Writer
+# Laminas\\Config\\Writer
 
-`Zend\Config\Writer` provides the ability to write config files from an array,
-`Zend\Config\Config` instance, or any `Traversable` object. `Zend\Config\Writer`
+`Laminas\Config\Writer` provides the ability to write config files from an array,
+`Laminas\Config\Config` instance, or any `Traversable` object. `Laminas\Config\Writer`
 is itself only an interface that defining the methods `toFile()` and
 `toString()`.
 
 We have six writers implementing the interface:
 
-- `Zend\Config\Writer\Ini`
-- `Zend\Config\Writer\JavaProperties`
-- `Zend\Config\Writer\Json`
-- `Zend\Config\Writer\PhpArray`
-- `Zend\Config\Writer\Xml`
-- `Zend\Config\Writer\Yaml`
+- `Laminas\Config\Writer\Ini`
+- `Laminas\Config\Writer\JavaProperties`
+- `Laminas\Config\Writer\Json`
+- `Laminas\Config\Writer\PhpArray`
+- `Laminas\Config\Writer\Xml`
+- `Laminas\Config\Writer\Yaml`
 
-## Zend\\Config\\Writer\\Ini
+## Laminas\\Config\\Writer\\Ini
 
 The INI writer has two modes for rendering with regard to sections. By default, the top-level
 configuration is always written into section names. By calling
 `$writer->setRenderWithoutSectionsFlags(true);` all options are written into the global namespace of
 the INI file and no sections are applied.
 
-`Zend\Config\Writer\Ini` has an additional option parameter, `nestSeparator`,
+`Laminas\Config\Writer\Ini` has an additional option parameter, `nestSeparator`,
 which defines with which character the single nodes are separated. The default
-is a single dot (`.`), such as is accepted by `Zend\Config\Reader\Ini` by
+is a single dot (`.`), such as is accepted by `Laminas\Config\Reader\Ini` by
 default.
 
-When modifying or creating a `Zend\Config\Config` object, there are several
+When modifying or creating a `Laminas\Config\Config` object, there are several
 considerations to keep in mind. To create or modify a value, you simply say set
 the parameter of the `Config` object via the parameter accessor (`->`). To
 create a section in the root or to create a branch, just create a new array
 (`$config->branch = [];`).
 
-### Using Zend\\Config\\Writer\\Ini
+### Using Laminas\\Config\\Writer\\Ini
 
 Consider the following code, which creates a configuration structure:
 
 ```php
 // Create the config object
-$config = new Zend\Config\Config([], true);
+$config = new Laminas\Config\Config([], true);
 $config->production = [];
 
 $config->production->webhost = 'www.example.com';
@@ -49,7 +49,7 @@ $config->production->database->params->username = 'production';
 $config->production->database->params->password = 'secret';
 $config->production->database->params->dbname = 'dbproduction';
 
-$writer = new Zend\Config\Writer\Ini();
+$writer = new Laminas\Config\Writer\Ini();
 echo $writer->toString($config);
 ```
 
@@ -66,25 +66,25 @@ database.params.dbname = "dbproduction"
 
 You can use the method `toFile()` to store the INI data to a file instead.
 
-## Zend\\Config\\Writer\\JavaProperties
+## Laminas\\Config\\Writer\\JavaProperties
 
 - Since 3.2.0
 
 The JavaProperties writer can only write single-dimensional configuration (i.e.,
 key/value pairs); this is a limitation of the JavaProperties format.
 
-`Zend\Config\Writer\JavaProperties` has a single, optional constructor
+`Laminas\Config\Writer\JavaProperties` has a single, optional constructor
 parameter, `delimiter`, which defines with which character the key/value pairs
 are separated. The default is a single colon (`:`), such as is accepted by
-`Zend\Config\Reader\JavaProperties` by default.
+`Laminas\Config\Reader\JavaProperties` by default.
 
-### Using Zend\\Config\\Writer\\JavaProperties
+### Using Laminas\\Config\\Writer\\JavaProperties
 
 Consider the following code, creating configuration:
 
 ```php
 // Create the config object
-$config = new Zend\Config\Config([], true);
+$config = new Laminas\Config\Config([], true);
 
 $config->webhost             = 'www.example.com'; // use object notation
 $config['database.host']     = 'localhost';       // or array notation, for complex key names
@@ -92,7 +92,7 @@ $config['database.username'] = 'production';
 $config['database.password'] = 'secret';
 $config['database.dbname']   = 'dbproduction';
 
-$writer = new Zend\Config\Writer\JavaProperties();
+$writer = new Laminas\Config\Writer\JavaProperties();
 echo $writer->toString($config);
 ```
 
@@ -114,7 +114,7 @@ If you want to use an alternate delimiter, such as `=`, pass it to the
 constructor:
 
 ```php
-$writer = new Zend\Config\Writer\JavaProperties('=');
+$writer = new Laminas\Config\Writer\JavaProperties('=');
 ```
 
 Using the above configuration, we would now receive:
@@ -127,17 +127,17 @@ database.password=secret
 database.dbname=dbproduction
 ```
 
-## Zend\\Config\\Writer\\Xml
+## Laminas\\Config\\Writer\\Xml
 
-`Zend\Config\Writer\Xml` can be used to generate an XML string or file.
+`Laminas\Config\Writer\Xml` can be used to generate an XML string or file.
 
-### Using Zend\\Config\\Writer\\Xml
+### Using Laminas\\Config\\Writer\\Xml
 
 Consider the following code, which creates a configuration structure:
 
 ```php
 // Create the config object
-$config = new Zend\Config\Config([], true);
+$config = new Laminas\Config\Config([], true);
 $config->production = [];
 
 $config->production->webhost = 'www.example.com';
@@ -148,7 +148,7 @@ $config->production->database->params->username = 'production';
 $config->production->database->params->password = 'secret';
 $config->production->database->params->dbname = 'dbproduction';
 
-$writer = new Zend\Config\Writer\Xml();
+$writer = new Laminas\Config\Writer\Xml();
 echo $writer->toString($config);
 ```
 
@@ -156,7 +156,7 @@ The result of this code is the following XML string:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<zend-config>
+<laminas-config>
     <production>
         <webhost>www.example.com</webhost>
         <database>
@@ -168,23 +168,23 @@ The result of this code is the following XML string:
             </params>
         </database>
     </production>
-</zend-config>
+</laminas-config>
 ```
 
 You can use the method `toFile()` to store the XML data to a file.
 
-## Zend\\Config\\Writer\\PhpArray
+## Laminas\\Config\\Writer\\PhpArray
 
-`Zend\Config\Writer\PhpArray` can be used to generate a PHP script that
+`Laminas\Config\Writer\PhpArray` can be used to generate a PHP script that
 represents and returns configuration.
 
-### Using Zend\\Config\\Writer\\PhpArray
+### Using Laminas\\Config\\Writer\\PhpArray
 
 Consider the following code, which creates a configuration structure:
 
 ```php
 // Create the config object
-$config = new Zend\Config\Config([], true);
+$config = new Laminas\Config\Config([], true);
 $config->production = [];
 
 $config->production->webhost = 'www.example.com';
@@ -195,7 +195,7 @@ $config->production->database->params->username = 'production';
 $config->production->database->params->password = 'secret';
 $config->production->database->params->dbname = 'dbproduction';
 
-$writer = new Zend\Config\Writer\PhpArray();
+$writer = new Laminas\Config\Writer\PhpArray();
 echo $writer->toString($config);
 ```
 
@@ -223,18 +223,18 @@ return [
 
 You can use the method `toFile()` to save the PHP script to a file.
 
-## Zend\\Config\\Writer\\Json
+## Laminas\\Config\\Writer\\Json
 
-`Zend\Config\Writer\Json` can be used to generate a JSON representation of
+`Laminas\Config\Writer\Json` can be used to generate a JSON representation of
 configuration.
 
-### Using Zend\\Config\\Writer\\Json
+### Using Laminas\\Config\\Writer\\Json
 
 Consider the following code, which creates a configuration structure:
 
 ```php
 // Create the config object
-$config = new Zend\Config\Config([], true);
+$config = new Laminas\Config\Config([], true);
 $config->production = [];
 
 $config->production->webhost = 'www.example.com';
@@ -245,7 +245,7 @@ $config->production->database->params->username = 'production';
 $config->production->database->params->password = 'secret';
 $config->production->database->params->dbname = 'dbproduction';
 
-$writer = new Zend\Config\Writer\Json();
+$writer = new Laminas\Config\Writer\Json();
 echo $writer->toString($config);
 ```
 
@@ -267,24 +267,24 @@ The result of this code is the following JSON string:
 
 You can use the method `toFile()` to save the JSON data to a file.
 
-`Zend\Config\Writer\Json` uses the zend-json component to convert the data to
+`Laminas\Config\Writer\Json` uses the laminas-json component to convert the data to
 JSON.
 
-## Zend\\Config\\Writer\\Yaml
+## Laminas\\Config\\Writer\\Yaml
 
-`Zend\Config\Writer\Yaml` can be used to generate a PHP code that returns the YAML
+`Laminas\Config\Writer\Yaml` can be used to generate a PHP code that returns the YAML
 representation of configuration. In order to use the YAML writer, we need to pass a
 callback to an external PHP library, or use the
 [YAML PECL extension](http://www.php.net/manual/en/book.yaml.php).
 
-### Using Zend\\Config\\Writer\\Yaml
+### Using Laminas\\Config\\Writer\\Yaml
 
 Consider the following code, which creates a configuration structure using the
 YAML PECL extension:
 
 ```php
 // Create the config object
-$config = new Zend\Config\Config([], true);
+$config = new Laminas\Config\Config([], true);
 $config->production = [];
 
 $config->production->webhost = 'www.example.com';
@@ -295,7 +295,7 @@ $config->production->database->params->username = 'production';
 $config->production->database->params->password = 'secret';
 $config->production->database->params->dbname = 'dbproduction';
 
-$writer = new Zend\Config\Writer\Yaml();
+$writer = new Laminas\Config\Writer\Yaml();
 echo $writer->toString($config);
 ```
 
@@ -322,6 +322,6 @@ library:
 // include the Spyc library
 require_once 'path/to/spyc.php';
 
-$writer = new Zend\Config\Writer\Yaml(['Spyc', 'YAMLDump']);
+$writer = new Laminas\Config\Writer\Yaml(['Spyc', 'YAMLDump']);
 echo $writer->toString($config);
 ```

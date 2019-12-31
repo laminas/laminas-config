@@ -1,17 +1,18 @@
 <?php
+
 /**
- * @see       https://github.com/zendframework/zend-config for the canonical source repository
- * @copyright Copyright (c) 2017 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   https://github.com/zendframework/zend-config/blob/master/LICENSE.md New BSD License
+ * @see       https://github.com/laminas/laminas-config for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-config/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-config/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Config\Processor;
+namespace LaminasTest\Config\Processor;
 
+use Laminas\Config\Processor\Token as TokenProcessor;
 use PHPUnit\Framework\TestCase;
-use Zend\Config\Processor\Token as TokenProcessor;
 
 /**
- * Majority of tests are in ZendTest\Config\ProcessorTest; this class contains
+ * Majority of tests are in LaminasTest\Config\ProcessorTest; this class contains
  * tests covering new functionality and/or specific bugs.
  */
 class TokenTest extends TestCase
