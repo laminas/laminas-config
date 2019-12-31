@@ -1,35 +1,22 @@
 {
-    "name": "zendframework/zend-config",
+    "name": "laminas/laminas-config",
     "description": "provides a nested object property based user interface for accessing this configuration data within application code",
     "license": "BSD-3-Clause",
     "keywords": [
-        "zf2",
+        "laminas",
         "config"
     ],
-    "homepage": "https://github.com/zendframework/zend-config",
-    "autoload": {
-        "psr-4": {
-            "Zend\\Config\\": "src/"
-        }
+    "homepage": "https://laminas.dev",
+    "support": {
+        "docs": "https://docs.laminas.dev/laminas-config/",
+        "issues": "https://github.com/laminas/laminas-config/issues",
+        "source": "https://github.com/laminas/laminas-config",
+        "rss": "https://github.com/laminas/laminas-config/releases.atom",
+        "chat": "https://laminas.dev/chat",
+        "forum": "https://discourse.laminas.dev"
     },
-    "require": {
-        "php": ">=5.3.23",
-        "zendframework/zend-stdlib": "self.version"
-    },
-    "require-dev": {
-        "zendframework/zend-filter": "self.version",
-        "zendframework/zend-i18n": "self.version",
-        "zendframework/zend-json": "self.version",
-        "zendframework/zend-servicemanager": "self.version",
-        "fabpot/php-cs-fixer": "1.7.*",
-        "satooshi/php-coveralls": "dev-master",
-        "phpunit/PHPUnit": "~4.0"
-    },
-    "suggest": {
-        "zendframework/zend-filter": "Zend\\Filter component",
-        "zendframework/zend-i18n": "Zend\\I18n component",
-        "zendframework/zend-json": "Zend\\Json to use the Json reader or writer classes",
-        "zendframework/zend-servicemanager": "Zend\\ServiceManager for use with the Config Factory to retrieve reader and writer instances"
+    "config": {
+        "sort-packages": true
     },
     "extra": {
         "branch-alias": {
@@ -37,9 +24,37 @@
             "dev-develop": "2.4-dev"
         }
     },
+    "require": {
+        "php": ">=5.3.23",
+        "laminas/laminas-stdlib": "self.version",
+        "laminas/laminas-zendframework-bridge": "^1.0"
+    },
+    "require-dev": {
+        "fabpot/php-cs-fixer": "1.7.*",
+        "laminas/laminas-filter": "self.version",
+        "laminas/laminas-i18n": "self.version",
+        "laminas/laminas-json": "self.version",
+        "laminas/laminas-servicemanager": "self.version",
+        "phpunit/phpunit": "~4.0",
+        "satooshi/php-coveralls": "dev-master"
+    },
+    "suggest": {
+        "laminas/laminas-filter": "Laminas\\Filter component",
+        "laminas/laminas-i18n": "Laminas\\I18n component",
+        "laminas/laminas-json": "Laminas\\Json to use the Json reader or writer classes",
+        "laminas/laminas-servicemanager": "Laminas\\ServiceManager for use with the Config Factory to retrieve reader and writer instances"
+    },
+    "autoload": {
+        "psr-4": {
+            "Laminas\\Config\\": "src/"
+        }
+    },
     "autoload-dev": {
         "psr-4": {
-            "ZendTest\\Config\\": "test/"
+            "LaminasTest\\Config\\": "test/"
         }
+    },
+    "replace": {
+        "zendframework/zend-config": "self.version"
     }
 }

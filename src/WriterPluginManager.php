@@ -1,24 +1,23 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-config for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-config/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-config/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Config;
+namespace Laminas\Config;
 
-use Zend\ServiceManager\AbstractPluginManager;
+use Laminas\ServiceManager\AbstractPluginManager;
 
 class WriterPluginManager extends AbstractPluginManager
 {
     protected $invokableClasses = array(
-        'ini'  => 'Zend\Config\Writer\Ini',
-        'json' => 'Zend\Config\Writer\Json',
-        'php'  => 'Zend\Config\Writer\PhpArray',
-        'yaml' => 'Zend\Config\Writer\Yaml',
-        'xml'  => 'Zend\Config\Writer\Xml',
+        'ini'  => 'Laminas\Config\Writer\Ini',
+        'json' => 'Laminas\Config\Writer\Json',
+        'php'  => 'Laminas\Config\Writer\PhpArray',
+        'yaml' => 'Laminas\Config\Writer\Yaml',
+        'xml'  => 'Laminas\Config\Writer\Xml',
     );
 
     public function validatePlugin($plugin)
