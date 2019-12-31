@@ -1,18 +1,19 @@
 <?php
+
 /**
- * @see       https://github.com/zendframework/zend-config for the canonical source repository
- * @copyright Copyright (c) 2005-2017 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   https://github.com/zendframework/zend-config/blob/master/LICENSE.md New BSD License
+ * @see       https://github.com/laminas/laminas-config for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-config/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-config/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Config;
+namespace LaminasTest\Config;
 
+use Laminas\Config\Config;
+use Laminas\Config\Exception;
 use PHPUnit\Framework\TestCase;
-use Zend\Config\Config;
-use Zend\Config\Exception;
 
 /**
- * @group      Zend_Config
+ * @group      Laminas_Config
  */
 class ConfigTest extends TestCase
 {
@@ -247,7 +248,7 @@ class ConfigTest extends TestCase
         $config->test = '32';
     }
 
-    public function testZF343()
+    public function testLaminas43()
     {
         $config_array = [
             'controls' => [
@@ -262,7 +263,7 @@ class ConfigTest extends TestCase
         $this->assertSame([], $form_config->controls->visible->attribs->toArray());
     }
 
-    public function testZF402()
+    public function testLaminas402()
     {
         $configArray = [
             'data1'  => 'someValue',
@@ -277,14 +278,14 @@ class ConfigTest extends TestCase
         }
     }
 
-    public function testZf1019HandlingInvalidKeyNames()
+    public function testLaminas1019HandlingInvalidKeyNames()
     {
         $config = new Config($this->leadingdot);
         $array = $config->toArray();
         $this->assertContains('dot-test', $array['.test']);
     }
 
-    public function testZF1019EmptyKeys()
+    public function testLaminas1019EmptyKeys()
     {
         $config = new Config($this->invalidkey);
         $array = $config->toArray();
@@ -292,7 +293,7 @@ class ConfigTest extends TestCase
         $this->assertContains('test', $array['']);
     }
 
-    public function testZF1417DefaultValues()
+    public function testLaminas1417DefaultValues()
     {
         $config = new Config($this->all);
         $value = $config->get('notthere', 'default');
@@ -339,12 +340,12 @@ class ConfigTest extends TestCase
         $this->assertEquals('bar', $configA->text);
 
         // config->numerical-> ...
-        $this->assertInstanceOf('\Zend\Config\Config', $configA->numerical);
+        $this->assertInstanceOf('\Laminas\Config\Config', $configA->numerical);
         $this->assertEquals('first', $configA->numerical->{0});
         $this->assertEquals('second', $configA->numerical->{1});
 
         // config->numerical->{2}-> ...
-        $this->assertInstanceOf('\Zend\Config\Config', $configA->numerical->{2});
+        $this->assertInstanceOf('\Laminas\Config\Config', $configA->numerical->{2});
         $this->assertEquals('third', $configA->numerical->{2}->{0});
         $this->assertEquals(null, $configA->numerical->{2}->{1});
 
@@ -353,19 +354,19 @@ class ConfigTest extends TestCase
         $this->assertEquals('fifth', $configA->numerical->{4});
 
         // config->numerical->{5}
-        $this->assertInstanceOf('\Zend\Config\Config', $configA->numerical->{5});
+        $this->assertInstanceOf('\Laminas\Config\Config', $configA->numerical->{5});
         $this->assertEquals('sixth', $configA->numerical->{5}->{0});
         $this->assertEquals(null, $configA->numerical->{5}->{1});
 
         // config->misaligned
-        $this->assertInstanceOf('\Zend\Config\Config', $configA->misaligned);
+        $this->assertInstanceOf('\Laminas\Config\Config', $configA->misaligned);
         $this->assertEquals('foo', $configA->misaligned->{2});
         $this->assertEquals('bar', $configA->misaligned->{3});
         $this->assertEquals('baz', $configA->misaligned->{4});
         $this->assertEquals(null, $configA->misaligned->{0});
 
         // config->mixed
-        $this->assertInstanceOf('\Zend\Config\Config', $configA->mixed);
+        $this->assertInstanceOf('\Laminas\Config\Config', $configA->mixed);
         $this->assertEquals('bar', $configA->mixed->foo);
         $this->assertFalse($configA->mixed->{0});
         $this->assertNull($configA->mixed->{1});
@@ -425,7 +426,7 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * Ensures that toArray() supports objects of types other than Zend_Config
+     * Ensures that toArray() supports objects of types other than Laminas_Config
      *
      * @return void
      */
@@ -463,7 +464,7 @@ class ConfigTest extends TestCase
         $config->c = 'c';
     }
 
-    public function testZF3408countNotDecreasingOnUnset()
+    public function testLaminas408countNotDecreasingOnUnset()
     {
         $configData = [
             'a' => 'a',
@@ -476,7 +477,7 @@ class ConfigTest extends TestCase
         $this->assertCount(2, $config);
     }
 
-    public function testZF4107ensureCloneDoesNotKeepNestedReferences()
+    public function testLaminas4107ensureCloneDoesNotKeepNestedReferences()
     {
         $parent = new Config(['key' => ['nested' => 'parent']], true);
         $newConfig = clone $parent;
@@ -487,7 +488,7 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @group ZF-3575
+     * @group Laminas-3575
      *
      */
     public function testMergeHonoursAllowModificationsFlagAtAllLevels()
@@ -507,7 +508,7 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @group ZF-5771a
+     * @group Laminas-5771a
      *
      */
     public function testUnsettingFirstElementDuringForeachDoesNotSkipAnElement()
@@ -522,7 +523,7 @@ class ConfigTest extends TestCase
         foreach ($config as $key => $value) {
             $keyList[] = $key;
             if ($key == 'first') {
-                unset($config->$key); // uses magic Zend\Config\Config::__unset() method
+                unset($config->$key); // uses magic Laminas\Config\Config::__unset() method
             }
         }
 
@@ -532,7 +533,7 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @group ZF-5771
+     * @group Laminas-5771
      *
      */
     public function testUnsettingAMiddleElementDuringForeachDoesNotSkipAnElement()
@@ -547,7 +548,7 @@ class ConfigTest extends TestCase
         foreach ($config as $key => $value) {
             $keyList[] = $key;
             if ($key == 'second') {
-                unset($config->$key); // uses magic Zend\Config\Config::__unset() method
+                unset($config->$key); // uses magic Laminas\Config\Config::__unset() method
             }
         }
 
@@ -557,7 +558,7 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @group ZF-5771
+     * @group Laminas-5771
      *
      */
     public function testUnsettingLastElementDuringForeachDoesNotSkipAnElement()
@@ -572,7 +573,7 @@ class ConfigTest extends TestCase
         foreach ($config as $key => $value) {
             $keyList[] = $key;
             if ($key == 'third') {
-                unset($config->$key); // uses magic Zend\Config\Config::__unset() method
+                unset($config->$key); // uses magic Laminas\Config\Config::__unset() method
             }
         }
 
@@ -582,7 +583,7 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @group ZF-4728
+     * @group Laminas-4728
      *
      */
     public function testSetReadOnlyAppliesToChildren()
@@ -595,7 +596,7 @@ class ConfigTest extends TestCase
         $this->assertTrue($config->one->two->isReadOnly(), 'Second level children are writable');
     }
 
-    public function testZF6995toArrayDoesNotDisturbInternalIterator()
+    public function testLaminas6995toArrayDoesNotDisturbInternalIterator()
     {
         $config = new Config(range(1, 10));
         $config->rewind();
@@ -607,9 +608,9 @@ class ConfigTest extends TestCase
 
     /**
      * @depends testMerge
-     * @link http://framework.zend.com/issues/browse/ZF2-186
+     * @link https://getlaminas.org/issues/browse/Laminas-186
      */
-    public function testZF2186mergeReplacingUnnamedConfigSettings()
+    public function testLaminas186mergeReplacingUnnamedConfigSettings()
     {
         $arrayA = [
             'flag' => true,

@@ -1,14 +1,15 @@
 <?php
+
 /**
- * @see       https://github.com/zendframework/zend-config for the canonical source repository
- * @copyright Copyright (c) 2005-2017 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   https://github.com/zendframework/zend-config/blob/master/LICENSE.md New BSD License
+ * @see       https://github.com/laminas/laminas-config for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-config/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-config/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Config\Writer;
+namespace Laminas\Config\Writer;
 
+use Laminas\Config\Exception;
 use XMLWriter;
-use Zend\Config\Exception;
 
 class Xml extends AbstractWriter
 {
@@ -26,7 +27,7 @@ class Xml extends AbstractWriter
         $writer->setIndentString(str_repeat(' ', 4));
 
         $writer->startDocument('1.0', 'UTF-8');
-        $writer->startElement('zend-config');
+        $writer->startElement('laminas-config');
 
         foreach ($config as $sectionName => $data) {
             if (! is_array($data)) {

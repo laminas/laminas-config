@@ -1,29 +1,30 @@
 <?php
+
 /**
- * @see       https://github.com/zendframework/zend-config for the canonical source repository
- * @copyright Copyright (c) 2005-2017 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   https://github.com/zendframework/zend-config/blob/master/LICENSE.md New BSD License
+ * @see       https://github.com/laminas/laminas-config for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-config/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-config/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Config;
+namespace LaminasTest\Config;
 
+use Laminas\Config\Config;
+use Laminas\Config\Exception;
+use Laminas\Config\Processor\Constant as ConstantProcessor;
+use Laminas\Config\Processor\Filter as FilterProcessor;
+use Laminas\Config\Processor\Queue;
+use Laminas\Config\Processor\Token as TokenProcessor;
+use Laminas\Config\Processor\Translator as TranslatorProcessor;
+use Laminas\Filter\PregReplace;
+use Laminas\Filter\StringToLower;
+use Laminas\Filter\StringToUpper;
+use Laminas\I18n\Exception as I18nException;
+use Laminas\I18n\Translator\Loader\PhpArray;
+use Laminas\I18n\Translator\Translator;
 use PHPUnit\Framework\TestCase;
-use Zend\Config\Config;
-use Zend\Config\Exception;
-use Zend\Config\Processor\Constant as ConstantProcessor;
-use Zend\Config\Processor\Filter as FilterProcessor;
-use Zend\Config\Processor\Queue;
-use Zend\Config\Processor\Token as TokenProcessor;
-use Zend\Config\Processor\Translator as TranslatorProcessor;
-use Zend\Filter\PregReplace;
-use Zend\Filter\StringToLower;
-use Zend\Filter\StringToUpper;
-use Zend\I18n\Exception as I18nException;
-use Zend\I18n\Translator\Loader\PhpArray;
-use Zend\I18n\Translator\Translator;
 
 /**
- * @group      Zend_Config
+ * @group      Laminas_Config
  */
 class ProcessorTest extends TestCase
 {
@@ -157,7 +158,7 @@ class ProcessorTest extends TestCase
         $queue->insert($processor1);
         $queue->insert($processor2);
 
-        $this->assertInstanceOf('\Zend\Config\Processor\Queue', $queue);
+        $this->assertInstanceOf('\Laminas\Config\Processor\Queue', $queue);
         $this->assertEquals(2, $queue->count());
         $this->assertTrue($queue->contains($processor1));
         $this->assertTrue($queue->contains($processor2));
@@ -276,7 +277,7 @@ class ProcessorTest extends TestCase
     }
 
     /**
-     * @group ZF2-5772
+     * @group Laminas-5772
      */
     public function testTokenChangeParamsRetainsType()
     {
@@ -303,7 +304,7 @@ class ProcessorTest extends TestCase
     }
 
     /**
-     * @group ZF2-5772
+     * @group Laminas-5772
      */
     public function testTokenChangeParamsReplacesInNumerics()
     {
@@ -332,7 +333,7 @@ class ProcessorTest extends TestCase
     }
 
     /**
-     * @group ZF2-5772
+     * @group Laminas-5772
      */
     public function testIgnoresEmptyStringReplacement()
     {
@@ -429,7 +430,7 @@ class ProcessorTest extends TestCase
 
         $this->expectException(I18nException\ExtensionNotLoadedException::class);
         $this->expectExceptionMessage(
-            'Zend\I18n\Translator component requires the intl PHP extension'
+            'Laminas\I18n\Translator component requires the intl PHP extension'
         );
 
         $config     = new Config($this->translatorData, true);
@@ -471,7 +472,7 @@ class ProcessorTest extends TestCase
         }
 
         $this->expectException(I18nException\ExtensionNotLoadedException::class);
-        $this->expectExceptionMessage('Zend\I18n\Translator component requires the intl PHP extension');
+        $this->expectExceptionMessage('Laminas\I18n\Translator component requires the intl PHP extension');
 
         $translator = new Translator();
         $translator->addTranslationFile('phparray', $this->translatorFile);
@@ -486,7 +487,7 @@ class ProcessorTest extends TestCase
         $filter = new StringToLower();
         $processor = new FilterProcessor($filter);
 
-        $this->assertInstanceOf('Zend\Filter\StringToLower', $processor->getFilter());
+        $this->assertInstanceOf('Laminas\Filter\StringToLower', $processor->getFilter());
         $processor->process($config);
 
         $this->assertEquals('some mixedcase value', $config->simple);
