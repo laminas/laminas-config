@@ -1,20 +1,19 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-config for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-config/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-config/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Config\Writer;
+namespace LaminasTest\Config\Writer;
 
-use Zend\Config\Writer\Json as JsonWriter;
-use Zend\Config\Config;
-use Zend\Config\Reader\Json as JsonReader;
+use Laminas\Config\Config;
+use Laminas\Config\Reader\Json as JsonReader;
+use Laminas\Config\Writer\Json as JsonWriter;
 
 /**
- * @group      Zend_Config
+ * @group      Laminas_Config
  */
 class JsonTest extends AbstractWriterTestCase
 {

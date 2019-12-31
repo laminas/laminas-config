@@ -1,19 +1,16 @@
 <?php
 
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @author    Chris Raidler <chris@raidler.com>
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-config for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-config/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-config/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Config;
+namespace LaminasTest\Config;
 
-use Zend\Config\AbstractConfigFactory;
-use Zend\Mvc\Service\ServiceManagerConfig;
-use Zend\ServiceManager;
+use Laminas\Config\AbstractConfigFactory;
+use Laminas\Mvc\Service\ServiceManagerConfig;
+use Laminas\ServiceManager;
 
 /**
  * Class AbstractFactoryTest
@@ -21,12 +18,12 @@ use Zend\ServiceManager;
 class AbstractFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Zend\Mvc\Application
+     * @var \Laminas\Mvc\Application
      */
     protected $application;
 
     /**
-     * @var \Zend\ServiceManager\ServiceManager
+     * @var \Laminas\ServiceManager\ServiceManager
      */
     protected $serviceManager;
 
@@ -51,7 +48,7 @@ class AbstractFactoryTest extends \PHPUnit_Framework_TestCase
         $sm = $this->serviceManager = new ServiceManager\ServiceManager(
             new ServiceManagerConfig(array(
             'abstract_factories' => array(
-                'Zend\Config\AbstractConfigFactory',
+                'Laminas\Config\AbstractConfigFactory',
             )
             ))
         );
