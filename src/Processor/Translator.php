@@ -1,20 +1,21 @@
 <?php
+
 /**
- * @see       https://github.com/zendframework/zend-config for the canonical source repository
- * @copyright Copyright (c) 2005-2017 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   https://github.com/zendframework/zend-config/blob/master/LICENSE.md New BSD License
+ * @see       https://github.com/laminas/laminas-config for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-config/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-config/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Config\Processor;
+namespace Laminas\Config\Processor;
 
-use Zend\Config\Config;
-use Zend\Config\Exception;
-use Zend\I18n\Translator\Translator as ZendTranslator;
+use Laminas\Config\Config;
+use Laminas\Config\Exception;
+use Laminas\I18n\Translator\Translator as LaminasTranslator;
 
 class Translator implements ProcessorInterface
 {
     /**
-     * @var ZendTranslator
+     * @var LaminasTranslator
      */
     protected $translator;
 
@@ -29,14 +30,14 @@ class Translator implements ProcessorInterface
     protected $textDomain = 'default';
 
     /**
-     * Translator uses the supplied Zend\I18n\Translator\Translator to find
+     * Translator uses the supplied Laminas\I18n\Translator\Translator to find
      * and translate language strings in config.
      *
-     * @param ZendTranslator $translator
+     * @param LaminasTranslator $translator
      * @param string $textDomain
      * @param string|null $locale
      */
-    public function __construct(ZendTranslator $translator, $textDomain = 'default', $locale = null)
+    public function __construct(LaminasTranslator $translator, $textDomain = 'default', $locale = null)
     {
         $this->setTranslator($translator);
         $this->setTextDomain($textDomain);
@@ -44,17 +45,17 @@ class Translator implements ProcessorInterface
     }
 
     /**
-     * @param ZendTranslator $translator
+     * @param LaminasTranslator $translator
      * @return self
      */
-    public function setTranslator(ZendTranslator $translator)
+    public function setTranslator(LaminasTranslator $translator)
     {
         $this->translator = $translator;
         return $this;
     }
 
     /**
-     * @return ZendTranslator
+     * @return LaminasTranslator
      */
     public function getTranslator()
     {

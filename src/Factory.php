@@ -1,15 +1,16 @@
 <?php
+
 /**
- * @see       https://github.com/zendframework/zend-config for the canonical source repository
- * @copyright Copyright (c) 2005-2017 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   https://github.com/zendframework/zend-config/blob/master/LICENSE.md New BSD License
+ * @see       https://github.com/laminas/laminas-config for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-config/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-config/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Config;
+namespace Laminas\Config;
 
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\Stdlib\ArrayUtils;
 use Psr\Container\ContainerInterface;
-use Zend\ServiceManager\ServiceManager;
-use Zend\Stdlib\ArrayUtils;
 
 class Factory
 {
@@ -160,7 +161,7 @@ class Factory
             || (! is_object($config) && ! is_array($config))
         ) {
             throw new Exception\InvalidArgumentException(
-                __METHOD__." \$config should be an array or instance of Zend\\Config\\Config"
+                __METHOD__." \$config should be an array or instance of Laminas\\Config\\Config"
             );
         }
 

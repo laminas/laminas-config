@@ -1,5 +1,3 @@
-sudo: false
-
 language: php
 
 branches:
@@ -12,43 +10,38 @@ cache:
     - $HOME/.composer/cache
     - $HOME/.local
     - vendor
-    - zf-mkdoc-theme
+    - laminas-mkdoc-theme
 
 env:
   global:
     - COMPOSER_ARGS="--no-interaction"
     - COVERAGE_DEPS="satooshi/php-coveralls"
     - LEGACY_DEPS="phpunit/phpunit"
-    - SITE_URL="https://zendframework.github.io/zend-config"
+    - SITE_URL="https://docs.laminas.dev/laminas-config"
     - GH_USER_NAME="Matthew Weier O'Phinney"
     - GH_USER_EMAIL="matthew@weierophinney.net"
-    - GH_REF="github.com/zendframework/zend-config.git"
+    - GH_REF="github.com/laminas/laminas-config.git"
     - secure: "jx8uWYQ+9AizRVN4c+zWAT0plgTNcpYIJmvJ36dr0bZuGBb3PU4zd8vhqsNcd+q4f+pdeCM5u6gPTq8oUsmziQk4Ie9OvHMwdVIA1HhOvnjo4DvC2knqFeU97oguUS+lpl0eq5abGZMf+NrhzpIBjlAVSFGNYkAmCIKBRUjfFxigam65KKJ2gk1UUwPU6ozJ1z9WXeNZ5vDgXtdnMOur6ijWZ4jL81BP7h/daF/U64K8ZrajrL4qhwD58n56pHIXFmODUgwOnZofGWQ8iAmtpzR1cP0/KA3fUqpRNha6Hd9BScZizjoE/qcQgu3JuCqpqinLXFZbInhUE5O3qU5lHcokgnnOzotudI7ytbe+XTy+UH5p7RaW3l1LgNmoCc6/VxT5b/fXfxNp3V/dXZhu4br73bixA/oV8Fnatti4jRm+za5QdwGtwCp59+eWkz/AUhGXR/vc4Hq9l0EXUS1zMBBvBXrnYMQFp1GYErY6+HIH8rAruueoAxy3yEigL9BnIiA06j5teuf0iCdNtJystbCrCiGRXa/RAnzJoZxa+Kp+A0O+Gbgrz9LnQ0uYRCMxdBXMZRlbqHgi0usj/mfGtr8rnEB2NRNvMo2uYbJv6QJo71Ql5BgRD3OdKUzjj5N3+to90fa+PT6JrVy+FW+I4Qc0VAmJnJ3ggxW0puo//eI="
 
 matrix:
+  fast_finish: true
   include:
     - php: 5.6
       env:
         - DEPS=lowest
     - php: 5.6
       env:
-        - DEPS=locked
+        - DEPS=latest
         - TEST_COVERAGE=true
         - DEPLOY_DOCS="$(if [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_PULL_REQUEST == 'false' ]]; then echo -n 'true' ; else echo -n 'false' ; fi)"
         - PATH="$HOME/.local/bin:$PATH"
-    - php: 5.6
-      env:
-        - DEPS=latest
     - php: 7
       env:
         - DEPS=lowest
     - php: 7
       env:
-        - DEPS=locked
-        - CHECK_CS=true
-    - php: 7
-      env:
         - DEPS=latest
+        - CS_CHECK=true
     - php: hhvm
       env:
         - DEPS=lowest
@@ -62,7 +55,6 @@ matrix:
     - php: hhvm
 
 notifications:
-  irc: "irc.freenode.org#zftalk.dev"
   email: false
 
 before_install:
@@ -79,12 +71,12 @@ install:
 
 script:
   - if [[ $TEST_COVERAGE == 'true' ]]; then composer test-coverage ; else composer test ; fi
-  - if [[ $CHECK_CS == 'true' ]]; then composer cs-check ; fi
-  - if [[ $CHECK_CS == 'true' ]]; then composer license-check ; fi
-  - if [[ $DEPLOY_DOCS == "true" && "$TRAVIS_TEST_RESULT" == "0" ]]; then travis_retry curl -sSL https://raw.githubusercontent.com/zendframework/zf-mkdoc-theme/master/theme-installer.sh | bash ; fi
+  - if [[ $CS_CHECK == 'true' ]]; then composer cs-check ; fi
+  - if [[ $CS_CHECK == 'true' ]]; then composer license-check ; fi
+  - if [[ $DEPLOY_DOCS == "true" && "$TRAVIS_TEST_RESULT" == "0" ]]; then travis_retry curl -sSL https://raw.githubusercontent.com/laminas/laminas-mkdoc-theme/master/theme-installer.sh | bash ; fi
 
 after_script:
   - if [[ $TEST_COVERAGE == 'true' ]]; then travis_retry composer upload-coverage ; fi
 
 after_success:
-  - if [[ $DEPLOY_DOCS == "true" ]]; then echo "Preparing to build and deploy documentation" ; ./zf-mkdoc-theme/deploy.sh ; echo "Completed deploying documentation" ; fi
+  - if [[ $DEPLOY_DOCS == "true" ]]; then echo "Preparing to build and deploy documentation" ; ./laminas-mkdoc-theme/deploy.sh ; echo "Completed deploying documentation" ; fi
