@@ -1,22 +1,23 @@
 <?php
+
 /**
- * @see       https://github.com/zendframework/zend-config for the canonical source repository
- * @copyright Copyright (c) 2005-2017 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   https://github.com/zendframework/zend-config/blob/master/LICENSE.md New BSD License
+ * @see       https://github.com/laminas/laminas-config for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-config/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-config/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Config\Reader;
+namespace LaminasTest\Config\Reader;
 
+use Laminas\Config\Exception;
+use Laminas\Config\Reader\Xml;
 use PHPUnit\Framework\Error\Warning;
 use ReflectionProperty;
 use XMLReader;
-use Zend\Config\Exception;
-use Zend\Config\Reader\Xml;
 
 /**
- * @group      Zend_Config
+ * @group      Laminas_Config
  *
- * @covers \Zend\Config\Reader\Xml
+ * @covers \Laminas\Config\Reader\Xml
  */
 class XmlTest extends AbstractReaderTestCase
 {
@@ -63,11 +64,11 @@ class XmlTest extends AbstractReaderTestCase
     {
         $xml = <<<ECS
 <?xml version="1.0" encoding="UTF-8"?>
-<zend-config>
+<laminas-config>
     <test>foo</test>
     <bar>baz</bar>
     <bar>foo</bar>
-</zend-config>
+</laminas-config>
 
 ECS;
 
@@ -81,16 +82,16 @@ ECS;
     {
         $xml = <<<ECS
 <?xml version="1.0" encoding="UTF-8"?>
-<zend-config>
+<laminas-config>
     <bar>baz</baz>
-</zend-config>
+</laminas-config>
 
 ECS;
         $this->expectException(Exception\RuntimeException::class);
         $this->reader->fromString($xml);
     }
 
-    public function testZF300MultipleKeysOfTheSameName()
+    public function testLaminas00MultipleKeysOfTheSameName()
     {
         $config = $this->reader->fromFile($this->getTestAssetPath('array'));
 
@@ -100,7 +101,7 @@ ECS;
         $this->assertEquals('5', $config['three']['four'][0]['five']);
     }
 
-    public function testZF300ArraysWithMultipleChildren()
+    public function testLaminas00ArraysWithMultipleChildren()
     {
         $config = $this->reader->fromFile($this->getTestAssetPath('array'));
 
@@ -113,7 +114,7 @@ ECS;
     }
 
     /**
-     * @group zf6279
+     * @group laminas6279
      */
     public function testElementWithBothAttributesAndAStringValueIsProcessedCorrectly()
     {
@@ -176,11 +177,11 @@ ECS;
     {
         $xml = <<<ECS
 <?xml version="1.0" encoding="UTF-8"?>
-<zend-config>
+<laminas-config>
     <test>foo</test>
     <bar>baz</bar>
     <bar>foo</bar>
-</zend-config>
+</laminas-config>
 
 ECS;
 
@@ -205,7 +206,7 @@ ECS;
      */
     private function getInternalXmlReader(Xml $xml)
     {
-        $reflectionReader = new ReflectionProperty('Zend\Config\Reader\Xml', 'reader');
+        $reflectionReader = new ReflectionProperty('Laminas\Config\Reader\Xml', 'reader');
 
         $reflectionReader->setAccessible(true);
 

@@ -1,32 +1,33 @@
 <?php
+
 /**
- * @see       https://github.com/zendframework/zend-config for the canonical source repository
- * @copyright Copyright (c) 2005-2017 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   https://github.com/zendframework/zend-config/blob/master/LICENSE.md New BSD License
+ * @see       https://github.com/laminas/laminas-config for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-config/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-config/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Config\Writer;
+namespace LaminasTest\Config\Writer;
 
-use Zend\Config\Config;
-use Zend\Config\Reader\Yaml as YamlReader;
-use Zend\Config\Writer\Yaml as YamlWriter;
+use Laminas\Config\Config;
+use Laminas\Config\Reader\Yaml as YamlReader;
+use Laminas\Config\Writer\Yaml as YamlWriter;
 
 /**
- * @group      Zend_Config
+ * @group      Laminas_Config
  */
 class YamlTest extends AbstractWriterTestCase
 {
     public function setUp()
     {
-        if (! getenv('TESTS_ZEND_CONFIG_YAML_ENABLED')) {
-            $this->markTestSkipped('Yaml test for Zend\Config skipped');
+        if (! getenv('TESTS_LAMINAS_CONFIG_YAML_ENABLED')) {
+            $this->markTestSkipped('Yaml test for Laminas\Config skipped');
         }
 
-        if ($lib = getenv('TESTS_ZEND_CONFIG_YAML_LIB_INCLUDE')) {
+        if ($lib = getenv('TESTS_LAMINAS_CONFIG_YAML_LIB_INCLUDE')) {
             require_once $lib;
         }
 
-        if ($readerCallback = getenv('TESTS_ZEND_CONFIG_READER_YAML_CALLBACK')) {
+        if ($readerCallback = getenv('TESTS_LAMINAS_CONFIG_READER_YAML_CALLBACK')) {
             $yamlReader = explode('::', $readerCallback);
             if (isset($yamlReader[1])) {
                 $this->reader = new YamlReader([$yamlReader[0], $yamlReader[1]]);
@@ -37,7 +38,7 @@ class YamlTest extends AbstractWriterTestCase
             $this->reader = new YamlReader();
         }
 
-        if ($writerCallback = getenv('TESTS_ZEND_CONFIG_WRITER_YAML_CALLBACK')) {
+        if ($writerCallback = getenv('TESTS_LAMINAS_CONFIG_WRITER_YAML_CALLBACK')) {
             $yamlWriter = explode('::', $writerCallback);
             if (isset($yamlWriter[1])) {
                 $this->writer = new YamlWriter([$yamlWriter[0], $yamlWriter[1]]);

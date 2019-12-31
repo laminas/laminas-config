@@ -1,15 +1,16 @@
 <?php
+
 /**
- * @see       https://github.com/zendframework/zend-config for the canonical source repository
- * @copyright Copyright (c) 2017 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   https://github.com/zendframework/zend-config/blob/master/LICENSE.md New BSD License
+ * @see       https://github.com/laminas/laminas-config for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-config/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-config/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Config\Processor;
+namespace LaminasTest\Config\Processor;
 
+use Laminas\Config\Config;
+use Laminas\Config\Processor\Constant as ConstantProcessor;
 use PHPUnit\Framework\TestCase;
-use Zend\Config\Config;
-use Zend\Config\Processor\Constant as ConstantProcessor;
 
 class ConstantTest extends TestCase
 {
@@ -17,14 +18,14 @@ class ConstantTest extends TestCase
 
     public function constantProvider()
     {
-        if (! defined('ZEND_CONFIG_PROCESSOR_CONSTANT_TEST')) {
-            define('ZEND_CONFIG_PROCESSOR_CONSTANT_TEST', 'test-key');
+        if (! defined('LAMINAS_CONFIG_PROCESSOR_CONSTANT_TEST')) {
+            define('LAMINAS_CONFIG_PROCESSOR_CONSTANT_TEST', 'test-key');
         }
 
         // @codingStandardsIgnoreStart
         //                                    constantString,                        constantValue
         return [
-            'constant'                    => ['ZEND_CONFIG_PROCESSOR_CONSTANT_TEST', ZEND_CONFIG_PROCESSOR_CONSTANT_TEST],
+            'constant'                    => ['LAMINAS_CONFIG_PROCESSOR_CONSTANT_TEST', LAMINAS_CONFIG_PROCESSOR_CONSTANT_TEST],
             'class-constant'              => [__CLASS__ . '::CONFIG_TEST',           self::CONFIG_TEST],
             'class-pseudo-constant'       => [__CLASS__ . '::class',                 self::class],
             'class-pseudo-constant-upper' => [__CLASS__ . '::CLASS',                 self::class],
