@@ -1,17 +1,16 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-config for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-config/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-config/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Config\Reader;
+namespace Laminas\Config\Reader;
 
-use Zend\Config\Exception;
-use Zend\Json\Exception as JsonException;
-use Zend\Json\Json as JsonFormat;
+use Laminas\Config\Exception;
+use Laminas\Json\Exception as JsonException;
+use Laminas\Json\Json as JsonFormat;
 
 /**
  * JSON config reader.
