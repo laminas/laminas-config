@@ -2,15 +2,12 @@ docs_dir: docs/book
 site_dir: docs/html
 nav:
     - index.md
-    - Introduction: intro.md
-    - "Theory of Operation": theory.md
-    - Reference:
-      - "Laminas\\Config\\Reader": reader.md
-      - "Laminas\\Config\\Writer": writer.md
-      - "Laminas\\Config\\Processor": processor.md
-      - "Config Factory": factory.md
-      - Migration:
-        - "To version 3": migration/to-v3.md
+    - { Introduction: intro.md }
+    - { 'Theory of Operation': theory.md }
+    - { Reference: [{ Laminas\Config\Reader: reader.md }, { Laminas\Config\Writer: writer.md }, { Laminas\Config\Processor: processor.md }, { 'Config Factory': factory.md }, { Migration: [{ 'To version 3': migration/to-v3.md }] }] }
 site_name: laminas-config
 site_description: Laminas\Config
 repo_url: 'https://github.com/laminas/laminas-config'
+extra:
+    project: Components
+    project_url: 'https://docs.laminas.dev'
