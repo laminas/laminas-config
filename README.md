@@ -1,6 +1,6 @@
 # laminas-config
 
-[![Build Status](https://travis-ci.org/laminas/laminas-config.svg?branch=master)](https://travis-ci.org/laminas/laminas-config)
+[![Build Status](https://travis-ci.com/laminas/laminas-config.svg?branch=master)](https://travis-ci.com/laminas/laminas-config)
 [![Coverage Status](https://coveralls.io/repos/github/laminas/laminas-config/badge.svg?branch=master)](https://coveralls.io/github/laminas/laminas-config?branch=master)
 
 laminas-config is designed to simplify access to configuration data within
