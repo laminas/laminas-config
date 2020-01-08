@@ -1,7 +1,7 @@
 docs_dir: docs/book
 site_dir: docs/html
 nav:
-    - index.md
+    - Home: index.md
     - Introduction: intro.md
     - "Theory of Operation": theory.md
     - Reference:
@@ -16,4 +16,3 @@ site_description: Laminas\Config
 repo_url: 'https://github.com/laminas/laminas-config'
 extra:
     project: Components
-    project_url: 'https://docs.laminas.dev'
