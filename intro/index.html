@@ -20,7 +20,7 @@
     <div class="container">
         
         <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
-            <img src="../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+            <img src="../img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
             Documentation
@@ -36,13 +36,17 @@
             
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
@@ -61,20 +65,6 @@
         <h5 class="subnavigation__subtitle">Table of Contents</h5>
 
         <ul class="subnavigation__list">
-            
-
-                
-                
-
-                    
-                    
-                        
-                            <li class="subnavigation__list-item ">
-                                <a href=".." class="subnavigation__link">laminas-config</a>
-                            </li>
-                        
-                    
-                
             
 
                 
@@ -277,56 +267,52 @@ stored in INI, JSON, YAML, and XML files.</p>
 configuration file, but if configuration data is available in a PHP array, one
 may simply pass the data to <code>Laminas\Config\Config</code>'s constructor in order to
 utilize a simple object-oriented interface:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>// An array of configuration data is given</span>
-<span class=x>$configArray = [</span>
-<span class=x>    &#39;webhost&#39;  =&gt; &#39;www.example.com&#39;,</span>
-<span class=x>    &#39;database&#39; =&gt; [</span>
-<span class=x>        &#39;adapter&#39; =&gt; &#39;pdo_mysql&#39;,</span>
-<span class=x>        &#39;params&#39;  =&gt; [</span>
-<span class=x>            &#39;host&#39;     =&gt; &#39;db.example.com&#39;,</span>
-<span class=x>            &#39;username&#39; =&gt; &#39;dbuser&#39;,</span>
-<span class=x>            &#39;password&#39; =&gt; &#39;secret&#39;,</span>
-<span class=x>            &#39;dbname&#39;   =&gt; &#39;mydatabase&#39;,</span>
-<span class=x>        ],</span>
-<span class=x>    ],</span>
-<span class=x>];</span>
+<pre class=codehilite><code class=language-php>// An array of configuration data is given
+$configArray = [
+    'webhost'  =&gt; 'www.example.com',
+    'database' =&gt; [
+        'adapter' =&gt; 'pdo_mysql',
+        'params'  =&gt; [
+            'host'     =&gt; 'db.example.com',
+            'username' =&gt; 'dbuser',
+            'password' =&gt; 'secret',
+            'dbname'   =&gt; 'mydatabase',
+        ],
+    ],
+];
 
-<span class=x>// Create the object-oriented wrapper using the configuration data</span>
-<span class=x>$config = new Laminas\Config\Config($configArray);</span>
+// Create the object-oriented wrapper using the configuration data
+$config = new Laminas\Config\Config($configArray);
 
-<span class=x>// Print a configuration datum (results in &#39;www.example.com&#39;)</span>
-<span class=x>echo $config-&gt;webhost;</span>
-</pre></div></p>
+// Print a configuration datum (results in 'www.example.com')
+echo $config-&gt;webhost;</code></pre>
 <p>As illustrated in the example above, <code>Laminas\Config\Config</code> provides nested object
 property syntax to access configuration data passed to its constructor.</p>
 <p>Along with the object-oriented access to the data values, <code>Laminas\Config\Config</code>
 also has a <code>get()</code> method that accepts a default value to return if the data
 element requested doesn't exist in the configuration array. For example:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>$host = $config-&gt;database-&gt;get(&#39;host&#39;, &#39;localhost&#39;);</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>$host = $config-&gt;database-&gt;get('host', 'localhost');</code></pre>
 <h2 id="using-php-configuration-files">Using PHP Configuration Files</h2>
 <p>PHP-based configuration files are often recommended due to the speed with which
 they are parsed, and the fact that they can be cached by opcode caches.</p>
 <p>The following code illustrates how to use PHP configuration files:</p>
-<div class=md-fenced-code-tabs id=tab-tab-group-2><ul class="nav nav-tabs"><li class=nav-item><a class="nav-link active" href=#tab-group-2-0_php-panel role=tab id=tab-group-2-0_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-2-0_php-panel aria-selected=true>Php</a></li><li class=nav-item><a class="nav-link " href=#tab-group-2-1_php-panel role=tab id=tab-group-2-1_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-2-1_php-panel aria-selected=false>Php</a></li></ul><div class=tab-content><div id=tab-group-2-0_php-panel class="tab-pane show active" role=tabpanel aria-labelledby=tab-group-2-0_php-tab><div class=codehilite><pre><span></span><span class=x>// config.php</span>
-<span class=x>return [</span>
-<span class=x>    &#39;webhost&#39;  =&gt; &#39;www.example.com&#39;,</span>
-<span class=x>    &#39;database&#39; =&gt; [</span>
-<span class=x>        &#39;adapter&#39; =&gt; &#39;pdo_mysql&#39;,</span>
-<span class=x>        &#39;params&#39;  =&gt; [</span>
-<span class=x>            &#39;host&#39;     =&gt; &#39;db.example.com&#39;,</span>
-<span class=x>            &#39;username&#39; =&gt; &#39;dbuser&#39;,</span>
-<span class=x>            &#39;password&#39; =&gt; &#39;secret&#39;,</span>
-<span class=x>            &#39;dbname&#39;   =&gt; &#39;mydatabase&#39;,</span>
-<span class=x>        ],</span>
-<span class=x>    ],</span>
-<span class=x>];</span>
-</pre></div></div><div id=tab-group-2-1_php-panel class="tab-pane " role=tabpanel aria-labelledby=tab-group-2-1_php-tab><div class=codehilite><pre><span></span><span class=x>// Consumes the configuration array</span>
-<span class=x>$config = new Laminas\Config\Config(include &#39;config.php&#39;);</span>
+<div class=md-fenced-code-tabs id=tab-tab-group-2><ul class="nav nav-tabs"><li class=nav-item><a class="nav-link active" href=#tab-group-2-0_php-panel role=tab id=tab-group-2-0_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-2-0_php-panel aria-selected=true>Php</a></li><li class=nav-item><a class="nav-link " href=#tab-group-2-1_php-panel role=tab id=tab-group-2-1_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-2-1_php-panel aria-selected=false>Php</a></li></ul><div class=tab-content><div id=tab-group-2-0_php-panel class="tab-pane show active" role=tabpanel aria-labelledby=tab-group-2-0_php-tab><pre class=codehilite><code class=language-php>// config.php
+return [
+    'webhost'  =&gt; 'www.example.com',
+    'database' =&gt; [
+        'adapter' =&gt; 'pdo_mysql',
+        'params'  =&gt; [
+            'host'     =&gt; 'db.example.com',
+            'username' =&gt; 'dbuser',
+            'password' =&gt; 'secret',
+            'dbname'   =&gt; 'mydatabase',
+        ],
+    ],
+];</code></pre></div><div id=tab-group-2-1_php-panel class="tab-pane " role=tabpanel aria-labelledby=tab-group-2-1_php-tab><pre class=codehilite><code class=language-php>// Consumes the configuration array
+$config = new Laminas\Config\Config(include 'config.php');
 
-<span class=x>// Print a configuration datum (results in &#39;www.example.com&#39;)</span>
-<span class=x>echo $config-&gt;webhost;</span>
-</pre></div></div></div></div>
+// Print a configuration datum (results in 'www.example.com')
+echo $config-&gt;webhost;</code></pre></div></div></div>
 
 
 
@@ -387,20 +373,6 @@ they are parsed, and the fact that they can be cached by opcode caches.</p>
         <h5 class="subnavigation__subtitle">Table of Contents</h5>
 
         <ul class="subnavigation__list">
-            
-
-                
-                
-
-                    
-                    
-                        
-                            <li class="subnavigation__list-item ">
-                                <a href=".." class="subnavigation__link">laminas-config</a>
-                            </li>
-                        
-                    
-                
             
 
                 
@@ -509,9 +481,10 @@ they are parsed, and the fact that they can be cached by opcode caches.</p>
             <div class="col-md-7 offset-md-2">
                 <h5>Laminas</h5>
                 <ul>
-                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
-                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
-                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
                 </ul>
             </div>
         </div>
@@ -548,7 +521,7 @@ they are parsed, and the fact that they can be cached by opcode caches.</p>
                 <h4 class="footer__headline">License</h4>
                 <p>
                     Code licensed under <a
-                        href="https://github.com/laminas/laminas-config//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                        href="https://github.com/laminas/laminas-config/blob/master/LICENSE.md">BSD 3-Clause</a>.
                 </p>
             </div>
 
@@ -557,8 +530,8 @@ they are parsed, and the fact that they can be cached by opcode caches.</p>
                 <h4 class="footer__headline">Copyright</h4>
                 <p>
                     <!--Built with love by the Laminas team with the help of our
-                    <a href="https://github.com/laminas/laminas-config//graphs/contributors">contributors</a>.<br>-->
-                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                    <a href="https://github.com/laminas/laminas-config/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
                 </p>
             </div>
         </div>

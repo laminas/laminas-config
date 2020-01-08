@@ -20,7 +20,7 @@
     <div class="container">
         
         <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
-            <img src="../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+            <img src="../img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
             Documentation
@@ -36,13 +36,17 @@
             
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
@@ -61,20 +65,6 @@
         <h5 class="subnavigation__subtitle">Table of Contents</h5>
 
         <ul class="subnavigation__list">
-            
-
-                
-                
-
-                    
-                    
-                        
-                            <li class="subnavigation__list-item ">
-                                <a href=".." class="subnavigation__link">laminas-config</a>
-                            </li>
-                        
-                    
-                
             
 
                 
@@ -291,41 +281,38 @@ configuration sections to separate files, you should separate them manually.</p>
 </blockquote>
 <h2 id="loading-configuration-files">Loading configuration files</h2>
 <p>The first example illustrates loading a single configuration file:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>// Load a PHP file as array:</span>
-<span class=x>$config = Laminas\Config\Factory::fromFile(__DIR__ . &#39;/config/my.config.php&#39;);</span>
+<pre class=codehilite><code class=language-php>// Load a PHP file as array:
+$config = Laminas\Config\Factory::fromFile(__DIR__ . '/config/my.config.php');
 
-<span class=x>// Load an XML file as Config object; the second parameter, when true,</span>
-<span class=x>// casts the configuration to a Config instance:</span>
-<span class=x>$config = Laminas\Config\Factory::fromFile(__DIR__.&#39;/config/my.config.xml&#39;, true);</span>
-</pre></div></p>
+// Load an XML file as Config object; the second parameter, when true,
+// casts the configuration to a Config instance:
+$config = Laminas\Config\Factory::fromFile(__DIR__.'/config/my.config.xml', true);</code></pre>
 <p>The next example demonstrates merging multiple files; note that they are in
 separate formats!</p>
-<p> <div class=codehilite><pre><span></span><span class=x>$config = Laminas\Config\Factory::fromFiles([</span>
-<span class=x>    __DIR__.&#39;/config/my.config.php&#39;,</span>
-<span class=x>    __DIR__.&#39;/config/my.config.xml&#39;,</span>
-<span class=x>]);</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>$config = Laminas\Config\Factory::fromFiles([
+    __DIR__.'/config/my.config.php',
+    __DIR__.'/config/my.config.xml',
+]);</code></pre>
 <h2 id="storing-configuration">Storing configuration</h2>
 <p>Sometimes you may want to write configuration to a file. To do this, use the
 factory's <code>toFile()</code> method:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>$config = new Laminas\Config\Config([], true);</span>
-<span class=x>$config-&gt;settings = [];</span>
-<span class=x>$config-&gt;settings-&gt;myname = &#39;framework&#39;;</span>
-<span class=x>$config-&gt;settings-&gt;date   = &#39;2012-12-12 12:12:12&#39;;</span>
+<pre class=codehilite><code class=language-php>$config = new Laminas\Config\Config([], true);
+$config-&gt;settings = [];
+$config-&gt;settings-&gt;myname = 'framework';
+$config-&gt;settings-&gt;date   = '2012-12-12 12:12:12';
 
-<span class=x>//Store the configuration</span>
-<span class=x>Laminas\Config\Factory::toFile(__DIR__ . &#39;/config/my.config.php&#39;, $config);</span>
+//Store the configuration
+Laminas\Config\Factory::toFile(__DIR__ . '/config/my.config.php', $config);
 
-<span class=x>//Store an array</span>
-<span class=x>$config = [</span>
-<span class=x>    &#39;settings&#39; =&gt; [</span>
-<span class=x>        &#39;myname&#39; =&gt; &#39;framework&#39;,</span>
-<span class=x>        &#39;data&#39;   =&gt; &#39;2012-12-12 12:12:12&#39;,</span>
-<span class=x>    ],</span>
-<span class=x>];</span>
+//Store an array
+$config = [
+    'settings' =&gt; [
+        'myname' =&gt; 'framework',
+        'data'   =&gt; '2012-12-12 12:12:12',
+    ],
+];
 
-<span class=x>Laminas\Config\Factory::toFile(__DIR__ . &#39;/config/my.config.php&#39;, $config);</span>
-</pre></div></p>
+Laminas\Config\Factory::toFile(__DIR__ . '/config/my.config.php', $config);</code></pre>
 
 
 
@@ -386,20 +373,6 @@ factory's <code>toFile()</code> method:</p>
         <h5 class="subnavigation__subtitle">Table of Contents</h5>
 
         <ul class="subnavigation__list">
-            
-
-                
-                
-
-                    
-                    
-                        
-                            <li class="subnavigation__list-item ">
-                                <a href=".." class="subnavigation__link">laminas-config</a>
-                            </li>
-                        
-                    
-                
             
 
                 
@@ -508,9 +481,10 @@ factory's <code>toFile()</code> method:</p>
             <div class="col-md-7 offset-md-2">
                 <h5>Laminas</h5>
                 <ul>
-                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
-                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
-                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
                 </ul>
             </div>
         </div>
@@ -547,7 +521,7 @@ factory's <code>toFile()</code> method:</p>
                 <h4 class="footer__headline">License</h4>
                 <p>
                     Code licensed under <a
-                        href="https://github.com/laminas/laminas-config//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                        href="https://github.com/laminas/laminas-config/blob/master/LICENSE.md">BSD 3-Clause</a>.
                 </p>
             </div>
 
@@ -556,8 +530,8 @@ factory's <code>toFile()</code> method:</p>
                 <h4 class="footer__headline">Copyright</h4>
                 <p>
                     <!--Built with love by the Laminas team with the help of our
-                    <a href="https://github.com/laminas/laminas-config//graphs/contributors">contributors</a>.<br>-->
-                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                    <a href="https://github.com/laminas/laminas-config/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
                 </p>
             </div>
         </div>

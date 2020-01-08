@@ -20,7 +20,7 @@
     <div class="container">
         
         <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
-            <img src="../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+            <img src="../img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
             Documentation
@@ -36,13 +36,17 @@
             
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
@@ -61,20 +65,6 @@
         <h5 class="subnavigation__subtitle">Table of Contents</h5>
 
         <ul class="subnavigation__list">
-            
-
-                
-                
-
-                    
-                    
-                        
-                            <li class="subnavigation__list-item ">
-                                <a href=".." class="subnavigation__link">laminas-config</a>
-                            </li>
-                        
-                    
-                
             
 
                 
@@ -321,29 +311,27 @@ create a section in the root or to create a branch, just create a new array
 (<code>$config-&gt;branch = [];</code>).</p>
 <h3>Using Laminas\Config\Writer\Ini</h3>
 <p>Consider the following code, which creates a configuration structure:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>// Create the config object</span>
-<span class=x>$config = new Laminas\Config\Config([], true);</span>
-<span class=x>$config-&gt;production = [];</span>
+<pre class=codehilite><code class=language-php>// Create the config object
+$config = new Laminas\Config\Config([], true);
+$config-&gt;production = [];
 
-<span class=x>$config-&gt;production-&gt;webhost = &#39;www.example.com&#39;;</span>
-<span class=x>$config-&gt;production-&gt;database = [];</span>
-<span class=x>$config-&gt;production-&gt;database-&gt;params = [];</span>
-<span class=x>$config-&gt;production-&gt;database-&gt;params-&gt;host = &#39;localhost&#39;;</span>
-<span class=x>$config-&gt;production-&gt;database-&gt;params-&gt;username = &#39;production&#39;;</span>
-<span class=x>$config-&gt;production-&gt;database-&gt;params-&gt;password = &#39;secret&#39;;</span>
-<span class=x>$config-&gt;production-&gt;database-&gt;params-&gt;dbname = &#39;dbproduction&#39;;</span>
+$config-&gt;production-&gt;webhost = 'www.example.com';
+$config-&gt;production-&gt;database = [];
+$config-&gt;production-&gt;database-&gt;params = [];
+$config-&gt;production-&gt;database-&gt;params-&gt;host = 'localhost';
+$config-&gt;production-&gt;database-&gt;params-&gt;username = 'production';
+$config-&gt;production-&gt;database-&gt;params-&gt;password = 'secret';
+$config-&gt;production-&gt;database-&gt;params-&gt;dbname = 'dbproduction';
 
-<span class=x>$writer = new Laminas\Config\Writer\Ini();</span>
-<span class=x>echo $writer-&gt;toString($config);</span>
-</pre></div></p>
+$writer = new Laminas\Config\Writer\Ini();
+echo $writer-&gt;toString($config);</code></pre>
 <p>The result of this code is the following INI string:</p>
-<p> <div class=codehilite><pre><span></span><span class=k>[production]</span>
-<span class=na>webhost</span> <span class=o>=</span> <span class=s>&quot;www.example.com&quot;</span>
-<span class=na>database.params.host</span> <span class=o>=</span> <span class=s>&quot;localhost&quot;</span>
-<span class=na>database.params.username</span> <span class=o>=</span> <span class=s>&quot;production&quot;</span>
-<span class=na>database.params.password</span> <span class=o>=</span> <span class=s>&quot;secret&quot;</span>
-<span class=na>database.params.dbname</span> <span class=o>=</span> <span class=s>&quot;dbproduction&quot;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-ini>[production]
+webhost = &quot;www.example.com&quot;
+database.params.host = &quot;localhost&quot;
+database.params.username = &quot;production&quot;
+database.params.password = &quot;secret&quot;
+database.params.dbname = &quot;dbproduction&quot;</code></pre>
 <p>You can use the method <code>toFile()</code> to store the INI data to a file instead.</p>
 <h2 id="laminas92config92writer92javaproperties">Laminas\Config\Writer\JavaProperties</h2>
 <ul>
@@ -357,147 +345,137 @@ are separated. The default is a single colon (<code>:</code>), such as is accept
 <code>Laminas\Config\Reader\JavaProperties</code> by default.</p>
 <h3>Using Laminas\Config\Writer\JavaProperties</h3>
 <p>Consider the following code, creating configuration:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>// Create the config object</span>
-<span class=x>$config = new Laminas\Config\Config([], true);</span>
+<pre class=codehilite><code class=language-php>// Create the config object
+$config = new Laminas\Config\Config([], true);
 
-<span class=x>$config-&gt;webhost             = &#39;www.example.com&#39;; // use object notation</span>
-<span class=x>$config[&#39;database.host&#39;]     = &#39;localhost&#39;;       // or array notation, for complex key names</span>
-<span class=x>$config[&#39;database.username&#39;] = &#39;production&#39;;</span>
-<span class=x>$config[&#39;database.password&#39;] = &#39;secret&#39;;</span>
-<span class=x>$config[&#39;database.dbname&#39;]   = &#39;dbproduction&#39;;</span>
+$config-&gt;webhost             = 'www.example.com'; // use object notation
+$config['database.host']     = 'localhost';       // or array notation, for complex key names
+$config['database.username'] = 'production';
+$config['database.password'] = 'secret';
+$config['database.dbname']   = 'dbproduction';
 
-<span class=x>$writer = new Laminas\Config\Writer\JavaProperties();</span>
-<span class=x>echo $writer-&gt;toString($config);</span>
-</pre></div></p>
+$writer = new Laminas\Config\Writer\JavaProperties();
+echo $writer-&gt;toString($config);</code></pre>
 <p>The result of this code is the following JavaProperties string:</p>
-<p> <div class=codehilite><pre><span></span><span class=na>webhost</span><span class=o>:</span><span class=s>www.example.com</span>
-<span class=na>database.host</span><span class=o>:</span><span class=s>localhost</span>
-<span class=na>database.username</span><span class=o>:</span><span class=s>production</span>
-<span class=na>database.password</span><span class=o>:</span><span class=s>secret</span>
-<span class=na>database.dbname</span><span class=o>:</span><span class=s>dbproduction</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-properties>webhost:www.example.com
+database.host:localhost
+database.username:production
+database.password:secret
+database.dbname:dbproduction</code></pre>
 <p>You can use the method <code>toFile()</code> to store the JavaProperties data to a file instead.</p>
 <h3>Using an alternate delimiter</h3>
 <p>If you want to use an alternate delimiter, such as <code>=</code>, pass it to the
 constructor:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>$writer = new Laminas\Config\Writer\JavaProperties(&#39;=&#39;);</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>$writer = new Laminas\Config\Writer\JavaProperties('=');</code></pre>
 <p>Using the above configuration, we would now receive:</p>
-<p> <div class=codehilite><pre><span></span><span class=na>webhost</span><span class=o>=</span><span class=s>www.example.com</span>
-<span class=na>database.host</span><span class=o>=</span><span class=s>localhost</span>
-<span class=na>database.username</span><span class=o>=</span><span class=s>production</span>
-<span class=na>database.password</span><span class=o>=</span><span class=s>secret</span>
-<span class=na>database.dbname</span><span class=o>=</span><span class=s>dbproduction</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-properties>webhost=www.example.com
+database.host=localhost
+database.username=production
+database.password=secret
+database.dbname=dbproduction</code></pre>
 <h2 id="laminas92config92writer92xml">Laminas\Config\Writer\Xml</h2>
 <p><code>Laminas\Config\Writer\Xml</code> can be used to generate an XML string or file.</p>
 <h3>Using Laminas\Config\Writer\Xml</h3>
 <p>Consider the following code, which creates a configuration structure:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>// Create the config object</span>
-<span class=x>$config = new Laminas\Config\Config([], true);</span>
-<span class=x>$config-&gt;production = [];</span>
+<pre class=codehilite><code class=language-php>// Create the config object
+$config = new Laminas\Config\Config([], true);
+$config-&gt;production = [];
 
-<span class=x>$config-&gt;production-&gt;webhost = &#39;www.example.com&#39;;</span>
-<span class=x>$config-&gt;production-&gt;database = [];</span>
-<span class=x>$config-&gt;production-&gt;database-&gt;params = [];</span>
-<span class=x>$config-&gt;production-&gt;database-&gt;params-&gt;host = &#39;localhost&#39;;</span>
-<span class=x>$config-&gt;production-&gt;database-&gt;params-&gt;username = &#39;production&#39;;</span>
-<span class=x>$config-&gt;production-&gt;database-&gt;params-&gt;password = &#39;secret&#39;;</span>
-<span class=x>$config-&gt;production-&gt;database-&gt;params-&gt;dbname = &#39;dbproduction&#39;;</span>
+$config-&gt;production-&gt;webhost = 'www.example.com';
+$config-&gt;production-&gt;database = [];
+$config-&gt;production-&gt;database-&gt;params = [];
+$config-&gt;production-&gt;database-&gt;params-&gt;host = 'localhost';
+$config-&gt;production-&gt;database-&gt;params-&gt;username = 'production';
+$config-&gt;production-&gt;database-&gt;params-&gt;password = 'secret';
+$config-&gt;production-&gt;database-&gt;params-&gt;dbname = 'dbproduction';
 
-<span class=x>$writer = new Laminas\Config\Writer\Xml();</span>
-<span class=x>echo $writer-&gt;toString($config);</span>
-</pre></div></p>
+$writer = new Laminas\Config\Writer\Xml();
+echo $writer-&gt;toString($config);</code></pre>
 <p>The result of this code is the following XML string:</p>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
-<span class=nt>&lt;laminas-config&gt;</span>
-    <span class=nt>&lt;production&gt;</span>
-        <span class=nt>&lt;webhost&gt;</span>www.example.com<span class=nt>&lt;/webhost&gt;</span>
-        <span class=nt>&lt;database&gt;</span>
-            <span class=nt>&lt;params&gt;</span>
-                <span class=nt>&lt;host&gt;</span>localhost<span class=nt>&lt;/host&gt;</span>
-                <span class=nt>&lt;username&gt;</span>production<span class=nt>&lt;/username&gt;</span>
-                <span class=nt>&lt;password&gt;</span>secret<span class=nt>&lt;/password&gt;</span>
-                <span class=nt>&lt;dbname&gt;</span>dbproduction<span class=nt>&lt;/dbname&gt;</span>
-            <span class=nt>&lt;/params&gt;</span>
-        <span class=nt>&lt;/database&gt;</span>
-    <span class=nt>&lt;/production&gt;</span>
-<span class=nt>&lt;/laminas-config&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-xml>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;laminas-config&gt;
+    &lt;production&gt;
+        &lt;webhost&gt;www.example.com&lt;/webhost&gt;
+        &lt;database&gt;
+            &lt;params&gt;
+                &lt;host&gt;localhost&lt;/host&gt;
+                &lt;username&gt;production&lt;/username&gt;
+                &lt;password&gt;secret&lt;/password&gt;
+                &lt;dbname&gt;dbproduction&lt;/dbname&gt;
+            &lt;/params&gt;
+        &lt;/database&gt;
+    &lt;/production&gt;
+&lt;/laminas-config&gt;</code></pre>
 <p>You can use the method <code>toFile()</code> to store the XML data to a file.</p>
 <h2 id="laminas92config92writer92phparray">Laminas\Config\Writer\PhpArray</h2>
 <p><code>Laminas\Config\Writer\PhpArray</code> can be used to generate a PHP script that
 represents and returns configuration.</p>
 <h3>Using Laminas\Config\Writer\PhpArray</h3>
 <p>Consider the following code, which creates a configuration structure:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>// Create the config object</span>
-<span class=x>$config = new Laminas\Config\Config([], true);</span>
-<span class=x>$config-&gt;production = [];</span>
+<pre class=codehilite><code class=language-php>// Create the config object
+$config = new Laminas\Config\Config([], true);
+$config-&gt;production = [];
 
-<span class=x>$config-&gt;production-&gt;webhost = &#39;www.example.com&#39;;</span>
-<span class=x>$config-&gt;production-&gt;database = [];</span>
-<span class=x>$config-&gt;production-&gt;database-&gt;params = [];</span>
-<span class=x>$config-&gt;production-&gt;database-&gt;params-&gt;host = &#39;localhost&#39;;</span>
-<span class=x>$config-&gt;production-&gt;database-&gt;params-&gt;username = &#39;production&#39;;</span>
-<span class=x>$config-&gt;production-&gt;database-&gt;params-&gt;password = &#39;secret&#39;;</span>
-<span class=x>$config-&gt;production-&gt;database-&gt;params-&gt;dbname = &#39;dbproduction&#39;;</span>
+$config-&gt;production-&gt;webhost = 'www.example.com';
+$config-&gt;production-&gt;database = [];
+$config-&gt;production-&gt;database-&gt;params = [];
+$config-&gt;production-&gt;database-&gt;params-&gt;host = 'localhost';
+$config-&gt;production-&gt;database-&gt;params-&gt;username = 'production';
+$config-&gt;production-&gt;database-&gt;params-&gt;password = 'secret';
+$config-&gt;production-&gt;database-&gt;params-&gt;dbname = 'dbproduction';
 
-<span class=x>$writer = new Laminas\Config\Writer\PhpArray();</span>
-<span class=x>echo $writer-&gt;toString($config);</span>
-</pre></div></p>
+$writer = new Laminas\Config\Writer\PhpArray();
+echo $writer-&gt;toString($config);</code></pre>
 <p>The result of this code is the following PHP script:</p>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?php</span>
-<span class=k>return</span> <span class=p>[</span>
-  <span class=s1>&#39;production&#39;</span> <span class=o>=&gt;</span>
-  <span class=p>[</span>
-    <span class=s1>&#39;webhost&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;www.example.com&#39;</span><span class=p>,</span>
-    <span class=s1>&#39;database&#39;</span> <span class=o>=&gt;</span>
-    <span class=p>[</span>
-      <span class=s1>&#39;params&#39;</span> <span class=o>=&gt;</span>
-      <span class=p>[</span>
-        <span class=s1>&#39;host&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;localhost&#39;</span><span class=p>,</span>
-        <span class=s1>&#39;username&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;production&#39;</span><span class=p>,</span>
-        <span class=s1>&#39;password&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;secret&#39;</span><span class=p>,</span>
-        <span class=s1>&#39;dbname&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;dbproduction&#39;</span><span class=p>,</span>
-      <span class=p>],</span>
-    <span class=p>],</span>
-  <span class=p>],</span>
-<span class=p>];</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>&lt;?php
+return [
+  'production' =&gt;
+  [
+    'webhost' =&gt; 'www.example.com',
+    'database' =&gt;
+    [
+      'params' =&gt;
+      [
+        'host' =&gt; 'localhost',
+        'username' =&gt; 'production',
+        'password' =&gt; 'secret',
+        'dbname' =&gt; 'dbproduction',
+      ],
+    ],
+  ],
+];</code></pre>
 <p>You can use the method <code>toFile()</code> to save the PHP script to a file.</p>
 <h2 id="laminas92config92writer92json">Laminas\Config\Writer\Json</h2>
 <p><code>Laminas\Config\Writer\Json</code> can be used to generate a JSON representation of
 configuration.</p>
 <h3>Using Laminas\Config\Writer\Json</h3>
 <p>Consider the following code, which creates a configuration structure:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>// Create the config object</span>
-<span class=x>$config = new Laminas\Config\Config([], true);</span>
-<span class=x>$config-&gt;production = [];</span>
+<pre class=codehilite><code class=language-php>// Create the config object
+$config = new Laminas\Config\Config([], true);
+$config-&gt;production = [];
 
-<span class=x>$config-&gt;production-&gt;webhost = &#39;www.example.com&#39;;</span>
-<span class=x>$config-&gt;production-&gt;database = [];</span>
-<span class=x>$config-&gt;production-&gt;database-&gt;params = [];</span>
-<span class=x>$config-&gt;production-&gt;database-&gt;params-&gt;host = &#39;localhost&#39;;</span>
-<span class=x>$config-&gt;production-&gt;database-&gt;params-&gt;username = &#39;production&#39;;</span>
-<span class=x>$config-&gt;production-&gt;database-&gt;params-&gt;password = &#39;secret&#39;;</span>
-<span class=x>$config-&gt;production-&gt;database-&gt;params-&gt;dbname = &#39;dbproduction&#39;;</span>
+$config-&gt;production-&gt;webhost = 'www.example.com';
+$config-&gt;production-&gt;database = [];
+$config-&gt;production-&gt;database-&gt;params = [];
+$config-&gt;production-&gt;database-&gt;params-&gt;host = 'localhost';
+$config-&gt;production-&gt;database-&gt;params-&gt;username = 'production';
+$config-&gt;production-&gt;database-&gt;params-&gt;password = 'secret';
+$config-&gt;production-&gt;database-&gt;params-&gt;dbname = 'dbproduction';
 
-<span class=x>$writer = new Laminas\Config\Writer\Json();</span>
-<span class=x>echo $writer-&gt;toString($config);</span>
-</pre></div></p>
+$writer = new Laminas\Config\Writer\Json();
+echo $writer-&gt;toString($config);</code></pre>
 <p>The result of this code is the following JSON string:</p>
-<p> <div class=codehilite><pre><span></span><span class=p>{</span>
-  <span class=nt>&quot;webhost&quot;</span><span class=p>:</span> <span class=s2>&quot;www.example.com&quot;</span><span class=p>,</span>
-  <span class=nt>&quot;database&quot;</span><span class=p>:</span> <span class=p>{</span>
-    <span class=nt>&quot;params&quot;</span><span class=p>:</span> <span class=p>{</span>
-      <span class=nt>&quot;host&quot;</span><span class=p>:</span> <span class=s2>&quot;localhost&quot;</span><span class=p>,</span>
-      <span class=nt>&quot;username&quot;</span><span class=p>:</span> <span class=s2>&quot;production&quot;</span><span class=p>,</span>
-      <span class=nt>&quot;password&quot;</span><span class=p>:</span> <span class=s2>&quot;secret&quot;</span><span class=p>,</span>
-      <span class=nt>&quot;dbname&quot;</span><span class=p>:</span> <span class=s2>&quot;dbproduction&quot;</span>
-    <span class=p>}</span>
-  <span class=p>}</span>
-<span class=p>}</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-json>{
+  &quot;webhost&quot;: &quot;www.example.com&quot;,
+  &quot;database&quot;: {
+    &quot;params&quot;: {
+      &quot;host&quot;: &quot;localhost&quot;,
+      &quot;username&quot;: &quot;production&quot;,
+      &quot;password&quot;: &quot;secret&quot;,
+      &quot;dbname&quot;: &quot;dbproduction&quot;
+    }
+  }
+}</code></pre>
 <p>You can use the method <code>toFile()</code> to save the JSON data to a file.</p>
 <p><code>Laminas\Config\Writer\Json</code> uses the laminas-json component to convert the data to
 JSON.</p>
@@ -509,41 +487,38 @@ callback to an external PHP library, or use the
 <h3>Using Laminas\Config\Writer\Yaml</h3>
 <p>Consider the following code, which creates a configuration structure using the
 YAML PECL extension:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>// Create the config object</span>
-<span class=x>$config = new Laminas\Config\Config([], true);</span>
-<span class=x>$config-&gt;production = [];</span>
+<pre class=codehilite><code class=language-php>// Create the config object
+$config = new Laminas\Config\Config([], true);
+$config-&gt;production = [];
 
-<span class=x>$config-&gt;production-&gt;webhost = &#39;www.example.com&#39;;</span>
-<span class=x>$config-&gt;production-&gt;database = [];</span>
-<span class=x>$config-&gt;production-&gt;database-&gt;params = [];</span>
-<span class=x>$config-&gt;production-&gt;database-&gt;params-&gt;host = &#39;localhost&#39;;</span>
-<span class=x>$config-&gt;production-&gt;database-&gt;params-&gt;username = &#39;production&#39;;</span>
-<span class=x>$config-&gt;production-&gt;database-&gt;params-&gt;password = &#39;secret&#39;;</span>
-<span class=x>$config-&gt;production-&gt;database-&gt;params-&gt;dbname = &#39;dbproduction&#39;;</span>
+$config-&gt;production-&gt;webhost = 'www.example.com';
+$config-&gt;production-&gt;database = [];
+$config-&gt;production-&gt;database-&gt;params = [];
+$config-&gt;production-&gt;database-&gt;params-&gt;host = 'localhost';
+$config-&gt;production-&gt;database-&gt;params-&gt;username = 'production';
+$config-&gt;production-&gt;database-&gt;params-&gt;password = 'secret';
+$config-&gt;production-&gt;database-&gt;params-&gt;dbname = 'dbproduction';
 
-<span class=x>$writer = new Laminas\Config\Writer\Yaml();</span>
-<span class=x>echo $writer-&gt;toString($config);</span>
-</pre></div></p>
+$writer = new Laminas\Config\Writer\Yaml();
+echo $writer-&gt;toString($config);</code></pre>
 <p>The result of this code is the following YAML string contains the following value:</p>
-<p> <div class=codehilite><pre><span></span><span class=nt>webhost</span><span class=p>:</span> <span class="l l-Scalar l-Scalar-Plain">www.example.com</span>
-<span class=nt>database</span><span class=p>:</span>
-    <span class=nt>params</span><span class=p>:</span>
-      <span class=nt>host</span><span class=p>:</span>     <span class="l l-Scalar l-Scalar-Plain">localhost</span>
-      <span class=nt>username</span><span class=p>:</span> <span class="l l-Scalar l-Scalar-Plain">production</span>
-      <span class=nt>password</span><span class=p>:</span> <span class="l l-Scalar l-Scalar-Plain">secret</span>
-      <span class=nt>dbname</span><span class=p>:</span>   <span class="l l-Scalar l-Scalar-Plain">dbproduction</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-yaml>webhost: www.example.com
+database:
+    params:
+      host:     localhost
+      username: production
+      password: secret
+      dbname:   dbproduction</code></pre>
 <p>You can use the method <code>toFile()</code> to save the YAML data to a file.</p>
 <p>If you want to use an external YAML writer library, pass the callback function
 that will generate the YAML from the configuration when instantiating the
 writer.  For instance, to use the <a href="https://github.com/mustangostang/spyc/">Spyc</a>
 library:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>// include the Spyc library</span>
-<span class=x>require_once &#39;path/to/spyc.php&#39;;</span>
+<pre class=codehilite><code class=language-php>// include the Spyc library
+require_once 'path/to/spyc.php';
 
-<span class=x>$writer = new Laminas\Config\Writer\Yaml([&#39;Spyc&#39;, &#39;YAMLDump&#39;]);</span>
-<span class=x>echo $writer-&gt;toString($config);</span>
-</pre></div></p>
+$writer = new Laminas\Config\Writer\Yaml(['Spyc', 'YAMLDump']);
+echo $writer-&gt;toString($config);</code></pre>
 
 
 
@@ -604,20 +579,6 @@ library:</p>
         <h5 class="subnavigation__subtitle">Table of Contents</h5>
 
         <ul class="subnavigation__list">
-            
-
-                
-                
-
-                    
-                    
-                        
-                            <li class="subnavigation__list-item ">
-                                <a href=".." class="subnavigation__link">laminas-config</a>
-                            </li>
-                        
-                    
-                
             
 
                 
@@ -726,9 +687,10 @@ library:</p>
             <div class="col-md-7 offset-md-2">
                 <h5>Laminas</h5>
                 <ul>
-                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
-                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
-                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
                 </ul>
             </div>
         </div>
@@ -765,7 +727,7 @@ library:</p>
                 <h4 class="footer__headline">License</h4>
                 <p>
                     Code licensed under <a
-                        href="https://github.com/laminas/laminas-config//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                        href="https://github.com/laminas/laminas-config/blob/master/LICENSE.md">BSD 3-Clause</a>.
                 </p>
             </div>
 
@@ -774,8 +736,8 @@ library:</p>
                 <h4 class="footer__headline">Copyright</h4>
                 <p>
                     <!--Built with love by the Laminas team with the help of our
-                    <a href="https://github.com/laminas/laminas-config//graphs/contributors">contributors</a>.<br>-->
-                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                    <a href="https://github.com/laminas/laminas-config/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
                 </p>
             </div>
         </div>

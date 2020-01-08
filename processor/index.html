@@ -20,7 +20,7 @@
     <div class="container">
         
         <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
-            <img src="../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+            <img src="../img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
             Documentation
@@ -36,13 +36,17 @@
             
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
@@ -61,20 +65,6 @@
         <h5 class="subnavigation__subtitle">Table of Contents</h5>
 
         <ul class="subnavigation__list">
-            
-
-                
-                
-
-                    
-                    
-                        
-                            <li class="subnavigation__list-item ">
-                                <a href=".." class="subnavigation__link">laminas-config</a>
-                            </li>
-                        
-                    
-                
             
 
                 
@@ -304,7 +294,7 @@ defining two methods: <code>process()</code> and <code>processValue()</code>.</p
 <p>Typically, you will process configuration <em>values</em>. However, there are use
 cases for supplying constant and/or token <em>keys</em>; one common one is for
 using class-based constants as keys to avoid using magic "strings":</p>
-<pre class=codehilite><code class=language-json>
+<pre class="codehilite"><code class="language-json">
 {
     &quot;Acme\\Compoment::CONFIG_KEY&quot;: {}
 }
@@ -317,154 +307,146 @@ calling <code>enableKeyProcessing()</code> on their instances, or passing a bool
 <h2 id="laminas92config92processor92constant">Laminas\Config\Processor\Constant</h2>
 <h3>Using Laminas\Config\Processor\Constant</h3>
 <p>This example illustrates the basic usage of <code>Laminas\Config\Processor\Constant</code>:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>define (&#39;TEST_CONST&#39;, &#39;bar&#39;);</span>
+<pre class=codehilite><code class=language-php>define ('TEST_CONST', 'bar');
 
-<span class=x>// Provide the second parameter as boolean true to allow modifications:</span>
-<span class=x>$config = new Laminas\Config\Config([&#39;foo&#39; =&gt; &#39;TEST_CONST&#39;], true);</span>
-<span class=x>$processor = new Laminas\Config\Processor\Constant();</span>
+// Provide the second parameter as boolean true to allow modifications:
+$config = new Laminas\Config\Config(['foo' =&gt; 'TEST_CONST'], true);
+$processor = new Laminas\Config\Processor\Constant();
 
-<span class=x>echo $config-&gt;foo . &#39;,&#39;;</span>
-<span class=x>$processor-&gt;process($config);</span>
-<span class=x>echo $config-&gt;foo;</span>
-</pre></div></p>
+echo $config-&gt;foo . ',';
+$processor-&gt;process($config);
+echo $config-&gt;foo;</code></pre>
 <p>This example returns the output: <code>TEST_CONST,bar</code>.</p>
 <p>As of version 3.1.0, you can also tell the <code>Constant</code> processor to process keys:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>// At instantiation:</span>
-<span class=x>$processor = new Laminas\Config\Processor\Constant(true, &#39;&#39;, &#39;&#39;, true);</span>
+<pre class=codehilite><code class=language-php>// At instantiation:
+$processor = new Laminas\Config\Processor\Constant(true, '', '', true);
 
-<span class=x>// Or later, via a method call:</span>
-<span class=x>$processor-&gt;enableKeyProcessing();</span>
-</pre></div></p>
+// Or later, via a method call:
+$processor-&gt;enableKeyProcessing();</code></pre>
 <p>When enabled, any constant values found in keys will also be replaced.</p>
 <h2 id="laminas92config92processor92filter">Laminas\Config\Processor\Filter</h2>
 <h3>Using Laminas\Config\Processor\Filter</h3>
 <p>This example illustrates basic usage of <code>Laminas\Config\Processor\Filter</code>:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Filter\StringToUpper;</span>
-<span class=x>use Laminas\Config\Processor\Filter as FilterProcessor;</span>
-<span class=x>use Laminas\Config\Config;</span>
+<pre class=codehilite><code class=language-php>use Laminas\Filter\StringToUpper;
+use Laminas\Config\Processor\Filter as FilterProcessor;
+use Laminas\Config\Config;
 
-<span class=x>// Provide the second parameter as boolean true to allow modifications:</span>
-<span class=x>$config = new Config([&#39;foo&#39; =&gt; &#39;bar&#39;], true);</span>
-<span class=x>$upper = new StringToUpper();</span>
+// Provide the second parameter as boolean true to allow modifications:
+$config = new Config(['foo' =&gt; 'bar'], true);
+$upper = new StringToUpper();
 
-<span class=x>$upperProcessor = new FilterProcessor($upper);</span>
+$upperProcessor = new FilterProcessor($upper);
 
-<span class=x>echo $config-&gt;foo . &#39;,&#39;;</span>
-<span class=x>$upperProcessor-&gt;process($config);</span>
-<span class=x>echo $config-&gt;foo;</span>
-</pre></div></p>
+echo $config-&gt;foo . ',';
+$upperProcessor-&gt;process($config);
+echo $config-&gt;foo;</code></pre>
 <p>This example returns the output: <code>bar,BAR</code>.</p>
 <h2 id="laminas92config92processor92queue">Laminas\Config\Processor\Queue</h2>
 <h3>Using Laminas\Config\Processor\Queue</h3>
 <p>This example illustrates basic usage of <code>Laminas\Config\Processor\Queue</code>:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Filter\StringToLower;</span>
-<span class=x>use Laminas\Filter\StringToUpper;</span>
-<span class=x>use Laminas\Config\Processor\Filter as FilterProcessor;</span>
-<span class=x>use Laminas\Config\Processor\Queue;</span>
-<span class=x>use Laminas\Config\Config;</span>
+<pre class=codehilite><code class=language-php>use Laminas\Filter\StringToLower;
+use Laminas\Filter\StringToUpper;
+use Laminas\Config\Processor\Filter as FilterProcessor;
+use Laminas\Config\Processor\Queue;
+use Laminas\Config\Config;
 
-<span class=x>// Provide the second parameter as boolean true to allow modifications:</span>
-<span class=x>$config = new Config([&#39;foo&#39; =&gt; &#39;bar&#39;], true);</span>
-<span class=x>$upper  = new StringToUpper();</span>
-<span class=x>$lower  = new StringToLower();</span>
+// Provide the second parameter as boolean true to allow modifications:
+$config = new Config(['foo' =&gt; 'bar'], true);
+$upper  = new StringToUpper();
+$lower  = new StringToLower();
 
-<span class=x>$lowerProcessor = new FilterProcessor($lower);</span>
-<span class=x>$upperProcessor = new FilterProcessor($upper);</span>
+$lowerProcessor = new FilterProcessor($lower);
+$upperProcessor = new FilterProcessor($upper);
 
-<span class=x>$queue = new Queue();</span>
-<span class=x>$queue-&gt;insert($upperProcessor);</span>
-<span class=x>$queue-&gt;insert($lowerProcessor);</span>
-<span class=x>$queue-&gt;process($config);</span>
+$queue = new Queue();
+$queue-&gt;insert($upperProcessor);
+$queue-&gt;insert($lowerProcessor);
+$queue-&gt;process($config);
 
-<span class=x>echo $config-&gt;foo;</span>
-</pre></div></p>
+echo $config-&gt;foo;</code></pre>
 <p>This example returns the output: <code>bar</code>. The filters in the queue are applied in
 <em>FIFO</em> (First In, First Out) order .</p>
 <h2 id="laminas92config92processor92token">Laminas\Config\Processor\Token</h2>
 <h3>Using Laminas\Config\Processor\Token</h3>
 <p>This example illustrates basic usage of <code>Laminas\Config\Processor\Token</code>:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Config\Config;</span>
-<span class=x>use Laminas\Config\Processor\Token as TokenProcessor;</span>
+<pre class=codehilite><code class=language-php>use Laminas\Config\Config;
+use Laminas\Config\Processor\Token as TokenProcessor;
 
-<span class=x>// Provide the second parameter as boolean true to allow modifications:</span>
-<span class=x>$config = new Config([&#39;foo&#39; =&gt; &#39;Value is TOKEN&#39;], true);</span>
-<span class=x>$processor = new TokenProcessor();</span>
+// Provide the second parameter as boolean true to allow modifications:
+$config = new Config(['foo' =&gt; 'Value is TOKEN'], true);
+$processor = new TokenProcessor();
 
-<span class=x>$processor-&gt;addToken(&#39;TOKEN&#39;, &#39;bar&#39;);</span>
-<span class=x>echo $config-&gt;foo . &#39;,&#39;;</span>
-<span class=x>$processor-&gt;process($config);</span>
-<span class=x>echo $config-&gt;foo;</span>
-</pre></div></p>
+$processor-&gt;addToken('TOKEN', 'bar');
+echo $config-&gt;foo . ',';
+$processor-&gt;process($config);
+echo $config-&gt;foo;</code></pre>
 <p>This example returns the output: <code>Value is TOKEN,Value is bar</code>.</p>
 <p>As of version 3.1.0, you can also tell the <code>Token</code> processor to process keys:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>// At instantiation:</span>
-<span class=x>$processor = new Laminas\Config\Processor\Token($tokens, &#39;&#39;, &#39;&#39;, true);</span>
+<pre class=codehilite><code class=language-php>// At instantiation:
+$processor = new Laminas\Config\Processor\Token($tokens, '', '', true);
 
-<span class=x>// Or later, via a method call:</span>
-<span class=x>$processor-&gt;enableKeyProcessing();</span>
-</pre></div></p>
+// Or later, via a method call:
+$processor-&gt;enableKeyProcessing();</code></pre>
 <p>When enabled, any token values found in keys will also be replaced.</p>
 <h3>Using Token processor as a simple environment processor</h3>
 <p>Token processor can be utilized to populate config values using common
 format <code>%env(ENV_VAR)%</code> with values from environment by setting Token
 processor <code>$prefix</code> and <code>$suffix</code> parameters to <code>%env(</code> and <code>)%</code> respectively:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Config\Config;</span>
-<span class=x>use Laminas\Config\Processor\Token as TokenProcessor;</span>
+<pre class=codehilite><code class=language-php>use Laminas\Config\Config;
+use Laminas\Config\Processor\Token as TokenProcessor;
 
-<span class=x>putenv(&#39;AMQP_PASSWORD=guest&#39;);</span>
+putenv('AMQP_PASSWORD=guest');
 
-<span class=x>// Populate list if tokens to replace from environment:</span>
-<span class=x>$processor = new TokenProcessor(getenv(), &#39;%env(&#39;, &#39;)%&#39;);</span>
+// Populate list if tokens to replace from environment:
+$processor = new TokenProcessor(getenv(), '%env(', ')%');
 
-<span class=x>// Provide the second parameter as boolean true to allow modifications:</span>
-<span class=x>$config = new Config([</span>
-<span class=x>    &#39;host&#39; =&gt; &#39;127.0.0.1&#39;,</span>
-<span class=x>    &#39;port&#39; =&gt; 5672,</span>
-<span class=x>    &#39;username&#39; =&gt; &#39;%env(AMQP_USER)%&#39;,</span>
-<span class=x>    &#39;password&#39; =&gt; &#39;%env(AMQP_PASSWORD)%&#39;,</span>
-<span class=x>    &#39;vhost&#39; =&gt; &#39;/&#39;,</span>
-<span class=x>], true);</span>
+// Provide the second parameter as boolean true to allow modifications:
+$config = new Config([
+    'host' =&gt; '127.0.0.1',
+    'port' =&gt; 5672,
+    'username' =&gt; '%env(AMQP_USER)%',
+    'password' =&gt; '%env(AMQP_PASSWORD)%',
+    'vhost' =&gt; '/',
+], true);
 
-<span class=x>$processor-&gt;process($config);</span>
-<span class=x>print_r($config-&gt;toArray());</span>
-<span class=x>// Array</span>
-<span class=x>// (</span>
-<span class=x>//     [host] =&gt; 127.0.0.1</span>
-<span class=x>//     [port] =&gt; 5672</span>
-<span class=x>//     [username] =&gt; %env(AMQP_USER)%</span>
-<span class=x>//     [password] =&gt; guest</span>
-<span class=x>//     [vhost] =&gt; /</span>
-<span class=x>// )</span>
-</pre></div></p>
+$processor-&gt;process($config);
+print_r($config-&gt;toArray());
+// Array
+// (
+//     [host] =&gt; 127.0.0.1
+//     [port] =&gt; 5672
+//     [username] =&gt; %env(AMQP_USER)%
+//     [password] =&gt; guest
+//     [vhost] =&gt; /
+// )</code></pre>
 <p>Do note, however, that only values present in environment will be replaced.
 This allows multiple fallback processors to be provided as a queue.</p>
 <h2 id="laminas92config92processor92translator">Laminas\Config\Processor\Translator</h2>
 <h3>Using Laminas\Config\Processor\Translator</h3>
 <p>This example illustrates basic usage of <code>Laminas\Config\Processor\Translator</code>:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Config\Config;</span>
-<span class=x>use Laminas\Config\Processor\Translator as TranslatorProcessor;</span>
-<span class=x>use Laminas\I18n\Translator\Translator;</span>
+<pre class=codehilite><code class=language-php>use Laminas\Config\Config;
+use Laminas\Config\Processor\Translator as TranslatorProcessor;
+use Laminas\I18n\Translator\Translator;
 
-<span class=x>// Provide the second parameter as boolean true to allow modifications:</span>
-<span class=x>$config = new Config([&#39;animal&#39; =&gt; &#39;dog&#39;], true);</span>
+// Provide the second parameter as boolean true to allow modifications:
+$config = new Config(['animal' =&gt; 'dog'], true);
 
-<span class=x>/*</span>
-<span class=x> * The following mapping is used for the translation</span>
-<span class=x> * loader provided to the translator instance:</span>
-<span class=x> *</span>
-<span class=x> * $italian = [</span>
-<span class=x> *     &#39;dog&#39; =&gt; &#39;cane&#39;</span>
-<span class=x> * ];</span>
-<span class=x> */</span>
+/*
+ * The following mapping is used for the translation
+ * loader provided to the translator instance:
+ *
+ * $italian = [
+ *     'dog' =&gt; 'cane'
+ * ];
+ */
 
-<span class=x>$translator = new Translator();</span>
-<span class=x>// ... configure the translator ...</span>
-<span class=x>$processor = new TranslatorProcessor($translator);</span>
+$translator = new Translator();
+// ... configure the translator ...
+$processor = new TranslatorProcessor($translator);
 
-<span class=x>echo &quot;English: {$config-&gt;animal}, &quot;;</span>
-<span class=x>$processor-&gt;process($config);</span>
-<span class=x>echo &quot;Italian: {$config-&gt;animal}&quot;;</span>
-</pre></div></p>
+echo &quot;English: {$config-&gt;animal}, &quot;;
+$processor-&gt;process($config);
+echo &quot;Italian: {$config-&gt;animal}&quot;;</code></pre>
 <p>This example returns the output: <code>English: dog,Italian: cane</code>.</p>
 
 
@@ -526,20 +508,6 @@ This allows multiple fallback processors to be provided as a queue.</p>
         <h5 class="subnavigation__subtitle">Table of Contents</h5>
 
         <ul class="subnavigation__list">
-            
-
-                
-                
-
-                    
-                    
-                        
-                            <li class="subnavigation__list-item ">
-                                <a href=".." class="subnavigation__link">laminas-config</a>
-                            </li>
-                        
-                    
-                
             
 
                 
@@ -648,9 +616,10 @@ This allows multiple fallback processors to be provided as a queue.</p>
             <div class="col-md-7 offset-md-2">
                 <h5>Laminas</h5>
                 <ul>
-                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
-                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
-                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
                 </ul>
             </div>
         </div>
@@ -687,7 +656,7 @@ This allows multiple fallback processors to be provided as a queue.</p>
                 <h4 class="footer__headline">License</h4>
                 <p>
                     Code licensed under <a
-                        href="https://github.com/laminas/laminas-config//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                        href="https://github.com/laminas/laminas-config/blob/master/LICENSE.md">BSD 3-Clause</a>.
                 </p>
             </div>
 
@@ -696,8 +665,8 @@ This allows multiple fallback processors to be provided as a queue.</p>
                 <h4 class="footer__headline">Copyright</h4>
                 <p>
                     <!--Built with love by the Laminas team with the help of our
-                    <a href="https://github.com/laminas/laminas-config//graphs/contributors">contributors</a>.<br>-->
-                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                    <a href="https://github.com/laminas/laminas-config/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
                 </p>
             </div>
         </div>

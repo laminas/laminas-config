@@ -20,7 +20,7 @@
     <div class="container">
         
         <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
-            <img src="../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+            <img src="../img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
             Documentation
@@ -36,13 +36,17 @@
             
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
@@ -61,20 +65,6 @@
         <h5 class="subnavigation__subtitle">Table of Contents</h5>
 
         <ul class="subnavigation__list">
-            
-
-                
-                
-
-                    
-                    
-                        
-                            <li class="subnavigation__list-item ">
-                                <a href=".." class="subnavigation__link">laminas-config</a>
-                            </li>
-                        
-                    
-                
             
 
                 
@@ -321,14 +311,14 @@ function. Please review this documentation to be aware of its specific behaviors
 <h3>Key Separator</h3>
 <p>By default, the key separator character is the period character (<code>.</code>). This can be changed,
 however, using the <code>setNestSeparator()</code> method. For example:</p>
-<pre class=codehilite><code class=language-php>
+<pre class="codehilite"><code class="language-php">
 $reader = new Laminas\Config\Reader\Ini();
 $reader-&gt;setNestSeparator('-');
 </code></pre>
 <h3>Process Sections</h3>
 <p>By default, the INI reader executes <code>parse_ini_file()</code>  with the optional parameter <code>$process_sections</code> being <code>true</code>. The result is a multidimensional array, with the section names and settings included.</p>
 <p>To merge sections, set the parameter via <code>setProcessSections()</code> to <code>false</code> as follows.</p>
-<pre class=codehilite><code class=language-php>
+<pre class="codehilite"><code class="language-php">
 $reader = new Laminas\Config\Reader\Ini();
 $reader-&gt;setProcessSections(false);
 </code></pre>
@@ -336,48 +326,42 @@ $reader-&gt;setProcessSections(false);
 <p>The following example illustrates basic usage of <code>Laminas\Config\Reader\Ini</code> for
 loading configuration data from an INI file. In this example, configuration data
 for both a production system and for a staging system exists.</p>
-<p> <div class=codehilite><pre><span></span><span class=na>webhost</span>                  <span class=o>=</span> <span class=s>&#39;www.example.com&#39;</span>
-<span class=na>database.adapter</span>         <span class=o>=</span> <span class=s>&#39;pdo_mysql&#39;</span>
-<span class=na>database.params.host</span>     <span class=o>=</span> <span class=s>&#39;db.example.com&#39;</span>
-<span class=na>database.params.username</span> <span class=o>=</span> <span class=s>&#39;dbuser&#39;</span>
-<span class=na>database.params.password</span> <span class=o>=</span> <span class=s>&#39;secret&#39;</span>
-<span class=na>database.params.dbname</span>   <span class=o>=</span> <span class=s>&#39;dbproduction&#39;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-ini>webhost                  = 'www.example.com'
+database.adapter         = 'pdo_mysql'
+database.params.host     = 'db.example.com'
+database.params.username = 'dbuser'
+database.params.password = 'secret'
+database.params.dbname   = 'dbproduction'</code></pre>
 <p>We can use <code>Laminas\Config\Reader\Ini</code> to read this INI file:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>$reader = new Laminas\Config\Reader\Ini();</span>
-<span class=x>$data   = $reader-&gt;fromFile(&#39;/path/to/config.ini&#39;);</span>
+<pre class=codehilite><code class=language-php>$reader = new Laminas\Config\Reader\Ini();
+$data   = $reader-&gt;fromFile('/path/to/config.ini');
 
-<span class=x>echo $data[&#39;webhost&#39;];  // prints &quot;www.example.com&quot;</span>
-<span class=x>echo $data[&#39;database&#39;][&#39;params&#39;][&#39;dbname&#39;];  // prints &quot;dbproduction&quot;</span>
-</pre></div></p>
+echo $data['webhost'];  // prints &quot;www.example.com&quot;
+echo $data['database']['params']['dbname'];  // prints &quot;dbproduction&quot;</code></pre>
 <p><code>Laminas\Config\Reader\Ini</code> supports a feature to include the content of a INI file
 in a specific section of another INI file. For instance, suppose we have an INI
 file with the database configuration:</p>
-<p> <div class=codehilite><pre><span></span><span class=na>database.adapter</span>         <span class=o>=</span> <span class=s>&#39;pdo_mysql&#39;</span>
-<span class=na>database.params.host</span>     <span class=o>=</span> <span class=s>&#39;db.example.com&#39;</span>
-<span class=na>database.params.username</span> <span class=o>=</span> <span class=s>&#39;dbuser&#39;</span>
-<span class=na>database.params.password</span> <span class=o>=</span> <span class=s>&#39;secret&#39;</span>
-<span class=na>database.params.dbname</span>   <span class=o>=</span> <span class=s>&#39;dbproduction&#39;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-ini>database.adapter         = 'pdo_mysql'
+database.params.host     = 'db.example.com'
+database.params.username = 'dbuser'
+database.params.password = 'secret'
+database.params.dbname   = 'dbproduction'</code></pre>
 <p>We can include this configuration in another INI file by using the <code>@include</code>
 notation:</p>
-<p> <div class=codehilite><pre><span></span><span class=na>webhost</span>  <span class=o>=</span> <span class=s>&#39;www.example.com&#39;</span>
-<span class=na>@include</span> <span class=o>=</span> <span class=s>&#39;database.ini&#39;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-ini>webhost  = 'www.example.com'
+@include = 'database.ini'</code></pre>
 <p>If we read this file using the component <code>Laminas\Config\Reader\Ini</code>, we will obtain the same
 configuration data structure as in the previous example.</p>
 <p>The <code>@include = 'file-to-include.ini'</code> notation can be used also in a subelement
 of a value. For instance we can have an INI file like the following:</p>
-<p> <div class=codehilite><pre><span></span><span class=na>adapter</span>         <span class=o>=</span> <span class=s>&#39;pdo_mysql&#39;</span>
-<span class=na>params.host</span>     <span class=o>=</span> <span class=s>&#39;db.example.com&#39;</span>
-<span class=na>params.username</span> <span class=o>=</span> <span class=s>&#39;dbuser&#39;</span>
-<span class=na>params.password</span> <span class=o>=</span> <span class=s>&#39;secret&#39;</span>
-<span class=na>params.dbname</span>   <span class=o>=</span> <span class=s>&#39;dbproduction&#39;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-ini>adapter         = 'pdo_mysql'
+params.host     = 'db.example.com'
+params.username = 'dbuser'
+params.password = 'secret'
+params.dbname   = 'dbproduction'</code></pre>
 <p>And assign the <code>@include</code> as a subelement of the <code>database</code> value:</p>
-<p> <div class=codehilite><pre><span></span><span class=na>webhost</span>           <span class=o>=</span> <span class=s>&#39;www.example.com&#39;</span>
-<span class=na>database.@include</span> <span class=o>=</span> <span class=s>&#39;database.ini&#39;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-ini>webhost           = 'www.example.com'
+database.@include = 'database.ini'</code></pre>
 <h2 id="laminas92config92reader92xml">Laminas\Config\Reader\Xml</h2>
 <p><code>Laminas\Config\Reader\Xml</code> enables developers to provide configuration data in a
 familiar XML format and consume it in the application using an array syntax.
@@ -385,27 +369,25 @@ The root element of the XML file or string is irrelevant and may be named
 arbitrarily.</p>
 <p>The following example illustrates basic usage of <code>Laminas\Config\Reader\Xml</code> for loading configuration
 data from an XML file. First, our XML configuration in the file <code>config.xml</code>:</p>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
-<span class=nt>&lt;config&gt;</span>
-    <span class=nt>&lt;webhost&gt;</span>www.example.com<span class=nt>&lt;/webhost&gt;</span>
-    <span class=nt>&lt;database&gt;</span>
-        <span class=nt>&lt;adapter</span> <span class=na>value=</span><span class=s>&quot;pdo_mysql&quot;</span><span class=nt>/&gt;</span>
-        <span class=nt>&lt;params&gt;</span>
-            <span class=nt>&lt;host</span> <span class=na>value=</span><span class=s>&quot;db.example.com&quot;</span><span class=nt>/&gt;</span>
-            <span class=nt>&lt;username</span> <span class=na>value=</span><span class=s>&quot;dbuser&quot;</span><span class=nt>/&gt;</span>
-            <span class=nt>&lt;password</span> <span class=na>value=</span><span class=s>&quot;secret&quot;</span><span class=nt>/&gt;</span>
-            <span class=nt>&lt;dbname</span> <span class=na>value=</span><span class=s>&quot;dbproduction&quot;</span><span class=nt>/&gt;</span>
-        <span class=nt>&lt;/params&gt;</span>
-    <span class=nt>&lt;/database&gt;</span>
-<span class=nt>&lt;/config&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-markup>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;config&gt;
+    &lt;webhost&gt;www.example.com&lt;/webhost&gt;
+    &lt;database&gt;
+        &lt;adapter value=&quot;pdo_mysql&quot;/&gt;
+        &lt;params&gt;
+            &lt;host value=&quot;db.example.com&quot;/&gt;
+            &lt;username value=&quot;dbuser&quot;/&gt;
+            &lt;password value=&quot;secret&quot;/&gt;
+            &lt;dbname value=&quot;dbproduction&quot;/&gt;
+        &lt;/params&gt;
+    &lt;/database&gt;
+&lt;/config&gt;</code></pre>
 <p>We can use the <code>Laminas\Config\Reader\Xml</code> to read the XML configuration:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>$reader = new Laminas\Config\Reader\Xml();</span>
-<span class=x>$data   = $reader-&gt;fromFile(&#39;/path/to/config.xml&#39;);</span>
+<pre class=codehilite><code class=language-php>$reader = new Laminas\Config\Reader\Xml();
+$data   = $reader-&gt;fromFile('/path/to/config.xml');
 
-<span class=x>echo $data[&#39;webhost&#39;];  // prints &quot;www.example.com&quot;</span>
-<span class=x>echo $data[&#39;database&#39;][&#39;params&#39;][&#39;dbname&#39;][&#39;value&#39;];  // prints &quot;dbproduction&quot;</span>
-</pre></div></p>
+echo $data['webhost'];  // prints &quot;www.example.com&quot;
+echo $data['database']['params']['dbname']['value'];  // prints &quot;dbproduction&quot;</code></pre>
 <p><code>Laminas\Config\Reader\Xml</code> utilizes PHP's <a href="http://php.net/xmlreader">XMLReader</a> class. Please
 review its documentation to be aware of its specific behaviors, which propagate to
 <code>Laminas\Config\Reader\Xml</code>.</p>
@@ -415,26 +397,24 @@ specific XML element.  This is provided using the standard
 functionality, you must add the namespace
 <code>xmlns:xi="http://www.w3.org/2001/XInclude"</code> to the XML file.</p>
 <p>Suppose we have an XML file that contains only the database configuration:</p>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
-<span class=nt>&lt;config&gt;</span>
-    <span class=nt>&lt;database&gt;</span>
-        <span class=nt>&lt;adapter&gt;</span>pdo_mysql<span class=nt>&lt;/adapter&gt;</span>
-        <span class=nt>&lt;params&gt;</span>
-            <span class=nt>&lt;host&gt;</span>db.example.com<span class=nt>&lt;/host&gt;</span>
-            <span class=nt>&lt;username&gt;</span>dbuser<span class=nt>&lt;/username&gt;</span>
-            <span class=nt>&lt;password&gt;</span>secret<span class=nt>&lt;/password&gt;</span>
-            <span class=nt>&lt;dbname&gt;</span>dbproduction<span class=nt>&lt;/dbname&gt;</span>
-        <span class=nt>&lt;/params&gt;</span>
-    <span class=nt>&lt;/database&gt;</span>
-<span class=nt>&lt;/config&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-markup>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;config&gt;
+    &lt;database&gt;
+        &lt;adapter&gt;pdo_mysql&lt;/adapter&gt;
+        &lt;params&gt;
+            &lt;host&gt;db.example.com&lt;/host&gt;
+            &lt;username&gt;dbuser&lt;/username&gt;
+            &lt;password&gt;secret&lt;/password&gt;
+            &lt;dbname&gt;dbproduction&lt;/dbname&gt;
+        &lt;/params&gt;
+    &lt;/database&gt;
+&lt;/config&gt;</code></pre>
 <p>We can include this configuration in another XML file using an xinclude:</p>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
-<span class=nt>&lt;config</span> <span class=na>xmlns:xi=</span><span class=s>&quot;http://www.w3.org/2001/XInclude&quot;</span><span class=nt>&gt;</span>
-    <span class=nt>&lt;webhost&gt;</span>www.example.com<span class=nt>&lt;/webhost&gt;</span>
-    <span class=nt>&lt;xi:include</span> <span class=na>href=</span><span class=s>&quot;database.xml&quot;</span><span class=nt>/&gt;</span>
-<span class=nt>&lt;/config&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-markup>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;config xmlns:xi=&quot;http://www.w3.org/2001/XInclude&quot;&gt;
+    &lt;webhost&gt;www.example.com&lt;/webhost&gt;
+    &lt;xi:include href=&quot;database.xml&quot;/&gt;
+&lt;/config&gt;</code></pre>
 <p>The syntax to include an XML file in a specific element is <code>&lt;xi:include
 href="file-to-include.xml"/&gt;</code></p>
 <h2 id="laminas92config92reader92json">Laminas\Config\Reader\Json</h2>
@@ -443,49 +423,45 @@ JSON, and read it in the application by using an array syntax.</p>
 <p>The following example illustrates a basic use of <code>Laminas\Config\Reader\Json</code> for
 loading configuration data from a JSON file.</p>
 <p>Consider the following JSON configuration file:</p>
-<p> <div class=codehilite><pre><span></span><span class=p>{</span>
-  <span class=nt>&quot;webhost&quot;</span>  <span class=p>:</span> <span class=s2>&quot;www.example.com&quot;</span><span class=p>,</span>
-  <span class=nt>&quot;database&quot;</span> <span class=p>:</span> <span class=p>{</span>
-    <span class=nt>&quot;adapter&quot;</span> <span class=p>:</span> <span class=s2>&quot;pdo_mysql&quot;</span><span class=p>,</span>
-    <span class=nt>&quot;params&quot;</span>  <span class=p>:</span> <span class=p>{</span>
-      <span class=nt>&quot;host&quot;</span>     <span class=p>:</span> <span class=s2>&quot;db.example.com&quot;</span><span class=p>,</span>
-      <span class=nt>&quot;username&quot;</span> <span class=p>:</span> <span class=s2>&quot;dbuser&quot;</span><span class=p>,</span>
-      <span class=nt>&quot;password&quot;</span> <span class=p>:</span> <span class=s2>&quot;secret&quot;</span><span class=p>,</span>
-      <span class=nt>&quot;dbname&quot;</span>   <span class=p>:</span> <span class=s2>&quot;dbproduction&quot;</span>
-    <span class=p>}</span>
-  <span class=p>}</span>
-<span class=p>}</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-json>{
+  &quot;webhost&quot;  : &quot;www.example.com&quot;,
+  &quot;database&quot; : {
+    &quot;adapter&quot; : &quot;pdo_mysql&quot;,
+    &quot;params&quot;  : {
+      &quot;host&quot;     : &quot;db.example.com&quot;,
+      &quot;username&quot; : &quot;dbuser&quot;,
+      &quot;password&quot; : &quot;secret&quot;,
+      &quot;dbname&quot;   : &quot;dbproduction&quot;
+    }
+  }
+}</code></pre>
 <p>We can use <code>Laminas\Config\Reader\Json</code> to read the file:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>$reader = new Laminas\Config\Reader\Json();</span>
-<span class=x>$data   = $reader-&gt;fromFile(&#39;/path/to/config.json&#39;);</span>
+<pre class=codehilite><code class=language-php>$reader = new Laminas\Config\Reader\Json();
+$data   = $reader-&gt;fromFile('/path/to/config.json');
 
-<span class=x>echo $data[&#39;webhost&#39;];  // prints &quot;www.example.com&quot;</span>
-<span class=x>echo $data[&#39;database&#39;][&#39;params&#39;][&#39;dbname&#39;];  // prints &quot;dbproduction&quot;</span>
-</pre></div></p>
+echo $data['webhost'];  // prints &quot;www.example.com&quot;
+echo $data['database']['params']['dbname'];  // prints &quot;dbproduction&quot;</code></pre>
 <p><code>Laminas\Config\Reader\Json</code> utilizes <a href="https://github.com/laminas/laminas-json">laminas-json</a>.</p>
 <p>Using <code>Laminas\Config\Reader\Json</code>, we can include the content of a JSON file in a
 specific JSON section or element. This is provided using the special syntax
 <code>@include</code>. Suppose we have a JSON file that contains only the database
 configuration:</p>
-<p> <div class=codehilite><pre><span></span><span class=p>{</span>
-  <span class=nt>&quot;database&quot;</span> <span class=p>:</span> <span class=p>{</span>
-    <span class=nt>&quot;adapter&quot;</span> <span class=p>:</span> <span class=s2>&quot;pdo_mysql&quot;</span><span class=p>,</span>
-    <span class=nt>&quot;params&quot;</span>  <span class=p>:</span> <span class=p>{</span>
-      <span class=nt>&quot;host&quot;</span>     <span class=p>:</span> <span class=s2>&quot;db.example.com&quot;</span><span class=p>,</span>
-      <span class=nt>&quot;username&quot;</span> <span class=p>:</span> <span class=s2>&quot;dbuser&quot;</span><span class=p>,</span>
-      <span class=nt>&quot;password&quot;</span> <span class=p>:</span> <span class=s2>&quot;secret&quot;</span><span class=p>,</span>
-      <span class=nt>&quot;dbname&quot;</span>   <span class=p>:</span> <span class=s2>&quot;dbproduction&quot;</span>
-    <span class=p>}</span>
-  <span class=p>}</span>
-<span class=p>}</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-json>{
+  &quot;database&quot; : {
+    &quot;adapter&quot; : &quot;pdo_mysql&quot;,
+    &quot;params&quot;  : {
+      &quot;host&quot;     : &quot;db.example.com&quot;,
+      &quot;username&quot; : &quot;dbuser&quot;,
+      &quot;password&quot; : &quot;secret&quot;,
+      &quot;dbname&quot;   : &quot;dbproduction&quot;
+    }
+  }
+}</code></pre>
 <p>Now let's include it via another configuration file:</p>
-<p> <div class=codehilite><pre><span></span><span class=p>{</span>
-    <span class=nt>&quot;webhost&quot;</span>  <span class=p>:</span> <span class=s2>&quot;www.example.com&quot;</span><span class=p>,</span>
-    <span class=nt>&quot;@include&quot;</span> <span class=p>:</span> <span class=s2>&quot;database.json&quot;</span>
-<span class=p>}</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-json>{
+    &quot;webhost&quot;  : &quot;www.example.com&quot;,
+    &quot;@include&quot; : &quot;database.json&quot;
+}</code></pre>
 <h2 id="laminas92config92reader92yaml">Laminas\Config\Reader\Yaml</h2>
 <p><code>Laminas\Config\Reader\Yaml</code> enables developers to consume configuration data in a
 YAML format, and read them in the application by using an array syntax. In order
@@ -494,52 +470,47 @@ use the <a href="http://www.php.net/manual/en/book.yaml.php">YAML PECL extension
 <p>The following example illustrates basic usage of <code>Laminas\Config\Reader\Yaml</code>,
 using the YAML PECL extension.</p>
 <p>Consider the following YAML file:</p>
-<p> <div class=codehilite><pre><span></span><span class=nt>webhost</span><span class=p>:</span> <span class="l l-Scalar l-Scalar-Plain">www.example.com</span>
-<span class=nt>database</span><span class=p>:</span>
-    <span class=nt>adapter</span><span class=p>:</span> <span class="l l-Scalar l-Scalar-Plain">pdo_mysql</span>
-    <span class=nt>params</span><span class=p>:</span>
-      <span class=nt>host</span><span class=p>:</span>     <span class="l l-Scalar l-Scalar-Plain">db.example.com</span>
-      <span class=nt>username</span><span class=p>:</span> <span class="l l-Scalar l-Scalar-Plain">dbuser</span>
-      <span class=nt>password</span><span class=p>:</span> <span class="l l-Scalar l-Scalar-Plain">secret</span>
-      <span class=nt>dbname</span><span class=p>:</span>   <span class="l l-Scalar l-Scalar-Plain">dbproduction</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-yaml>webhost: www.example.com
+database:
+    adapter: pdo_mysql
+    params:
+      host:     db.example.com
+      username: dbuser
+      password: secret
+      dbname:   dbproduction</code></pre>
 <p>We can use <code>Laminas\Config\Reader\Yaml</code> to read this YAML file:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>$reader = new Laminas\Config\Reader\Yaml();</span>
-<span class=x>$data   = $reader-&gt;fromFile(&#39;/path/to/config.yaml&#39;);</span>
+<pre class=codehilite><code class=language-php>$reader = new Laminas\Config\Reader\Yaml();
+$data   = $reader-&gt;fromFile('/path/to/config.yaml');
 
-<span class=x>echo $data[&#39;webhost&#39;];  // prints &quot;www.example.com&quot;</span>
-<span class=x>echo $data[&#39;database&#39;][&#39;params&#39;][&#39;dbname&#39;];  // prints &quot;dbproduction&quot;</span>
-</pre></div></p>
+echo $data['webhost'];  // prints &quot;www.example.com&quot;
+echo $data['database']['params']['dbname'];  // prints &quot;dbproduction&quot;</code></pre>
 <p>If you want to use an external YAML reader, you must pass a callback function to
 the class constructor.  For instance, if you want to use the
 <a href="https://github.com/mustangostang/spyc/">Spyc</a> library:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>// include the Spyc library</span>
-<span class=x>require_once &#39;path/to/spyc.php&#39;;</span>
+<pre class=codehilite><code class=language-php>// include the Spyc library
+require_once 'path/to/spyc.php';
 
-<span class=x>$reader = new Laminas\Config\Reader\Yaml([&#39;Spyc&#39;, &#39;YAMLLoadString&#39;]);</span>
-<span class=x>$data   = $reader-&gt;fromFile(&#39;/path/to/config.yaml&#39;);</span>
+$reader = new Laminas\Config\Reader\Yaml(['Spyc', 'YAMLLoadString']);
+$data   = $reader-&gt;fromFile('/path/to/config.yaml');
 
-<span class=x>echo $data[&#39;webhost&#39;];  // prints &quot;www.example.com&quot;</span>
-<span class=x>echo $data[&#39;database&#39;][&#39;params&#39;][&#39;dbname&#39;];  // prints &quot;dbproduction&quot;</span>
-</pre></div></p>
+echo $data['webhost'];  // prints &quot;www.example.com&quot;
+echo $data['database']['params']['dbname'];  // prints &quot;dbproduction&quot;</code></pre>
 <p>You can also instantiate <code>Laminas\Config\Reader\Yaml</code> without any parameters, and
 specify the YAML reader using the <code>setYamlDecoder()</code> method.</p>
 <p>Using <code>Laminas\Config\ReaderYaml</code>, we can include the content of another YAML file
 in a specific YAML section or element. This is provided using the special syntax
 <code>@include</code>.</p>
 <p>Consider the following YAML file containing only database configuration:</p>
-<p> <div class=codehilite><pre><span></span><span class=nt>database</span><span class=p>:</span>
-    <span class=nt>adapter</span><span class=p>:</span> <span class="l l-Scalar l-Scalar-Plain">pdo_mysql</span>
-    <span class=nt>params</span><span class=p>:</span>
-      <span class=nt>host</span><span class=p>:</span>     <span class="l l-Scalar l-Scalar-Plain">db.example.com</span>
-      <span class=nt>username</span><span class=p>:</span> <span class="l l-Scalar l-Scalar-Plain">dbuser</span>
-      <span class=nt>password</span><span class=p>:</span> <span class="l l-Scalar l-Scalar-Plain">secret</span>
-      <span class=nt>dbname</span><span class=p>:</span>   <span class="l l-Scalar l-Scalar-Plain">dbproduction</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-yaml>database:
+    adapter: pdo_mysql
+    params:
+      host:     db.example.com
+      username: dbuser
+      password: secret
+      dbname:   dbproduction</code></pre>
 <p>We can include this configuration in another YAML file:</p>
-<p> <div class=codehilite><pre><span></span><span class=nt>webhost</span><span class=p>:</span>  <span class="l l-Scalar l-Scalar-Plain">www.example.com</span>
-<span class=nt>@include</span><span class=p>:</span> <span class="l l-Scalar l-Scalar-Plain">database.yaml</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-yaml>webhost:  www.example.com
+@include: database.yaml</code></pre>
 <h2 id="laminas92config92reader92javaproperties">Laminas\Config\Reader\JavaProperties</h2>
 <p><code>Laminas\Config\Reader\JavaProperties</code> enables developers to provide configuration
 data in the popular JavaProperties format, and read it in the application by
@@ -547,22 +518,20 @@ using array syntax.</p>
 <p>The following example illustrates basic usage of <code>Laminas\Config\Reader\JavaProperties</code>
 for loading configuration data from a JavaProperties file.</p>
 <p>Suppose we have the following JavaProperties configuration file:</p>
-<p> <div class=codehilite><pre><span></span><span class=c>#comment</span>
-<span class=c>!comment</span>
-<span class=na>webhost</span><span class=o>:</span><span class=s>www.example.com</span>
-<span class=na>database.adapter</span><span class=o>:</span><span class=s>pdo_mysql</span>
-<span class=na>database.params.host</span><span class=o>:</span><span class=s>db.example.com</span>
-<span class=na>database.params.username</span><span class=o>:</span><span class=s>dbuser</span>
-<span class=na>database.params.password</span><span class=o>:</span><span class=s>secret</span>
-<span class=na>database.params.dbname</span><span class=o>:</span><span class=s>dbproduction</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-properties>#comment
+!comment
+webhost:www.example.com
+database.adapter:pdo_mysql
+database.params.host:db.example.com
+database.params.username:dbuser
+database.params.password:secret
+database.params.dbname:dbproduction</code></pre>
 <p>We can use <code>Laminas\Config\Reader\JavaProperties</code> to read it:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>$reader = new Laminas\Config\Reader\JavaProperties();</span>
-<span class=x>$data   = $reader-&gt;fromFile(&#39;/path/to/config.properties&#39;);</span>
+<pre class=codehilite><code class=language-php>$reader = new Laminas\Config\Reader\JavaProperties();
+$data   = $reader-&gt;fromFile('/path/to/config.properties');
 
-<span class=x>echo $data[&#39;webhost&#39;];  // prints &quot;www.example.com&quot;</span>
-<span class=x>echo $data[&#39;database.params.dbname&#39;];  // prints &quot;dbproduction&quot;</span>
-</pre></div></p>
+echo $data['webhost'];  // prints &quot;www.example.com&quot;
+echo $data['database.params.dbname'];  // prints &quot;dbproduction&quot;</code></pre>
 <h3>Alternate delimiters</h3>
 <ul>
 <li>Since 3.2.0</li>
@@ -570,8 +539,7 @@ for loading configuration data from a JavaProperties file.</p>
 <p>By default, the <code>JavaProperties</code> reader will assume that the delimiter between
 key/value pairs is <code>:</code>. If you wish to use an alternate delimiter, pass it as
 the first argument to the constructor:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>$reader = new JavaProperties(&#39;=&#39;); // Use = as the delimiter</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>$reader = new JavaProperties('='); // Use = as the delimiter</code></pre>
 <p>When specifying the default delimiter, you can use either <code>:</code> or the constant
 <code>JavaProperties::DELIMITER_DEFAULT</code>.</p>
 <h3>Trimming whitespace</h3>
@@ -582,19 +550,17 @@ the first argument to the constructor:</p>
 including trailing whitespace. If you wish to have keys and values trimmed
 during parsing, you can pass a boolean <code>true</code> value, or the constant
 <code>JavaProperties::WHITESPACE_TRIM</code>, as the second argument to the constructor:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>$reader = new JavaProperties(</span>
-<span class=x>    JavaProperties::DELIMITER_DEFAULT, // use default delimiter</span>
-<span class=x>    JavaProperties::WHITESPACE_TRIM</span>
-<span class=x>);</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>$reader = new JavaProperties(
+    JavaProperties::DELIMITER_DEFAULT, // use default delimiter
+    JavaProperties::WHITESPACE_TRIM
+);</code></pre>
 <p>This can be useful particularly when surrounding the delimiter with whitespace:</p>
-<p> <div class=codehilite><pre><span></span><span class=na>webhost</span> <span class=o>=</span> <span class=s>www.example.com</span>
-<span class=na>database.adapter</span> <span class=o>=</span> <span class=s>pdo_mysql</span>
-<span class=na>database.params.host</span> <span class=o>=</span> <span class=s>db.example.com</span>
-<span class=na>database.params.username</span> <span class=o>=</span> <span class=s>dbuser</span>
-<span class=na>database.params.password</span> <span class=o>=</span> <span class=s>secret</span>
-<span class=na>database.params.dbname</span> <span class=o>=</span> <span class=s>dbproduction</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-properties>webhost = www.example.com
+database.adapter = pdo_mysql
+database.params.host = db.example.com
+database.params.username = dbuser
+database.params.password = secret
+database.params.dbname = dbproduction</code></pre>
 
 
 
@@ -655,20 +621,6 @@ during parsing, you can pass a boolean <code>true</code> value, or the constant
         <h5 class="subnavigation__subtitle">Table of Contents</h5>
 
         <ul class="subnavigation__list">
-            
-
-                
-                
-
-                    
-                    
-                        
-                            <li class="subnavigation__list-item ">
-                                <a href=".." class="subnavigation__link">laminas-config</a>
-                            </li>
-                        
-                    
-                
             
 
                 
@@ -777,9 +729,10 @@ during parsing, you can pass a boolean <code>true</code> value, or the constant
             <div class="col-md-7 offset-md-2">
                 <h5>Laminas</h5>
                 <ul>
-                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
-                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
-                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
                 </ul>
             </div>
         </div>
@@ -816,7 +769,7 @@ during parsing, you can pass a boolean <code>true</code> value, or the constant
                 <h4 class="footer__headline">License</h4>
                 <p>
                     Code licensed under <a
-                        href="https://github.com/laminas/laminas-config//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                        href="https://github.com/laminas/laminas-config/blob/master/LICENSE.md">BSD 3-Clause</a>.
                 </p>
             </div>
 
@@ -825,8 +778,8 @@ during parsing, you can pass a boolean <code>true</code> value, or the constant
                 <h4 class="footer__headline">Copyright</h4>
                 <p>
                     <!--Built with love by the Laminas team with the help of our
-                    <a href="https://github.com/laminas/laminas-config//graphs/contributors">contributors</a>.<br>-->
-                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                    <a href="https://github.com/laminas/laminas-config/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
                 </p>
             </div>
         </div>
