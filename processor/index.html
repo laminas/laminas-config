@@ -12,14 +12,15 @@
     <title>Laminas\Config\Processor - laminas-config - Laminas Docs</title>
 
     <link rel="stylesheet" href="https://docs.laminas.dev/css/styles.css">
+    
 </head>
-<body id="page-top" class="components">
+<body id="page-top" class="components" data-spy="scroll" data-target=".toc" data-offset="20">
 
     
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
         
-        <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
+        <a class="logo-link navbar-brand" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
             <img src="https://docs.laminas.dev/img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
@@ -177,7 +178,7 @@
         <div class="row">
 
             
-            <div class="col-6 offset-md-2">
+            <div class="col-8">
                 <h1 class="header__title">
                     Components
 
@@ -207,7 +208,7 @@
     
     <div class="container">
         <div class="row">
-            <div class="col-md-2 col-sm-12">
+            <div class="col-md-9 col-sm-12 content" role="main">
                 
                 
                     
@@ -220,23 +221,23 @@
             <ul class="toc__list">
                 
                     <li class="toc__entry">
-                        <a href="#laminas92config92processor92constant" class="toc__link">Laminas\Config\Processor\Constant</a>
+                        <a href="#laminasconfigprocessorconstant" class="toc__link nav-link">Laminas\Config\Processor\Constant</a>
                     </li>
                 
                     <li class="toc__entry">
-                        <a href="#laminas92config92processor92filter" class="toc__link">Laminas\Config\Processor\Filter</a>
+                        <a href="#laminasconfigprocessorfilter" class="toc__link nav-link">Laminas\Config\Processor\Filter</a>
                     </li>
                 
                     <li class="toc__entry">
-                        <a href="#laminas92config92processor92queue" class="toc__link">Laminas\Config\Processor\Queue</a>
+                        <a href="#laminasconfigprocessorqueue" class="toc__link nav-link">Laminas\Config\Processor\Queue</a>
                     </li>
                 
                     <li class="toc__entry">
-                        <a href="#laminas92config92processor92token" class="toc__link">Laminas\Config\Processor\Token</a>
+                        <a href="#laminasconfigprocessortoken" class="toc__link nav-link">Laminas\Config\Processor\Token</a>
                     </li>
                 
                     <li class="toc__entry">
-                        <a href="#laminas92config92processor92translator" class="toc__link">Laminas\Config\Processor\Translator</a>
+                        <a href="#laminasconfigprocessortranslator" class="toc__link nav-link">Laminas\Config\Processor\Translator</a>
                     </li>
                 
             </ul>
@@ -244,8 +245,7 @@
     
 
                 
-            </div>
-            <div class="col-md-7 col-sm-12 content" role="main" data-spy="scroll" data-target=".toc">
+
                 
                     <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
@@ -281,7 +281,7 @@
         <h2 class="chapter__headline">Reference</h2>
     
 
-    <h1 id="laminas92config92processor">Laminas\Config\Processor</h1>
+    <h1 id="laminasconfigprocessor">Laminas\Config\Processor</h1>
 <p><code>Laminas\Config\Processor</code> provides the ability to perform operations on a
 <code>Laminas\Config\Config</code> object. <code>Laminas\Config\Processor</code> is itself an interface that
 defining two methods: <code>process()</code> and <code>processValue()</code>.</p>
@@ -308,7 +308,7 @@ optionally also process the keys of the <code>Config</code> instance provided to
 calling <code>enableKeyProcessing()</code> on their instances, or passing a boolean
 <code>true</code> value for the fourth constructor argument.</p>
 </blockquote>
-<h2 id="laminas92config92processor92constant">Laminas\Config\Processor\Constant</h2>
+<h2 id="laminasconfigprocessorconstant">Laminas\Config\Processor\Constant</h2>
 <h3>Using Laminas\Config\Processor\Constant</h3>
 <p>This example illustrates the basic usage of <code>Laminas\Config\Processor\Constant</code>:</p>
 <pre class=codehilite><code class=language-php>define ('TEST_CONST', 'bar');
@@ -328,7 +328,7 @@ $processor = new Laminas\Config\Processor\Constant(true, '', '', true);
 // Or later, via a method call:
 $processor-&gt;enableKeyProcessing();</code></pre>
 <p>When enabled, any constant values found in keys will also be replaced.</p>
-<h2 id="laminas92config92processor92filter">Laminas\Config\Processor\Filter</h2>
+<h2 id="laminasconfigprocessorfilter">Laminas\Config\Processor\Filter</h2>
 <h3>Using Laminas\Config\Processor\Filter</h3>
 <p>This example illustrates basic usage of <code>Laminas\Config\Processor\Filter</code>:</p>
 <pre class=codehilite><code class=language-php>use Laminas\Filter\StringToUpper;
@@ -345,7 +345,7 @@ echo $config-&gt;foo . ',';
 $upperProcessor-&gt;process($config);
 echo $config-&gt;foo;</code></pre>
 <p>This example returns the output: <code>bar,BAR</code>.</p>
-<h2 id="laminas92config92processor92queue">Laminas\Config\Processor\Queue</h2>
+<h2 id="laminasconfigprocessorqueue">Laminas\Config\Processor\Queue</h2>
 <h3>Using Laminas\Config\Processor\Queue</h3>
 <p>This example illustrates basic usage of <code>Laminas\Config\Processor\Queue</code>:</p>
 <pre class=codehilite><code class=language-php>use Laminas\Filter\StringToLower;
@@ -370,7 +370,7 @@ $queue-&gt;process($config);
 echo $config-&gt;foo;</code></pre>
 <p>This example returns the output: <code>bar</code>. The filters in the queue are applied in
 <em>FIFO</em> (First In, First Out) order .</p>
-<h2 id="laminas92config92processor92token">Laminas\Config\Processor\Token</h2>
+<h2 id="laminasconfigprocessortoken">Laminas\Config\Processor\Token</h2>
 <h3>Using Laminas\Config\Processor\Token</h3>
 <p>This example illustrates basic usage of <code>Laminas\Config\Processor\Token</code>:</p>
 <pre class=codehilite><code class=language-php>use Laminas\Config\Config;
@@ -425,7 +425,7 @@ print_r($config-&gt;toArray());
 // )</code></pre>
 <p>Do note, however, that only values present in environment will be replaced.
 This allows multiple fallback processors to be provided as a queue.</p>
-<h2 id="laminas92config92processor92translator">Laminas\Config\Processor\Translator</h2>
+<h2 id="laminasconfigprocessortranslator">Laminas\Config\Processor\Translator</h2>
 <h3>Using Laminas\Config\Processor\Translator</h3>
 <p>This example illustrates basic usage of <code>Laminas\Config\Processor\Translator</code>:</p>
 <pre class=codehilite><code class=language-php>use Laminas\Config\Config;
@@ -617,7 +617,7 @@ echo &quot;Italian: {$config-&gt;animal}&quot;;</code></pre>
         </div>
 
         <div class="row">
-            <div class="col-md-10 offset-md-2">
+            <div class="col-md-12">
                 <h5>Laminas</h5>
                 <ul>
                     <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
@@ -629,7 +629,7 @@ echo &quot;Italian: {$config-&gt;animal}&quot;;</code></pre>
         </div>
 
         <div class="row">
-            <div class="col-md-10 offset-md-2"> 
+            <div class="col-md-12">
                 <div class="row">
 
                     
@@ -687,7 +687,9 @@ echo &quot;Italian: {$config-&gt;animal}&quot;;</code></pre>
             siteName = 'laminas-config';
     </script>
     <script src="https://docs.laminas.dev/js/scripts.js"></script>
+    
         <script src="../search/main.js"></script>
+    
 
     
     <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">

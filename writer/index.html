@@ -12,14 +12,15 @@
     <title>Laminas\Config\Writer - laminas-config - Laminas Docs</title>
 
     <link rel="stylesheet" href="https://docs.laminas.dev/css/styles.css">
+    
 </head>
-<body id="page-top" class="components">
+<body id="page-top" class="components" data-spy="scroll" data-target=".toc" data-offset="20">
 
     
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
         
-        <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
+        <a class="logo-link navbar-brand" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
             <img src="https://docs.laminas.dev/img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
@@ -177,7 +178,7 @@
         <div class="row">
 
             
-            <div class="col-6 offset-md-2">
+            <div class="col-8">
                 <h1 class="header__title">
                     Components
 
@@ -207,7 +208,7 @@
     
     <div class="container">
         <div class="row">
-            <div class="col-md-2 col-sm-12">
+            <div class="col-md-9 col-sm-12 content" role="main">
                 
                 
                     
@@ -220,27 +221,27 @@
             <ul class="toc__list">
                 
                     <li class="toc__entry">
-                        <a href="#laminas92config92writer92ini" class="toc__link">Laminas\Config\Writer\Ini</a>
+                        <a href="#laminasconfigwriterini" class="toc__link nav-link">Laminas\Config\Writer\Ini</a>
                     </li>
                 
                     <li class="toc__entry">
-                        <a href="#laminas92config92writer92javaproperties" class="toc__link">Laminas\Config\Writer\JavaProperties</a>
+                        <a href="#laminasconfigwriterjavaproperties" class="toc__link nav-link">Laminas\Config\Writer\JavaProperties</a>
                     </li>
                 
                     <li class="toc__entry">
-                        <a href="#laminas92config92writer92xml" class="toc__link">Laminas\Config\Writer\Xml</a>
+                        <a href="#laminasconfigwriterxml" class="toc__link nav-link">Laminas\Config\Writer\Xml</a>
                     </li>
                 
                     <li class="toc__entry">
-                        <a href="#laminas92config92writer92phparray" class="toc__link">Laminas\Config\Writer\PhpArray</a>
+                        <a href="#laminasconfigwriterphparray" class="toc__link nav-link">Laminas\Config\Writer\PhpArray</a>
                     </li>
                 
                     <li class="toc__entry">
-                        <a href="#laminas92config92writer92json" class="toc__link">Laminas\Config\Writer\Json</a>
+                        <a href="#laminasconfigwriterjson" class="toc__link nav-link">Laminas\Config\Writer\Json</a>
                     </li>
                 
                     <li class="toc__entry">
-                        <a href="#laminas92config92writer92yaml" class="toc__link">Laminas\Config\Writer\Yaml</a>
+                        <a href="#laminasconfigwriteryaml" class="toc__link nav-link">Laminas\Config\Writer\Yaml</a>
                     </li>
                 
             </ul>
@@ -248,8 +249,7 @@
     
 
                 
-            </div>
-            <div class="col-md-7 col-sm-12 content" role="main" data-spy="scroll" data-target=".toc">
+
                 
                     <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
@@ -285,7 +285,7 @@
         <h2 class="chapter__headline">Reference</h2>
     
 
-    <h1 id="laminas92config92writer">Laminas\Config\Writer</h1>
+    <h1 id="laminasconfigwriter">Laminas\Config\Writer</h1>
 <p><code>Laminas\Config\Writer</code> provides the ability to write config files from an array,
 <code>Laminas\Config\Config</code> instance, or any <code>Traversable</code> object. <code>Laminas\Config\Writer</code>
 is itself only an interface that defining the methods <code>toFile()</code> and
@@ -299,7 +299,7 @@ is itself only an interface that defining the methods <code>toFile()</code> and
 <li><code>Laminas\Config\Writer\Xml</code></li>
 <li><code>Laminas\Config\Writer\Yaml</code></li>
 </ul>
-<h2 id="laminas92config92writer92ini">Laminas\Config\Writer\Ini</h2>
+<h2 id="laminasconfigwriterini">Laminas\Config\Writer\Ini</h2>
 <p>The INI writer has two modes for rendering with regard to sections. By default, the top-level
 configuration is always written into section names. By calling
 <code>$writer-&gt;setRenderWithoutSectionsFlags(true);</code> all options are written into the global namespace of
@@ -337,7 +337,7 @@ database.params.username = &quot;production&quot;
 database.params.password = &quot;secret&quot;
 database.params.dbname = &quot;dbproduction&quot;</code></pre>
 <p>You can use the method <code>toFile()</code> to store the INI data to a file instead.</p>
-<h2 id="laminas92config92writer92javaproperties">Laminas\Config\Writer\JavaProperties</h2>
+<h2 id="laminasconfigwriterjavaproperties">Laminas\Config\Writer\JavaProperties</h2>
 <ul>
 <li>Since 3.2.0</li>
 </ul>
@@ -377,7 +377,7 @@ database.host=localhost
 database.username=production
 database.password=secret
 database.dbname=dbproduction</code></pre>
-<h2 id="laminas92config92writer92xml">Laminas\Config\Writer\Xml</h2>
+<h2 id="laminasconfigwriterxml">Laminas\Config\Writer\Xml</h2>
 <p><code>Laminas\Config\Writer\Xml</code> can be used to generate an XML string or file.</p>
 <h3>Using Laminas\Config\Writer\Xml</h3>
 <p>Consider the following code, which creates a configuration structure:</p>
@@ -411,7 +411,7 @@ echo $writer-&gt;toString($config);</code></pre>
     &lt;/production&gt;
 &lt;/laminas-config&gt;</code></pre>
 <p>You can use the method <code>toFile()</code> to store the XML data to a file.</p>
-<h2 id="laminas92config92writer92phparray">Laminas\Config\Writer\PhpArray</h2>
+<h2 id="laminasconfigwriterphparray">Laminas\Config\Writer\PhpArray</h2>
 <p><code>Laminas\Config\Writer\PhpArray</code> can be used to generate a PHP script that
 represents and returns configuration.</p>
 <h3>Using Laminas\Config\Writer\PhpArray</h3>
@@ -449,7 +449,7 @@ return [
   ],
 ];</code></pre>
 <p>You can use the method <code>toFile()</code> to save the PHP script to a file.</p>
-<h2 id="laminas92config92writer92json">Laminas\Config\Writer\Json</h2>
+<h2 id="laminasconfigwriterjson">Laminas\Config\Writer\Json</h2>
 <p><code>Laminas\Config\Writer\Json</code> can be used to generate a JSON representation of
 configuration.</p>
 <h3>Using Laminas\Config\Writer\Json</h3>
@@ -483,7 +483,7 @@ echo $writer-&gt;toString($config);</code></pre>
 <p>You can use the method <code>toFile()</code> to save the JSON data to a file.</p>
 <p><code>Laminas\Config\Writer\Json</code> uses the laminas-json component to convert the data to
 JSON.</p>
-<h2 id="laminas92config92writer92yaml">Laminas\Config\Writer\Yaml</h2>
+<h2 id="laminasconfigwriteryaml">Laminas\Config\Writer\Yaml</h2>
 <p><code>Laminas\Config\Writer\Yaml</code> can be used to generate a PHP code that returns the YAML
 representation of configuration. In order to use the YAML writer, we need to pass a
 callback to an external PHP library, or use the
@@ -688,7 +688,7 @@ echo $writer-&gt;toString($config);</code></pre>
         </div>
 
         <div class="row">
-            <div class="col-md-10 offset-md-2">
+            <div class="col-md-12">
                 <h5>Laminas</h5>
                 <ul>
                     <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
@@ -700,7 +700,7 @@ echo $writer-&gt;toString($config);</code></pre>
         </div>
 
         <div class="row">
-            <div class="col-md-10 offset-md-2"> 
+            <div class="col-md-12">
                 <div class="row">
 
                     
@@ -758,7 +758,9 @@ echo $writer-&gt;toString($config);</code></pre>
             siteName = 'laminas-config';
     </script>
     <script src="https://docs.laminas.dev/js/scripts.js"></script>
+    
         <script src="../search/main.js"></script>
+    
 
     
     <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">

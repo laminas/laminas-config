@@ -12,14 +12,15 @@
     <title>Laminas\Config\Reader - laminas-config - Laminas Docs</title>
 
     <link rel="stylesheet" href="https://docs.laminas.dev/css/styles.css">
+    
 </head>
-<body id="page-top" class="components">
+<body id="page-top" class="components" data-spy="scroll" data-target=".toc" data-offset="20">
 
     
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
         
-        <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
+        <a class="logo-link navbar-brand" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
             <img src="https://docs.laminas.dev/img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
@@ -177,7 +178,7 @@
         <div class="row">
 
             
-            <div class="col-6 offset-md-2">
+            <div class="col-8">
                 <h1 class="header__title">
                     Components
 
@@ -207,7 +208,7 @@
     
     <div class="container">
         <div class="row">
-            <div class="col-md-2 col-sm-12">
+            <div class="col-md-9 col-sm-12 content" role="main">
                 
                 
                     
@@ -220,23 +221,23 @@
             <ul class="toc__list">
                 
                     <li class="toc__entry">
-                        <a href="#laminas92config92reader92ini" class="toc__link">Laminas\Config\Reader\Ini</a>
+                        <a href="#laminasconfigreaderini" class="toc__link nav-link">Laminas\Config\Reader\Ini</a>
                     </li>
                 
                     <li class="toc__entry">
-                        <a href="#laminas92config92reader92xml" class="toc__link">Laminas\Config\Reader\Xml</a>
+                        <a href="#laminasconfigreaderxml" class="toc__link nav-link">Laminas\Config\Reader\Xml</a>
                     </li>
                 
                     <li class="toc__entry">
-                        <a href="#laminas92config92reader92json" class="toc__link">Laminas\Config\Reader\Json</a>
+                        <a href="#laminasconfigreaderjson" class="toc__link nav-link">Laminas\Config\Reader\Json</a>
                     </li>
                 
                     <li class="toc__entry">
-                        <a href="#laminas92config92reader92yaml" class="toc__link">Laminas\Config\Reader\Yaml</a>
+                        <a href="#laminasconfigreaderyaml" class="toc__link nav-link">Laminas\Config\Reader\Yaml</a>
                     </li>
                 
                     <li class="toc__entry">
-                        <a href="#laminas92config92reader92javaproperties" class="toc__link">Laminas\Config\Reader\JavaProperties</a>
+                        <a href="#laminasconfigreaderjavaproperties" class="toc__link nav-link">Laminas\Config\Reader\JavaProperties</a>
                     </li>
                 
             </ul>
@@ -244,8 +245,7 @@
     
 
                 
-            </div>
-            <div class="col-md-7 col-sm-12 content" role="main" data-spy="scroll" data-target=".toc">
+
                 
                     <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
@@ -281,7 +281,7 @@
         <h2 class="chapter__headline">Reference</h2>
     
 
-    <h1 id="laminas92config92reader">Laminas\Config\Reader</h1>
+    <h1 id="laminasconfigreader">Laminas\Config\Reader</h1>
 <p><code>Laminas\Config\Reader</code> gives you the ability to read a config file. It works with
 concrete implementations for different file formats. <code>Laminas\Config\Reader</code> itself
 is only an interface, defining the methods <code>fromFile()</code> and <code>fromString()</code>. The
@@ -303,7 +303,7 @@ the data from the specified configuration.</p>
 <li>Reading of specific sections.</li>
 </ul>
 </blockquote>
-<h2 id="laminas92config92reader92ini">Laminas\Config\Reader\Ini</h2>
+<h2 id="laminasconfigreaderini">Laminas\Config\Reader\Ini</h2>
 <p><code>Laminas\Config\Reader\Ini</code> enables developers to store configuration data in a
 familiar INI format, and then to read them in the application by using an array
 syntax.</p>
@@ -366,7 +366,7 @@ params.dbname   = 'dbproduction'</code></pre>
 <p>And assign the <code>@include</code> as a subelement of the <code>database</code> value:</p>
 <pre class=codehilite><code class=language-ini>webhost           = 'www.example.com'
 database.@include = 'database.ini'</code></pre>
-<h2 id="laminas92config92reader92xml">Laminas\Config\Reader\Xml</h2>
+<h2 id="laminasconfigreaderxml">Laminas\Config\Reader\Xml</h2>
 <p><code>Laminas\Config\Reader\Xml</code> enables developers to provide configuration data in a
 familiar XML format and consume it in the application using an array syntax.
 The root element of the XML file or string is irrelevant and may be named
@@ -421,7 +421,7 @@ functionality, you must add the namespace
 &lt;/config&gt;</code></pre>
 <p>The syntax to include an XML file in a specific element is <code>&lt;xi:include
 href="file-to-include.xml"/&gt;</code></p>
-<h2 id="laminas92config92reader92json">Laminas\Config\Reader\Json</h2>
+<h2 id="laminasconfigreaderjson">Laminas\Config\Reader\Json</h2>
 <p><code>Laminas\Config\Reader\Json</code> enables developers to consume configuration data in
 JSON, and read it in the application by using an array syntax.</p>
 <p>The following example illustrates a basic use of <code>Laminas\Config\Reader\Json</code> for
@@ -466,7 +466,7 @@ configuration:</p>
     &quot;webhost&quot;  : &quot;www.example.com&quot;,
     &quot;@include&quot; : &quot;database.json&quot;
 }</code></pre>
-<h2 id="laminas92config92reader92yaml">Laminas\Config\Reader\Yaml</h2>
+<h2 id="laminasconfigreaderyaml">Laminas\Config\Reader\Yaml</h2>
 <p><code>Laminas\Config\Reader\Yaml</code> enables developers to consume configuration data in a
 YAML format, and read them in the application by using an array syntax. In order
 to use the YAML reader, we need to pass a callback to an external PHP library or
@@ -515,7 +515,7 @@ in a specific YAML section or element. This is provided using the special syntax
 <p>We can include this configuration in another YAML file:</p>
 <pre class=codehilite><code class=language-yaml>webhost:  www.example.com
 @include: database.yaml</code></pre>
-<h2 id="laminas92config92reader92javaproperties">Laminas\Config\Reader\JavaProperties</h2>
+<h2 id="laminasconfigreaderjavaproperties">Laminas\Config\Reader\JavaProperties</h2>
 <p><code>Laminas\Config\Reader\JavaProperties</code> enables developers to provide configuration
 data in the popular JavaProperties format, and read it in the application by
 using array syntax.</p>
@@ -730,7 +730,7 @@ database.params.dbname = dbproduction</code></pre>
         </div>
 
         <div class="row">
-            <div class="col-md-10 offset-md-2">
+            <div class="col-md-12">
                 <h5>Laminas</h5>
                 <ul>
                     <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
@@ -742,7 +742,7 @@ database.params.dbname = dbproduction</code></pre>
         </div>
 
         <div class="row">
-            <div class="col-md-10 offset-md-2"> 
+            <div class="col-md-12">
                 <div class="row">
 
                     
@@ -800,7 +800,9 @@ database.params.dbname = dbproduction</code></pre>
             siteName = 'laminas-config';
     </script>
     <script src="https://docs.laminas.dev/js/scripts.js"></script>
+    
         <script src="../search/main.js"></script>
+    
 
     
     <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
