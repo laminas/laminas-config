@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url>
      <loc>https://docs.laminas.dev/laminas-config/</loc>
-     <lastmod>2020-02-28</lastmod>
+     <lastmod>2020-02-29</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://docs.laminas.dev/laminas-config/intro/</loc>
-     <lastmod>2020-02-28</lastmod>
+     <lastmod>2020-02-29</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://docs.laminas.dev/laminas-config/theory/</loc>
-     <lastmod>2020-02-28</lastmod>
+     <lastmod>2020-02-29</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://docs.laminas.dev/laminas-config/reader/</loc>
-     <lastmod>2020-02-28</lastmod>
+     <lastmod>2020-02-29</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://docs.laminas.dev/laminas-config/writer/</loc>
-     <lastmod>2020-02-28</lastmod>
+     <lastmod>2020-02-29</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://docs.laminas.dev/laminas-config/processor/</loc>
-     <lastmod>2020-02-28</lastmod>
+     <lastmod>2020-02-29</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://docs.laminas.dev/laminas-config/factory/</loc>
-     <lastmod>2020-02-28</lastmod>
+     <lastmod>2020-02-29</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://docs.laminas.dev/laminas-config/migration/to-v3/</loc>
-     <lastmod>2020-02-28</lastmod>
+     <lastmod>2020-02-29</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>
