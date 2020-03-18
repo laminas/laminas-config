@@ -51,10 +51,11 @@ $host = $config->database->get('host', 'localhost');
 PHP-based configuration files are often recommended due to the speed with which
 they are parsed, and the fact that they can be cached by opcode caches.
 
-The following code illustrates how to use PHP configuration files:
+The following code illustrates how to use PHP configuration files.
+
+Create a sepatared PHP file which contains the configuration, e.g. `config.php`:
 
 ```php
-// config.php
 return [
     'webhost'  => 'www.example.com',
     'database' => [
@@ -69,10 +70,11 @@ return [
 ];
 ```
 
+Use the configuration array from this file in another PHP script, e.g.
+`index.php`:
+
 ```php
-// Consumes the configuration array
 $config = new Laminas\Config\Config(include 'config.php');
 
-// Print a configuration datum (results in 'www.example.com')
-echo $config->webhost;
+echo $config->webhost; // 'www.example.com'
 ```
