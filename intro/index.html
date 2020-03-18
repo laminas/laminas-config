@@ -354,9 +354,9 @@ element requested doesn't exist in the configuration array. For example:</p>
 <h2 id="using-php-configuration-files">Using PHP Configuration Files</h2>
 <p>PHP-based configuration files are often recommended due to the speed with which
 they are parsed, and the fact that they can be cached by opcode caches.</p>
-<p>The following code illustrates how to use PHP configuration files:</p>
-<div class=md-fenced-code-tabs id=tab-tab-group-2><ul class="nav nav-tabs"><li class=nav-item><a class="nav-link active" href=#tab-group-2-0_php-panel role=tab id=tab-group-2-0_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-2-0_php-panel aria-selected=true>Php</a></li><li class=nav-item><a class="nav-link " href=#tab-group-2-1_php-panel role=tab id=tab-group-2-1_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-2-1_php-panel aria-selected=false>Php</a></li></ul><div class=tab-content><div id=tab-group-2-0_php-panel class="tab-pane show active" role=tabpanel aria-labelledby=tab-group-2-0_php-tab><pre class=codehilite><code class=language-php>// config.php
-return [
+<p>The following code illustrates how to use PHP configuration files.</p>
+<p>Create a sepatared PHP file which contains the configuration, e.g. <code>config.php</code>:</p>
+<pre class=codehilite><code class=language-php>return [
     'webhost'  =&gt; 'www.example.com',
     'database' =&gt; [
         'adapter' =&gt; 'pdo_mysql',
@@ -367,11 +367,12 @@ return [
             'dbname'   =&gt; 'mydatabase',
         ],
     ],
-];</code></pre></div><div id=tab-group-2-1_php-panel class="tab-pane " role=tabpanel aria-labelledby=tab-group-2-1_php-tab><pre class=codehilite><code class=language-php>// Consumes the configuration array
-$config = new Laminas\Config\Config(include 'config.php');
+];</code></pre>
+<p>Use the configuration array from this file in another PHP script, e.g.
+<code>index.php</code>:</p>
+<pre class=codehilite><code class=language-php>$config = new Laminas\Config\Config(include 'config.php');
 
-// Print a configuration datum (results in 'www.example.com')
-echo $config-&gt;webhost;</code></pre></div></div></div>
+echo $config-&gt;webhost; // 'www.example.com'</code></pre>
 
 
 
