@@ -70,6 +70,6 @@
         "license-check": "docheader check src/"
     },
     "replace": {
-        "zendframework/zend-config": "self.version"
+        "zendframework/zend-config": "^3.3.0"
     }
 }
