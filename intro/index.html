@@ -326,7 +326,7 @@ stored in INI, JSON, YAML, and XML files.</p>
 configuration file, but if configuration data is available in a PHP array, one
 may simply pass the data to <code>Laminas\Config\Config</code>'s constructor in order to
 utilize a simple object-oriented interface:</p>
-<pre class=codehilite><code class=language-php>// An array of configuration data is given
+<pre class="highlight"><code class="language-php">// An array of configuration data is given
 $configArray = [
     'webhost'  =&gt; 'www.example.com',
     'database' =&gt; [
@@ -345,18 +345,20 @@ $config = new Laminas\Config\Config($configArray);
 
 // Print a configuration datum (results in 'www.example.com')
 echo $config-&gt;webhost;</code></pre>
+
 <p>As illustrated in the example above, <code>Laminas\Config\Config</code> provides nested object
 property syntax to access configuration data passed to its constructor.</p>
 <p>Along with the object-oriented access to the data values, <code>Laminas\Config\Config</code>
 also has a <code>get()</code> method that accepts a default value to return if the data
 element requested doesn't exist in the configuration array. For example:</p>
-<pre class=codehilite><code class=language-php>$host = $config-&gt;database-&gt;get('host', 'localhost');</code></pre>
+<pre class="highlight"><code class="language-php">$host = $config-&gt;database-&gt;get('host', 'localhost');</code></pre>
+
 <h2 id="using-php-configuration-files">Using PHP Configuration Files</h2>
 <p>PHP-based configuration files are often recommended due to the speed with which
 they are parsed, and the fact that they can be cached by opcode caches.</p>
 <p>The following code illustrates how to use PHP configuration files.</p>
 <p>Create a sepatared PHP file which contains the configuration, e.g. <code>config.php</code>:</p>
-<pre class=codehilite><code class=language-php>return [
+<pre class="highlight"><code class="language-php">return [
     'webhost'  =&gt; 'www.example.com',
     'database' =&gt; [
         'adapter' =&gt; 'pdo_mysql',
@@ -368,9 +370,10 @@ they are parsed, and the fact that they can be cached by opcode caches.</p>
         ],
     ],
 ];</code></pre>
+
 <p>Use the configuration array from this file in another PHP script, e.g.
 <code>index.php</code>:</p>
-<pre class=codehilite><code class=language-php>$config = new Laminas\Config\Config(include 'config.php');
+<pre class="highlight"><code class="language-php">$config = new Laminas\Config\Config(include 'config.php');
 
 echo $config-&gt;webhost; // 'www.example.com'</code></pre>
 

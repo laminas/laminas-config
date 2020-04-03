@@ -370,7 +370,7 @@ create a section in the root or to create a branch, just create a new array
 (<code>$config-&gt;branch = [];</code>).</p>
 <h3>Using Laminas\Config\Writer\Ini</h3>
 <p>Consider the following code, which creates a configuration structure:</p>
-<pre class=codehilite><code class=language-php>// Create the config object
+<pre class="highlight"><code class="language-php">// Create the config object
 $config = new Laminas\Config\Config([], true);
 $config-&gt;production = [];
 
@@ -384,13 +384,15 @@ $config-&gt;production-&gt;database-&gt;params-&gt;dbname = 'dbproduction';
 
 $writer = new Laminas\Config\Writer\Ini();
 echo $writer-&gt;toString($config);</code></pre>
+
 <p>The result of this code is the following INI string:</p>
-<pre class=codehilite><code class=language-ini>[production]
-webhost = &quot;www.example.com&quot;
-database.params.host = &quot;localhost&quot;
-database.params.username = &quot;production&quot;
-database.params.password = &quot;secret&quot;
-database.params.dbname = &quot;dbproduction&quot;</code></pre>
+<pre class="highlight"><code class="language-ini">[production]
+webhost = "www.example.com"
+database.params.host = "localhost"
+database.params.username = "production"
+database.params.password = "secret"
+database.params.dbname = "dbproduction"</code></pre>
+
 <p>You can use the method <code>toFile()</code> to store the INI data to a file instead.</p>
 <h2 id="laminasconfigwriterjavaproperties">Laminas\Config\Writer\JavaProperties</h2>
 <ul>
@@ -404,7 +406,7 @@ are separated. The default is a single colon (<code>:</code>), such as is accept
 <code>Laminas\Config\Reader\JavaProperties</code> by default.</p>
 <h3>Using Laminas\Config\Writer\JavaProperties</h3>
 <p>Consider the following code, creating configuration:</p>
-<pre class=codehilite><code class=language-php>// Create the config object
+<pre class="highlight"><code class="language-php">// Create the config object
 $config = new Laminas\Config\Config([], true);
 
 $config-&gt;webhost             = 'www.example.com'; // use object notation
@@ -415,28 +417,32 @@ $config['database.dbname']   = 'dbproduction';
 
 $writer = new Laminas\Config\Writer\JavaProperties();
 echo $writer-&gt;toString($config);</code></pre>
+
 <p>The result of this code is the following JavaProperties string:</p>
-<pre class=codehilite><code class=language-properties>webhost:www.example.com
+<pre class="highlight"><code class="language-properties">webhost:www.example.com
 database.host:localhost
 database.username:production
 database.password:secret
 database.dbname:dbproduction</code></pre>
+
 <p>You can use the method <code>toFile()</code> to store the JavaProperties data to a file instead.</p>
 <h3>Using an alternate delimiter</h3>
 <p>If you want to use an alternate delimiter, such as <code>=</code>, pass it to the
 constructor:</p>
-<pre class=codehilite><code class=language-php>$writer = new Laminas\Config\Writer\JavaProperties('=');</code></pre>
+<pre class="highlight"><code class="language-php">$writer = new Laminas\Config\Writer\JavaProperties('=');</code></pre>
+
 <p>Using the above configuration, we would now receive:</p>
-<pre class=codehilite><code class=language-properties>webhost=www.example.com
+<pre class="highlight"><code class="language-properties">webhost=www.example.com
 database.host=localhost
 database.username=production
 database.password=secret
 database.dbname=dbproduction</code></pre>
+
 <h2 id="laminasconfigwriterxml">Laminas\Config\Writer\Xml</h2>
 <p><code>Laminas\Config\Writer\Xml</code> can be used to generate an XML string or file.</p>
 <h3>Using Laminas\Config\Writer\Xml</h3>
 <p>Consider the following code, which creates a configuration structure:</p>
-<pre class=codehilite><code class=language-php>// Create the config object
+<pre class="highlight"><code class="language-php">// Create the config object
 $config = new Laminas\Config\Config([], true);
 $config-&gt;production = [];
 
@@ -450,8 +456,9 @@ $config-&gt;production-&gt;database-&gt;params-&gt;dbname = 'dbproduction';
 
 $writer = new Laminas\Config\Writer\Xml();
 echo $writer-&gt;toString($config);</code></pre>
+
 <p>The result of this code is the following XML string:</p>
-<pre class=codehilite><code class=language-xml>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+<pre class="highlight"><code class="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;laminas-config&gt;
     &lt;production&gt;
         &lt;webhost&gt;www.example.com&lt;/webhost&gt;
@@ -465,13 +472,14 @@ echo $writer-&gt;toString($config);</code></pre>
         &lt;/database&gt;
     &lt;/production&gt;
 &lt;/laminas-config&gt;</code></pre>
+
 <p>You can use the method <code>toFile()</code> to store the XML data to a file.</p>
 <h2 id="laminasconfigwriterphparray">Laminas\Config\Writer\PhpArray</h2>
 <p><code>Laminas\Config\Writer\PhpArray</code> can be used to generate a PHP script that
 represents and returns configuration.</p>
 <h3>Using Laminas\Config\Writer\PhpArray</h3>
 <p>Consider the following code, which creates a configuration structure:</p>
-<pre class=codehilite><code class=language-php>// Create the config object
+<pre class="highlight"><code class="language-php">// Create the config object
 $config = new Laminas\Config\Config([], true);
 $config-&gt;production = [];
 
@@ -485,8 +493,9 @@ $config-&gt;production-&gt;database-&gt;params-&gt;dbname = 'dbproduction';
 
 $writer = new Laminas\Config\Writer\PhpArray();
 echo $writer-&gt;toString($config);</code></pre>
+
 <p>The result of this code is the following PHP script:</p>
-<pre class=codehilite><code class=language-php>&lt;?php
+<pre class="highlight"><code class="language-php">&lt;?php
 return [
   'production' =&gt;
   [
@@ -503,13 +512,14 @@ return [
     ],
   ],
 ];</code></pre>
+
 <p>You can use the method <code>toFile()</code> to save the PHP script to a file.</p>
 <h2 id="laminasconfigwriterjson">Laminas\Config\Writer\Json</h2>
 <p><code>Laminas\Config\Writer\Json</code> can be used to generate a JSON representation of
 configuration.</p>
 <h3>Using Laminas\Config\Writer\Json</h3>
 <p>Consider the following code, which creates a configuration structure:</p>
-<pre class=codehilite><code class=language-php>// Create the config object
+<pre class="highlight"><code class="language-php">// Create the config object
 $config = new Laminas\Config\Config([], true);
 $config-&gt;production = [];
 
@@ -523,18 +533,20 @@ $config-&gt;production-&gt;database-&gt;params-&gt;dbname = 'dbproduction';
 
 $writer = new Laminas\Config\Writer\Json();
 echo $writer-&gt;toString($config);</code></pre>
+
 <p>The result of this code is the following JSON string:</p>
-<pre class=codehilite><code class=language-json>{
-  &quot;webhost&quot;: &quot;www.example.com&quot;,
-  &quot;database&quot;: {
-    &quot;params&quot;: {
-      &quot;host&quot;: &quot;localhost&quot;,
-      &quot;username&quot;: &quot;production&quot;,
-      &quot;password&quot;: &quot;secret&quot;,
-      &quot;dbname&quot;: &quot;dbproduction&quot;
+<pre class="highlight"><code class="language-json">{
+  "webhost": "www.example.com",
+  "database": {
+    "params": {
+      "host": "localhost",
+      "username": "production",
+      "password": "secret",
+      "dbname": "dbproduction"
     }
   }
 }</code></pre>
+
 <p>You can use the method <code>toFile()</code> to save the JSON data to a file.</p>
 <p><code>Laminas\Config\Writer\Json</code> uses the laminas-json component to convert the data to
 JSON.</p>
@@ -546,7 +558,7 @@ callback to an external PHP library, or use the
 <h3>Using Laminas\Config\Writer\Yaml</h3>
 <p>Consider the following code, which creates a configuration structure using the
 YAML PECL extension:</p>
-<pre class=codehilite><code class=language-php>// Create the config object
+<pre class="highlight"><code class="language-php">// Create the config object
 $config = new Laminas\Config\Config([], true);
 $config-&gt;production = [];
 
@@ -560,20 +572,22 @@ $config-&gt;production-&gt;database-&gt;params-&gt;dbname = 'dbproduction';
 
 $writer = new Laminas\Config\Writer\Yaml();
 echo $writer-&gt;toString($config);</code></pre>
+
 <p>The result of this code is the following YAML string contains the following value:</p>
-<pre class=codehilite><code class=language-yaml>webhost: www.example.com
+<pre class="highlight"><code class="language-yaml">webhost: www.example.com
 database:
     params:
       host:     localhost
       username: production
       password: secret
       dbname:   dbproduction</code></pre>
+
 <p>You can use the method <code>toFile()</code> to save the YAML data to a file.</p>
 <p>If you want to use an external YAML writer library, pass the callback function
 that will generate the YAML from the configuration when instantiating the
 writer.  For instance, to use the <a href="https://github.com/mustangostang/spyc/">Spyc</a>
 library:</p>
-<pre class=codehilite><code class=language-php>// include the Spyc library
+<pre class="highlight"><code class="language-php">// include the Spyc library
 require_once 'path/to/spyc.php';
 
 $writer = new Laminas\Config\Writer\Yaml(['Spyc', 'YAMLDump']);

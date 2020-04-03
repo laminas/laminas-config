@@ -317,29 +317,27 @@ number of levels.</p>
 <h3>Extending <code>Laminas\Config\Config</code> class</h3>
 <p>If you decide to extend <code>Laminas\Config\Config</code> class, each property (subnode)
 becomes the same type as the parent class. For example:</p>
-<pre class="codehilite"><code class="language-php">
-class ExtendedConfig extends Laminas\Config\Config
+<pre class="highlight"><code class="language-php">class ExtendedConfig extends Laminas\Config\Config
 {
 }
 
 $config = new ExtendedConfig(['node' =&gt; ['key' =&gt; 'value']]);
 
 echo get_class($config-&gt;node);
-// the result of above is ExtendedConfig not Laminas\Config\Config!
-</code></pre>
+// the result of above is ExtendedConfig not Laminas\Config\Config!</code></pre>
+
 <p>This casting occurs in the constructor, which uses the construct <code>new
 static()</code> for any array subvalues it encounters when traversing the provided
 array. As such, we DO NOT RECOMMEND extending the constructor; instead, create
 a <a href="http://verraes.net/2014/06/named-constructors-in-php/">named constructor</a>:</p>
-<pre class="codehilite"><code class="language-php">
-class ExtendedConfig extends Laminas\Config\Config
+<pre class="highlight"><code class="language-php">class ExtendedConfig extends Laminas\Config\Config
 {
     public static function createWithDefaults()
     {
         return new self([ /* ... */ ]);
     }
-}
-</code></pre>
+}</code></pre>
+
 </blockquote>
 <p><code>Laminas\Config\Config</code> implements the <a href="http://php.net/manual/en/class.countable.php">Countable</a>
 and <a href="http://php.net/manual/en/class.iterator.php">Iterator</a> interfaces in order
