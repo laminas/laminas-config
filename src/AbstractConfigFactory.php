@@ -62,7 +62,7 @@ class AbstractConfigFactory implements AbstractFactoryInterface
             return true;
         }
 
-        if (! $container->has('Config')) {
+        if (! $container->has('config')) {
             return false;
         }
 
@@ -71,7 +71,7 @@ class AbstractConfigFactory implements AbstractFactoryInterface
             return false;
         }
 
-        $config = $container->get('Config');
+        $config = $container->get('config');
         return isset($config[$key]);
     }
 
@@ -108,7 +108,7 @@ class AbstractConfigFactory implements AbstractFactoryInterface
             return $this->configs[$key];
         }
 
-        $config = $container->get('Config');
+        $config = $container->get('config');
         $this->configs[$requestedName] = $this->configs[$key] = $config[$key];
         return $config[$key];
     }
