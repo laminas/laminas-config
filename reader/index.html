@@ -1,342 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Laminas\Config">  
-    <link rel="canonical" href="https://docs.laminas.dev/laminas-config/reader/">
-    <link rel="shortcut icon" href="https://docs.laminas.dev/img/trademark-laminas-foundation-rgb.svg">
-
-    <title>Laminas\Config\Reader - laminas-config - Laminas Docs</title>
-
-    <link rel="stylesheet" href="https://docs.laminas.dev/css/styles.css">
-    
-</head>
-<body id="page-top" class="components" data-spy="scroll" data-target=".toc" data-offset="20">
-
-    
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
-        <a class="logo-link navbar-brand" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
-            <img src="https://docs.laminas.dev/img/laminas-foundation-white.svg" height="28" alt="Laminas">
-        </a>
-        <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
-            Documentation
-        </a>
-
         
-        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Laminas\Config\Reader - laminas-config</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
 
-            
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <div class="dropdown sub-project-selector">
-                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
-                            All Docs
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a href="https://docs.mezzio.dev/" class="dropdown-item">
-                                <div class="row align-items-center">
-                                    <div class="col-md-4 col-sm-12">
-                                        <img src="https://docs.laminas.dev/img/laminas-mezzio-rgb.svg">
-                                    </div>
-                                    <div class="col-md-8 col-sm-12">
-                                        <strong>Mezzio</strong><br>
-                                        PSR-15 Middleware in Minutes
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="https://docs.laminas.dev/components/" class="dropdown-item">
-                                <div class="row align-items-center">
-                                    <div class="col-md-4 col-sm-12">
-                                        <img src="https://docs.laminas.dev/img/laminas-components-rgb.svg">
-                                    </div>
-                                    <div class="col-md-8 col-sm-12">
-                                        <strong>Components</strong><br>
-                                        Components for Enterprise Applications
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="https://docs.laminas.dev/mvc" class="dropdown-item">
-                                <div class="row align-items-center">
-                                    <div class="col-md-4 col-sm-12">
-                                        <img src="https://docs.laminas.dev/img/laminas-mvc-rgb.svg">
-                                    </div>
-                                    <div class="col-md-8 col-sm-12">
-                                        <strong>MVC</strong><br>
-                                        MVC for Enterprise Applications
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="https://api-tools.getlaminas.org/documentation" class="dropdown-item">
-                                <div class="row align-items-center">
-                                    <div class="col-md-4 col-sm-12">
-                                        <img src="https://docs.laminas.dev/img/laminas-api-tools-rgb.svg">
-                                    </div>
-                                    <div class="col-md-8 col-sm-12">
-                                        <strong>API Tools</strong><br>
-                                        Build RESTful APIs in Minutes
-                                    </div>
-                                </div>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item dropdown-item--secondardy" href="https://docs.laminas.dev/migration/">
-                                <div class="row align-items-center">
-                                    <div class="col-md-8 offset-md-4 col-sm-12">
-                                        Migration to Laminas
-                                    </div>
-                                </div>
-                            </a>
-                            <a class="dropdown-item dropdown-item--secondardy" href="https://docs.laminas.dev/tutorials/">
-                                <div class="row align-items-center">
-                                    <div class="col-md-8 offset-md-4 col-sm-12">
-                                        Tutorials
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
-                </li>
-            </ul>
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">laminas-config</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-            
-            
-                <div class="d-block d-sm-none">
-                    
-    <div class="subnavigation hidden-print">
-        <h4 class="subnavigation__title">
-            <a href="..">laminas-config</a>
-        </h4>
-
-        <h5 class="subnavigation__subtitle">Table of Contents</h5>
-
-        <ul class="subnavigation__list">
-            
-
-                
-                
-
-                    
-                    
-                        
-                            <li class="subnavigation__list-item ">
-                                <a href="../intro/" class="subnavigation__link">Introduction</a>
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href=".." class="nav-link">Home</a>
                             </li>
-                        
-                    
-                
-            
-
-                
-                
-
-                    
-                    
-                        
-                            <li class="subnavigation__list-item ">
-                                <a href="../theory/" class="subnavigation__link">Theory of Operation</a>
+                            <li class="navitem">
+                                <a href="../intro/" class="nav-link">Introduction</a>
                             </li>
-                        
-                    
-                
+                            <li class="navitem">
+                                <a href="../theory/" class="nav-link">Theory of Operation</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Reference <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="./" class="dropdown-item active">Laminas\Config\Reader</a>
+</li>
+                                    
+<li>
+    <a href="../writer/" class="dropdown-item">Laminas\Config\Writer</a>
+</li>
+                                    
+<li>
+    <a href="../processor/" class="dropdown-item">Laminas\Config\Processor</a>
+</li>
+                                    
+<li>
+    <a href="../factory/" class="dropdown-item">Config Factory</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Migration</a>
+    <ul class="dropdown-menu">
             
-
-                
-                
-
-                    
-                    
-                        
-                            <li class="subnavigation__list-item">
-                                <span class="subnavigation__headline">Reference</span>
-                                <ul class="subnavigation__list">
-                                    
-                                        
-    <li class="subnavigation__list-item subnavigation__list-item--active">
-        <a href="./" class="subnavigation__link">Laminas\Config\Reader</a>
-    </li>
-
-                                    
-                                        
-    <li class="subnavigation__list-item ">
-        <a href="../writer/" class="subnavigation__link">Laminas\Config\Writer</a>
-    </li>
-
-                                    
-                                        
-    <li class="subnavigation__list-item ">
-        <a href="../processor/" class="subnavigation__link">Laminas\Config\Processor</a>
-    </li>
-
-                                    
-                                        
-    <li class="subnavigation__list-item ">
-        <a href="../factory/" class="subnavigation__link">Config Factory</a>
-    </li>
-
-                                    
-                                        
-    <li class="subnavigation__list-item">
-        <span class="subnavigation__headline">Migration</span>
-        <ul class="subnavigation__list">
-            
-                
-    <li class="subnavigation__list-item ">
-        <a href="../migration/to-v3/" class="subnavigation__link">To version 3</a>
-    </li>
-
-            
-        </ul>
-    </li>
-
-                                    
+<li>
+    <a href="../migration/to-v3/" class="dropdown-item">To version 3</a>
+</li>
+    </ul>
+  </li>
                                 </ul>
                             </li>
-                        
-                    
-                
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../theory/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../writer/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/laminas/laminas-config/edit/master/docs/reader.md" class="nav-link"><i class="fa fa-github"></i> Edit on GitHub</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
             
+            <li class="nav-item" data-level="1"><a href="#laminasconfigreader" class="nav-link">Laminas\Config\Reader</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#laminasconfigreaderini" class="nav-link">Laminas\Config\Reader\Ini</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#laminasconfigreaderxml" class="nav-link">Laminas\Config\Reader\Xml</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#laminasconfigreaderjson" class="nav-link">Laminas\Config\Reader\Json</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#laminasconfigreaderyaml" class="nav-link">Laminas\Config\Reader\Yaml</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#laminasconfigreaderjavaproperties" class="nav-link">Laminas\Config\Reader\JavaProperties</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
         </ul>
     </div>
+</div></div>
+                    <div class="col-md-9" role="main">
 
-                </div>
-            
-
-            
-            <div class="d-block d-sm-none">
-                <div class="component-selector">
-    
-    <h5 class="component-selector__subtitle">Find documentation…</h5>
-    <select class="form-control component-selector__control">
-        <option value="/">Overview</option>
-        <optgroup label="Components"></optgroup>
-    </select>
-</div>
-            </div>
-        </div>
-    </div>
-</nav>
-
-    
-    <header class="header">
-    <div class="container">
-        <div class="row">
-
-            
-            <div class="col-8">
-                <h1 class="header__title">
-                    Components
-
-                    
-                        <small class="header__subtitle">laminas-config</small>
-                    
-                </h1>
-            </div>
-
-            
-            <div class="col-4 text-sm-right">
-                
-                    
-
-                    <a href="#" class="header__link header__link--search" data-toggle="modal" data-target="#mkdocs_search_modal" title="Open search">
-                        <i class="fa fa-search"></i> Search
-                    </a>
-                    <a href="https://github.com/laminas/laminas-config/" class="header__link header__link--github" title="Go to repository of laminas-config">
-                        <i class="fa fa-github"></i> GitHub
-                    </a>
-                
-            </div>
-        </div>
-    </div>
-</header>
-
-    
-    <div class="container">
-        <div class="row">
-            <div class="col-md-9 col-sm-12 content" role="main">
-                
-                
-                    
-    
-
-    
-    
-        <div class="toc">
-            <h6 class="toc__headline">On this page</h6>
-            <ul class="toc__list">
-                
-                    <li class="toc__entry">
-                        <a href="#laminasconfigreaderini" class="toc__link nav-link">Laminas\Config\Reader\Ini</a>
-                    </li>
-                
-                    <li class="toc__entry">
-                        <a href="#laminasconfigreaderxml" class="toc__link nav-link">Laminas\Config\Reader\Xml</a>
-                    </li>
-                
-                    <li class="toc__entry">
-                        <a href="#laminasconfigreaderjson" class="toc__link nav-link">Laminas\Config\Reader\Json</a>
-                    </li>
-                
-                    <li class="toc__entry">
-                        <a href="#laminasconfigreaderyaml" class="toc__link nav-link">Laminas\Config\Reader\Yaml</a>
-                    </li>
-                
-                    <li class="toc__entry">
-                        <a href="#laminasconfigreaderjavaproperties" class="toc__link nav-link">Laminas\Config\Reader\JavaProperties</a>
-                    </li>
-                
-            </ul>
-        </div>
-    
-
-                
-
-                
-                    <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        
-            <li class="breadcrumb-item"><a href="https://docs.laminas.dev/">Overview</a></li>
-            <li class="breadcrumb-item"><a href="https://docs.laminas.dev/components/">Components</a></li>
-
-            
-                <li class="breadcrumb-item"><a href="..">laminas-config</a></li>
-
-                
-                    
-                        
-                        
-                            <li class="breadcrumb-item">Reference</li>
-                        
-                    
-                
-
-                <li class="breadcrumb-item active" aria-current="page">Laminas\Config\Reader</li>
-            
-        
-    </ol>
-</nav>
-
-
-
-
-
-
-    
-    
-        <h2 class="chapter__headline">Reference</h2>
-    
-
-    <h1 id="laminasconfigreader">Laminas\Config\Reader</h1>
+<h1 id="laminasconfigreader">Laminas\Config\Reader</h1>
 <p><code>Laminas\Config\Reader</code> gives you the ability to read a config file. It works with
 concrete implementations for different file formats. <code>Laminas\Config\Reader</code> itself
 is only an interface, defining the methods <code>fromFile()</code> and <code>fromString()</code>. The
@@ -351,7 +156,7 @@ concrete implementations of this interface are:</p>
 <p><code>fromFile()</code> and <code>fromString()</code> are expected to return a PHP array containing
 the data from the specified configuration.</p>
 <blockquote>
-<h3>Differences from Laminas1</h3>
+<h3 id="differences-from-laminas1">Differences from Laminas1</h3>
 <p>The <code>Laminas\Config\Reader</code> component no longer supports the following features:</p>
 <ul>
 <li>Inheritance of sections.</li>
@@ -367,63 +172,69 @@ function. Please review this documentation to be aware of its specific behaviors
 <code>Laminas\Config\Reader\Ini</code>, such as how the special values of <code>TRUE</code>, <code>FALSE</code>, "yes", "no", and
 <code>NULL</code> are handled.</p>
 <blockquote>
-<h3>Key Separator</h3>
+<h3 id="key-separator">Key Separator</h3>
 <p>By default, the key separator character is the period character (<code>.</code>). This can be changed,
 however, using the <code>setNestSeparator()</code> method. For example:</p>
-<pre class="highlight"><code class="language-php">$reader = new Laminas\Config\Reader\Ini();
-$reader-&gt;setNestSeparator('-');</code></pre>
-
-<h3>Process Sections</h3>
+<p><code>php
+$reader = new Laminas\Config\Reader\Ini();
+$reader-&gt;setNestSeparator('-');</code></p>
+<h3 id="process-sections">Process Sections</h3>
 <p>By default, the INI reader executes <code>parse_ini_file()</code>  with the optional parameter <code>$process_sections</code> being <code>true</code>. The result is a multidimensional array, with the section names and settings included.</p>
 <p>To merge sections, set the parameter via <code>setProcessSections()</code> to <code>false</code> as follows.</p>
-<pre class="highlight"><code class="language-php">$reader = new Laminas\Config\Reader\Ini();
-$reader-&gt;setProcessSections(false);</code></pre>
-
+<p><code>php
+$reader = new Laminas\Config\Reader\Ini();
+$reader-&gt;setProcessSections(false);</code></p>
 </blockquote>
 <p>The following example illustrates basic usage of <code>Laminas\Config\Reader\Ini</code> for
 loading configuration data from an INI file. In this example, configuration data
 for both a production system and for a staging system exists.</p>
-<pre class="highlight"><code class="language-ini">webhost                  = 'www.example.com'
+<pre><code class="ini">webhost                  = 'www.example.com'
 database.adapter         = 'pdo_mysql'
 database.params.host     = 'db.example.com'
 database.params.username = 'dbuser'
 database.params.password = 'secret'
-database.params.dbname   = 'dbproduction'</code></pre>
+database.params.dbname   = 'dbproduction'
+</code></pre>
 
 <p>We can use <code>Laminas\Config\Reader\Ini</code> to read this INI file:</p>
-<pre class="highlight"><code class="language-php">$reader = new Laminas\Config\Reader\Ini();
+<pre><code class="php">$reader = new Laminas\Config\Reader\Ini();
 $data   = $reader-&gt;fromFile('/path/to/config.ini');
 
-echo $data['webhost'];  // prints "www.example.com"
-echo $data['database']['params']['dbname'];  // prints "dbproduction"</code></pre>
+echo $data['webhost'];  // prints &quot;www.example.com&quot;
+echo $data['database']['params']['dbname'];  // prints &quot;dbproduction&quot;
+</code></pre>
 
 <p><code>Laminas\Config\Reader\Ini</code> supports a feature to include the content of a INI file
 in a specific section of another INI file. For instance, suppose we have an INI
 file with the database configuration:</p>
-<pre class="highlight"><code class="language-ini">database.adapter         = 'pdo_mysql'
+<pre><code class="ini">database.adapter         = 'pdo_mysql'
 database.params.host     = 'db.example.com'
 database.params.username = 'dbuser'
 database.params.password = 'secret'
-database.params.dbname   = 'dbproduction'</code></pre>
+database.params.dbname   = 'dbproduction'
+</code></pre>
 
 <p>We can include this configuration in another INI file by using the <code>@include</code>
 notation:</p>
-<pre class="highlight"><code class="language-ini">webhost  = 'www.example.com'
-@include = 'database.ini'</code></pre>
+<pre><code class="ini">webhost  = 'www.example.com'
+@include = 'database.ini'
+</code></pre>
 
 <p>If we read this file using the component <code>Laminas\Config\Reader\Ini</code>, we will obtain the same
 configuration data structure as in the previous example.</p>
 <p>The <code>@include = 'file-to-include.ini'</code> notation can be used also in a subelement
 of a value. For instance we can have an INI file like the following:</p>
-<pre class="highlight"><code class="language-ini">adapter         = 'pdo_mysql'
+<pre><code class="ini">adapter         = 'pdo_mysql'
 params.host     = 'db.example.com'
 params.username = 'dbuser'
 params.password = 'secret'
-params.dbname   = 'dbproduction'</code></pre>
+params.dbname   = 'dbproduction'
+</code></pre>
 
 <p>And assign the <code>@include</code> as a subelement of the <code>database</code> value:</p>
-<pre class="highlight"><code class="language-ini">webhost           = 'www.example.com'
-database.@include = 'database.ini'</code></pre>
+<pre><code class="ini">webhost           = 'www.example.com'
+database.@include = 'database.ini'
+</code></pre>
 
 <h2 id="laminasconfigreaderxml">Laminas\Config\Reader\Xml</h2>
 <p><code>Laminas\Config\Reader\Xml</code> enables developers to provide configuration data in a
@@ -432,26 +243,28 @@ The root element of the XML file or string is irrelevant and may be named
 arbitrarily.</p>
 <p>The following example illustrates basic usage of <code>Laminas\Config\Reader\Xml</code> for loading configuration
 data from an XML file. First, our XML configuration in the file <code>config.xml</code>:</p>
-<pre class="highlight"><code class="language-markup">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+<pre><code class="markup">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
 &lt;config&gt;
     &lt;webhost&gt;www.example.com&lt;/webhost&gt;
     &lt;database&gt;
-        &lt;adapter value="pdo_mysql"/&gt;
+        &lt;adapter value=&quot;pdo_mysql&quot;/&gt;
         &lt;params&gt;
-            &lt;host value="db.example.com"/&gt;
-            &lt;username value="dbuser"/&gt;
-            &lt;password value="secret"/&gt;
-            &lt;dbname value="dbproduction"/&gt;
+            &lt;host value=&quot;db.example.com&quot;/&gt;
+            &lt;username value=&quot;dbuser&quot;/&gt;
+            &lt;password value=&quot;secret&quot;/&gt;
+            &lt;dbname value=&quot;dbproduction&quot;/&gt;
         &lt;/params&gt;
     &lt;/database&gt;
-&lt;/config&gt;</code></pre>
+&lt;/config&gt;
+</code></pre>
 
 <p>We can use the <code>Laminas\Config\Reader\Xml</code> to read the XML configuration:</p>
-<pre class="highlight"><code class="language-php">$reader = new Laminas\Config\Reader\Xml();
+<pre><code class="php">$reader = new Laminas\Config\Reader\Xml();
 $data   = $reader-&gt;fromFile('/path/to/config.xml');
 
-echo $data['webhost'];  // prints "www.example.com"
-echo $data['database']['params']['dbname']['value'];  // prints "dbproduction"</code></pre>
+echo $data['webhost'];  // prints &quot;www.example.com&quot;
+echo $data['database']['params']['dbname']['value'];  // prints &quot;dbproduction&quot;
+</code></pre>
 
 <p><code>Laminas\Config\Reader\Xml</code> utilizes PHP's <a href="http://php.net/xmlreader">XMLReader</a> class. Please
 review its documentation to be aware of its specific behaviors, which propagate to
@@ -462,7 +275,7 @@ specific XML element.  This is provided using the standard
 functionality, you must add the namespace
 <code>xmlns:xi="http://www.w3.org/2001/XInclude"</code> to the XML file.</p>
 <p>Suppose we have an XML file that contains only the database configuration:</p>
-<pre class="highlight"><code class="language-markup">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+<pre><code class="markup">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
 &lt;config&gt;
     &lt;database&gt;
         &lt;adapter&gt;pdo_mysql&lt;/adapter&gt;
@@ -473,14 +286,16 @@ functionality, you must add the namespace
             &lt;dbname&gt;dbproduction&lt;/dbname&gt;
         &lt;/params&gt;
     &lt;/database&gt;
-&lt;/config&gt;</code></pre>
+&lt;/config&gt;
+</code></pre>
 
 <p>We can include this configuration in another XML file using an xinclude:</p>
-<pre class="highlight"><code class="language-markup">&lt;?xml version="1.0" encoding="utf-8"?&gt;
-&lt;config xmlns:xi="http://www.w3.org/2001/XInclude"&gt;
+<pre><code class="markup">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;config xmlns:xi=&quot;http://www.w3.org/2001/XInclude&quot;&gt;
     &lt;webhost&gt;www.example.com&lt;/webhost&gt;
-    &lt;xi:include href="database.xml"/&gt;
-&lt;/config&gt;</code></pre>
+    &lt;xi:include href=&quot;database.xml&quot;/&gt;
+&lt;/config&gt;
+</code></pre>
 
 <p>The syntax to include an XML file in a specific element is <code>&lt;xi:include
 href="file-to-include.xml"/&gt;</code></p>
@@ -490,48 +305,52 @@ JSON, and read it in the application by using an array syntax.</p>
 <p>The following example illustrates a basic use of <code>Laminas\Config\Reader\Json</code> for
 loading configuration data from a JSON file.</p>
 <p>Consider the following JSON configuration file:</p>
-<pre class="highlight"><code class="language-json">{
-  "webhost"  : "www.example.com",
-  "database" : {
-    "adapter" : "pdo_mysql",
-    "params"  : {
-      "host"     : "db.example.com",
-      "username" : "dbuser",
-      "password" : "secret",
-      "dbname"   : "dbproduction"
+<pre><code class="json">{
+  &quot;webhost&quot;  : &quot;www.example.com&quot;,
+  &quot;database&quot; : {
+    &quot;adapter&quot; : &quot;pdo_mysql&quot;,
+    &quot;params&quot;  : {
+      &quot;host&quot;     : &quot;db.example.com&quot;,
+      &quot;username&quot; : &quot;dbuser&quot;,
+      &quot;password&quot; : &quot;secret&quot;,
+      &quot;dbname&quot;   : &quot;dbproduction&quot;
     }
   }
-}</code></pre>
+}
+</code></pre>
 
 <p>We can use <code>Laminas\Config\Reader\Json</code> to read the file:</p>
-<pre class="highlight"><code class="language-php">$reader = new Laminas\Config\Reader\Json();
+<pre><code class="php">$reader = new Laminas\Config\Reader\Json();
 $data   = $reader-&gt;fromFile('/path/to/config.json');
 
-echo $data['webhost'];  // prints "www.example.com"
-echo $data['database']['params']['dbname'];  // prints "dbproduction"</code></pre>
+echo $data['webhost'];  // prints &quot;www.example.com&quot;
+echo $data['database']['params']['dbname'];  // prints &quot;dbproduction&quot;
+</code></pre>
 
 <p><code>Laminas\Config\Reader\Json</code> utilizes <a href="https://github.com/laminas/laminas-json">laminas-json</a>.</p>
 <p>Using <code>Laminas\Config\Reader\Json</code>, we can include the content of a JSON file in a
 specific JSON section or element. This is provided using the special syntax
 <code>@include</code>. Suppose we have a JSON file that contains only the database
 configuration:</p>
-<pre class="highlight"><code class="language-json">{
-  "database" : {
-    "adapter" : "pdo_mysql",
-    "params"  : {
-      "host"     : "db.example.com",
-      "username" : "dbuser",
-      "password" : "secret",
-      "dbname"   : "dbproduction"
+<pre><code class="json">{
+  &quot;database&quot; : {
+    &quot;adapter&quot; : &quot;pdo_mysql&quot;,
+    &quot;params&quot;  : {
+      &quot;host&quot;     : &quot;db.example.com&quot;,
+      &quot;username&quot; : &quot;dbuser&quot;,
+      &quot;password&quot; : &quot;secret&quot;,
+      &quot;dbname&quot;   : &quot;dbproduction&quot;
     }
   }
-}</code></pre>
+}
+</code></pre>
 
 <p>Now let's include it via another configuration file:</p>
-<pre class="highlight"><code class="language-json">{
-    "webhost"  : "www.example.com",
-    "@include" : "database.json"
-}</code></pre>
+<pre><code class="json">{
+    &quot;webhost&quot;  : &quot;www.example.com&quot;,
+    &quot;@include&quot; : &quot;database.json&quot;
+}
+</code></pre>
 
 <h2 id="laminasconfigreaderyaml">Laminas\Config\Reader\Yaml</h2>
 <p><code>Laminas\Config\Reader\Yaml</code> enables developers to consume configuration data in a
@@ -541,33 +360,36 @@ use the <a href="http://www.php.net/manual/en/book.yaml.php">YAML PECL extension
 <p>The following example illustrates basic usage of <code>Laminas\Config\Reader\Yaml</code>,
 using the YAML PECL extension.</p>
 <p>Consider the following YAML file:</p>
-<pre class="highlight"><code class="language-yaml">webhost: www.example.com
+<pre><code class="yaml">webhost: www.example.com
 database:
     adapter: pdo_mysql
     params:
       host:     db.example.com
       username: dbuser
       password: secret
-      dbname:   dbproduction</code></pre>
+      dbname:   dbproduction
+</code></pre>
 
 <p>We can use <code>Laminas\Config\Reader\Yaml</code> to read this YAML file:</p>
-<pre class="highlight"><code class="language-php">$reader = new Laminas\Config\Reader\Yaml();
+<pre><code class="php">$reader = new Laminas\Config\Reader\Yaml();
 $data   = $reader-&gt;fromFile('/path/to/config.yaml');
 
-echo $data['webhost'];  // prints "www.example.com"
-echo $data['database']['params']['dbname'];  // prints "dbproduction"</code></pre>
+echo $data['webhost'];  // prints &quot;www.example.com&quot;
+echo $data['database']['params']['dbname'];  // prints &quot;dbproduction&quot;
+</code></pre>
 
 <p>If you want to use an external YAML reader, you must pass a callback function to
 the class constructor.  For instance, if you want to use the
 <a href="https://github.com/mustangostang/spyc/">Spyc</a> library:</p>
-<pre class="highlight"><code class="language-php">// include the Spyc library
+<pre><code class="php">// include the Spyc library
 require_once 'path/to/spyc.php';
 
 $reader = new Laminas\Config\Reader\Yaml(['Spyc', 'YAMLLoadString']);
 $data   = $reader-&gt;fromFile('/path/to/config.yaml');
 
-echo $data['webhost'];  // prints "www.example.com"
-echo $data['database']['params']['dbname'];  // prints "dbproduction"</code></pre>
+echo $data['webhost'];  // prints &quot;www.example.com&quot;
+echo $data['database']['params']['dbname'];  // prints &quot;dbproduction&quot;
+</code></pre>
 
 <p>You can also instantiate <code>Laminas\Config\Reader\Yaml</code> without any parameters, and
 specify the YAML reader using the <code>setYamlDecoder()</code> method.</p>
@@ -575,17 +397,19 @@ specify the YAML reader using the <code>setYamlDecoder()</code> method.</p>
 in a specific YAML section or element. This is provided using the special syntax
 <code>@include</code>.</p>
 <p>Consider the following YAML file containing only database configuration:</p>
-<pre class="highlight"><code class="language-yaml">database:
+<pre><code class="yaml">database:
     adapter: pdo_mysql
     params:
       host:     db.example.com
       username: dbuser
       password: secret
-      dbname:   dbproduction</code></pre>
+      dbname:   dbproduction
+</code></pre>
 
 <p>We can include this configuration in another YAML file:</p>
-<pre class="highlight"><code class="language-yaml">webhost:  www.example.com
-@include: database.yaml</code></pre>
+<pre><code class="yaml">webhost:  www.example.com
+@include: database.yaml
+</code></pre>
 
 <h2 id="laminasconfigreaderjavaproperties">Laminas\Config\Reader\JavaProperties</h2>
 <p><code>Laminas\Config\Reader\JavaProperties</code> enables developers to provide configuration
@@ -594,34 +418,37 @@ using array syntax.</p>
 <p>The following example illustrates basic usage of <code>Laminas\Config\Reader\JavaProperties</code>
 for loading configuration data from a JavaProperties file.</p>
 <p>Suppose we have the following JavaProperties configuration file:</p>
-<pre class="highlight"><code class="language-properties">#comment
+<pre><code class="properties">#comment
 !comment
 webhost:www.example.com
 database.adapter:pdo_mysql
 database.params.host:db.example.com
 database.params.username:dbuser
 database.params.password:secret
-database.params.dbname:dbproduction</code></pre>
+database.params.dbname:dbproduction
+</code></pre>
 
 <p>We can use <code>Laminas\Config\Reader\JavaProperties</code> to read it:</p>
-<pre class="highlight"><code class="language-php">$reader = new Laminas\Config\Reader\JavaProperties();
+<pre><code class="php">$reader = new Laminas\Config\Reader\JavaProperties();
 $data   = $reader-&gt;fromFile('/path/to/config.properties');
 
-echo $data['webhost'];  // prints "www.example.com"
-echo $data['database.params.dbname'];  // prints "dbproduction"</code></pre>
+echo $data['webhost'];  // prints &quot;www.example.com&quot;
+echo $data['database.params.dbname'];  // prints &quot;dbproduction&quot;
+</code></pre>
 
-<h3>Alternate delimiters</h3>
+<h3 id="alternate-delimiters">Alternate delimiters</h3>
 <ul>
 <li>Since 3.2.0</li>
 </ul>
 <p>By default, the <code>JavaProperties</code> reader will assume that the delimiter between
 key/value pairs is <code>:</code>. If you wish to use an alternate delimiter, pass it as
 the first argument to the constructor:</p>
-<pre class="highlight"><code class="language-php">$reader = new JavaProperties('='); // Use = as the delimiter</code></pre>
+<pre><code class="php">$reader = new JavaProperties('='); // Use = as the delimiter
+</code></pre>
 
 <p>When specifying the default delimiter, you can use either <code>:</code> or the constant
 <code>JavaProperties::DELIMITER_DEFAULT</code>.</p>
-<h3>Trimming whitespace</h3>
+<h3 id="trimming-whitespace">Trimming whitespace</h3>
 <ul>
 <li>Since 3.2.0</li>
 </ul>
@@ -629,288 +456,97 @@ the first argument to the constructor:</p>
 including trailing whitespace. If you wish to have keys and values trimmed
 during parsing, you can pass a boolean <code>true</code> value, or the constant
 <code>JavaProperties::WHITESPACE_TRIM</code>, as the second argument to the constructor:</p>
-<pre class="highlight"><code class="language-php">$reader = new JavaProperties(
+<pre><code class="php">$reader = new JavaProperties(
     JavaProperties::DELIMITER_DEFAULT, // use default delimiter
     JavaProperties::WHITESPACE_TRIM
-);</code></pre>
+);
+</code></pre>
 
 <p>This can be useful particularly when surrounding the delimiter with whitespace:</p>
-<pre class="highlight"><code class="language-properties">webhost = www.example.com
+<pre><code class="properties">webhost = www.example.com
 database.adapter = pdo_mysql
 database.params.host = db.example.com
 database.params.username = dbuser
 database.params.password = secret
-database.params.dbname = dbproduction</code></pre>
-
-
-
-
-    <nav>
-    <ul class="page-nav hidden-print">
-
-        
-        <li class="page-nav__item">
-            
-                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../theory/">
-                    <i class="fa fa-chevron-left"></i> Previous
-                </a>
-            
-        </li>
-
-        
-        <li class="page-nav__item">
-            
-                <a rel="next" class="page-nav__link page-nav__link--next" href="../writer/">
-                    Next <i class="fa fa-chevron-right"></i>
-                </a>
-            
-        </li>
-    </ul>
-</nav>
-
-
-
-
-    <div class="help-wanted">
-        <p>
-            Found a mistake or want to contribute to the documentation?
-            <a href="https://github.com/laminas/laminas-config/edit/master/docs/book/reader.md" target="_blank" class="help-wanted__link">
-                Edit this page on GitHub!
-            </a>
-        </p>
-    </div>
-
-                
-            </div>
-            <div class="col-md-3 col-sm-12 sidebar">
-                <div class="donation-banner">
-    <a href="https://getlaminas.org/support/">
-        <h2>Donate</h2>
-        <p>Support Laminas Developers Directly</p>
-        <img src="https://funding.communitybridge.org/assets/cb-f-horizontal-white.svg">
-    </a>
-</div>
-
-                
-                    <div class="component-selector">
-    
-    <h5 class="component-selector__subtitle">Find documentation…</h5>
-    <select class="form-control component-selector__control">
-        <option value="/">Overview</option>
-        <optgroup label="Components"></optgroup>
-    </select>
-</div>
-                    
-    <div class="subnavigation hidden-print">
-        <h4 class="subnavigation__title">
-            <a href="..">laminas-config</a>
-        </h4>
-
-        <h5 class="subnavigation__subtitle">Table of Contents</h5>
-
-        <ul class="subnavigation__list">
-            
-
-                
-                
-
-                    
-                    
-                        
-                            <li class="subnavigation__list-item ">
-                                <a href="../intro/" class="subnavigation__link">Introduction</a>
-                            </li>
-                        
-                    
-                
-            
-
-                
-                
-
-                    
-                    
-                        
-                            <li class="subnavigation__list-item ">
-                                <a href="../theory/" class="subnavigation__link">Theory of Operation</a>
-                            </li>
-                        
-                    
-                
-            
-
-                
-                
-
-                    
-                    
-                        
-                            <li class="subnavigation__list-item">
-                                <span class="subnavigation__headline">Reference</span>
-                                <ul class="subnavigation__list">
-                                    
-                                        
-    <li class="subnavigation__list-item subnavigation__list-item--active">
-        <a href="./" class="subnavigation__link">Laminas\Config\Reader</a>
-    </li>
-
-                                    
-                                        
-    <li class="subnavigation__list-item ">
-        <a href="../writer/" class="subnavigation__link">Laminas\Config\Writer</a>
-    </li>
-
-                                    
-                                        
-    <li class="subnavigation__list-item ">
-        <a href="../processor/" class="subnavigation__link">Laminas\Config\Processor</a>
-    </li>
-
-                                    
-                                        
-    <li class="subnavigation__list-item ">
-        <a href="../factory/" class="subnavigation__link">Config Factory</a>
-    </li>
-
-                                    
-                                        
-    <li class="subnavigation__list-item">
-        <span class="subnavigation__headline">Migration</span>
-        <ul class="subnavigation__list">
-            
-                
-    <li class="subnavigation__list-item ">
-        <a href="../migration/to-v3/" class="subnavigation__link">To version 3</a>
-    </li>
-
-            
-        </ul>
-    </li>
-
-                                    
-                                </ul>
-                            </li>
-                        
-                    
-                
-            
-        </ul>
-    </div>
-
-                
-            </div>
-        </div>
-    </div>
-
-    
-    <footer class="footer">
-    <div class="container">
-
-        
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+database.params.dbname = dbproduction
+</code></pre></div>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-12">
-                <h5>Laminas</h5>
-                <ul>
-                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
-                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
-                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
-                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
-                </ul>
-            </div>
-        </div>
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../search/main.js" defer></script>
 
-        <div class="row">
-            <div class="col-md-12">
-                <div class="row">
-
-                    
-                    <div class="col-md-4">
-                        <h4 class="footer__headline">Support</h4>
-                        <ul class="support__list">
-                            <li class="support__list-item">
-                                <a href="https://discourse.laminas.dev" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
-                            </li>
-                            <li class="support__list-item">
-                                <a href="https://laminas.dev/chat" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
-                            </li>
-                            <li class="support__list-item">
-                                <a href="https://github.com/laminas" class="support__link" title="Github"><i class="fa fa-github"></i></a>
-                            </li>
-                            <li class="support__list-item">
-                                <a href="https://twitter.com/getlaminas" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
-                            </li>
-                            <li class="support__list-item">
-                                <a href="https://getlaminas.org/blog/rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
-                            </li>
-                            <li class="support__list-item">
-                                <a href="https://getlaminas.org/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    
-                    <div class="col-md-4">
-                        <h4 class="footer__headline">License</h4>
-                        <p>
-                            Code licensed under <a
-                                href="https://github.com/laminas/laminas-config/blob/master/LICENSE.md">BSD 3-Clause</a>.
-                        </p>
-                    </div>
-
-                    
-                    <div class="col-md-4">
-                        <h4 class="footer__headline">Copyright</h4>
-                        <p>
-                            <!--Built with love by the Laminas team with the help of our
-                            <a href="https://github.com/laminas/laminas-config/graphs/contributors">contributors</a>.<br>-->
-                            &copy; 2020 <a href="https://getlaminas.org/">Laminas Project</a> a Series of LF Projects, LLC.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
-
-    <script>
-        let base_url = '..',
-            project  = "components",
-            siteName = 'laminas-config';
-    </script>
-    <script src="https://docs.laminas.dev/js/scripts.js"></script>
-    
-        <script src="../search/main.js"></script>
-    
-
-    
-    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Search</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    <span class="sr-only">Close</span>
-                </button>
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             </div>
             <div class="modal-body">
-                <form role="form">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search in laminas-config" id="mkdocs-search-query">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
                     </div>
                 </form>
                 <div id="mkdocs-search-results"></div>
             </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <div class="table-responsive"><table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table></div>
+            </div>
+            <div class="modal-footer">
+            </div>
         </div>
     </div>
 </div>
-</body>
 
-
+    </body>
 </html>
