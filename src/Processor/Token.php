@@ -12,6 +12,15 @@ use Laminas\Config\Config;
 use Laminas\Config\Exception;
 use Traversable;
 
+use function array_keys;
+use function gettype;
+use function is_array;
+use function is_bool;
+use function is_numeric;
+use function is_scalar;
+use function is_string;
+use function strtr;
+
 class Token implements ProcessorInterface
 {
     /**

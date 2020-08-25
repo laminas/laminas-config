@@ -8,10 +8,13 @@
 
 namespace LaminasTest\Config;
 
+use InvalidArgumentException;
 use Laminas\Config\AbstractConfigFactory;
 use Laminas\ServiceManager;
 use Laminas\ServiceManager\Config as SMConfig;
 use PHPUnit\Framework\TestCase;
+
+use function count;
 
 /**
  * Class AbstractConfigFactoryTest
@@ -31,7 +34,7 @@ class AbstractConfigFactoryTest extends TestCase
     /**
      * @return void
      */
-    public function setUp()
+    protected function setUp() : void
     {
         $this->config = [
             'MyModule' => [
@@ -58,23 +61,19 @@ class AbstractConfigFactoryTest extends TestCase
         $smConfig->configureServiceManager($this->serviceManager);
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     * @return void
-     */
     public function testInvalidPattern()
     {
         $factory = new AbstractConfigFactory();
+
+        $this->expectException(InvalidArgumentException::class);
         $factory->addPattern(new \stdClass());
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     * @return void
-     */
     public function testInvalidPatternIterator()
     {
         $factory = new AbstractConfigFactory();
+
+        $this->expectException(InvalidArgumentException::class);
         $factory->addPatterns('invalid');
     }
 
@@ -87,21 +86,21 @@ class AbstractConfigFactoryTest extends TestCase
         $defaults = $factory->getPatterns();
 
         // Tests that the accessor returns an array
-        $this->assertInternalType('array', $defaults);
-        $this->assertGreaterThan(0, count($defaults));
+        self::assertIsArray($defaults);
+        self::assertGreaterThan(0, count($defaults));
 
         // Tests adding a single pattern
-        $this->assertSame($factory, $factory->addPattern('#foobarone#i'));
-        $this->assertCount(count($defaults) + 1, $factory->getPatterns());
+        self::assertSame($factory, $factory->addPattern('#foobarone#i'));
+        self::assertCount(count($defaults) + 1, $factory->getPatterns());
 
         // Tests adding multiple patterns at once
         $patterns = $factory->getPatterns();
-        $this->assertSame($factory, $factory->addPatterns(['#foobartwo#i', '#foobarthree#i']));
-        $this->assertCount(count($patterns) + 2, $factory->getPatterns());
+        self::assertSame($factory, $factory->addPatterns(['#foobartwo#i', '#foobarthree#i']));
+        self::assertCount(count($patterns) + 2, $factory->getPatterns());
 
         // Tests whether the latest added pattern is the first in stack
         $patterns = $factory->getPatterns();
-        $this->assertSame('#foobarthree#i', $patterns[0]);
+        self::assertSame('#foobarthree#i', $patterns[0]);
     }
 
     /**
@@ -112,8 +111,8 @@ class AbstractConfigFactoryTest extends TestCase
         $factory = new AbstractConfigFactory();
         $serviceLocator = $this->serviceManager;
 
-        $this->assertFalse($factory->canCreate($serviceLocator, 'MyModule\Fail'));
-        $this->assertTrue($factory->canCreate($serviceLocator, 'MyModule\Config'));
+        self::assertFalse($factory->canCreate($serviceLocator, 'MyModule\Fail'));
+        self::assertTrue($factory->canCreate($serviceLocator, 'MyModule\Config'));
     }
 
     /**
@@ -123,12 +122,12 @@ class AbstractConfigFactoryTest extends TestCase
     public function testCreateService()
     {
         $serviceLocator = $this->serviceManager;
-        $this->assertInternalType('array', $serviceLocator->get('MyModule\Config'));
-        $this->assertInternalType('array', $serviceLocator->get('MyModule_Config'));
-        $this->assertInternalType('array', $serviceLocator->get('Config.MyModule'));
-        $this->assertInternalType('array', $serviceLocator->get('phly-blog.config'));
-        $this->assertInternalType('array', $serviceLocator->get('phly-blog-config'));
-        $this->assertInternalType('array', $serviceLocator->get('config-phly-blog'));
+        self::assertIsArray($serviceLocator->get('MyModule\Config'));
+        self::assertIsArray($serviceLocator->get('MyModule_Config'));
+        self::assertIsArray($serviceLocator->get('Config.MyModule'));
+        self::assertIsArray($serviceLocator->get('phly-blog.config'));
+        self::assertIsArray($serviceLocator->get('phly-blog-config'));
+        self::assertIsArray($serviceLocator->get('config-phly-blog'));
     }
 
     /**
@@ -140,7 +139,7 @@ class AbstractConfigFactoryTest extends TestCase
     public function testCreateServiceWithRequestedConfigKey()
     {
         $serviceLocator = $this->serviceManager;
-        $this->assertSame($this->config['MyModule'], $serviceLocator->get('MyModule\Config'));
-        $this->assertSame($this->config['phly-blog'], $serviceLocator->get('phly-blog-config'));
+        self::assertSame($this->config['MyModule'], $serviceLocator->get('MyModule\Config'));
+        self::assertSame($this->config['phly-blog'], $serviceLocator->get('phly-blog-config'));
     }
 }

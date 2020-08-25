@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 3.4.0 - TBD
+
+### Added
+
+- [#9](https://github.com/laminas/laminas-config/pull/9) adds support for the upcoming PHP 8.0 release.
+
+### Changed
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- [#9](https://github.com/laminas/laminas-config/pull/9) removes support for PHP versions prior to PHP 7.3.
+
+- [#9](https://github.com/laminas/laminas-config/pull/9) removes support for laminas-servicemanager v2 releases.
+
+### Fixed
+
+- Nothing.
+
 ## 3.3.1 - TBD
 
 ### Added

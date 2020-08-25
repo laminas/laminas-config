@@ -12,6 +12,9 @@ use Laminas\Config\Config;
 use Laminas\Config\Processor\Constant as ConstantProcessor;
 use PHPUnit\Framework\TestCase;
 
+use function define;
+use function defined;
+
 class ConstantTest extends TestCase
 {
     const CONFIG_TEST = 'config';
@@ -46,7 +49,7 @@ class ConstantTest extends TestCase
         $processor = new ConstantProcessor();
         $processor->process($config);
 
-        $this->assertEquals($constantValue, $config->get('test'));
+        self::assertEquals($constantValue, $config->get('test'));
     }
 
     /**
@@ -61,8 +64,8 @@ class ConstantTest extends TestCase
         $processor = new ConstantProcessor();
         $processor->process($config);
 
-        $this->assertNotEquals('value', $config->get($constantValue));
-        $this->assertEquals('value', $config->get($constantString));
+        self::assertNotEquals('value', $config->get($constantValue));
+        self::assertEquals('value', $config->get($constantString));
     }
 
     /**
@@ -78,19 +81,19 @@ class ConstantTest extends TestCase
         $processor->enableKeyProcessing();
         $processor->process($config);
 
-        $this->assertEquals('value', $config->get($constantValue));
-        $this->assertNotEquals('value', $config->get($constantString));
+        self::assertEquals('value', $config->get($constantValue));
+        self::assertNotEquals('value', $config->get($constantString));
     }
 
     public function testKeyProcessingDisabledByDefault()
     {
         $processor = new ConstantProcessor();
-        $this->assertAttributeSame(false, 'processKeys', $processor);
+        self::assertAttributeSame(false, 'processKeys', $processor);
     }
 
     public function testCanEnableKeyProcessingViaConstructorArgument()
     {
         $processor = new ConstantProcessor(true, '', '', true);
-        $this->assertAttributeSame(true, 'processKeys', $processor);
+        self::assertAttributeSame(true, 'processKeys', $processor);
     }
 }

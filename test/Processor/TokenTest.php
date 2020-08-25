@@ -20,12 +20,12 @@ class TokenTest extends TestCase
     public function testKeyProcessingDisabledByDefault()
     {
         $processor = new TokenProcessor();
-        $this->assertAttributeSame(false, 'processKeys', $processor);
+        self::assertAttributeSame(false, 'processKeys', $processor);
     }
 
     public function testCanEnableKeyProcessingViaConstructorArgument()
     {
         $processor = new TokenProcessor([], '', '', true);
-        $this->assertAttributeSame(true, 'processKeys', $processor);
+        self::assertAttributeSame(true, 'processKeys', $processor);
     }
 }

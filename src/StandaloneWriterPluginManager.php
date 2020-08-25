@@ -10,6 +10,13 @@ namespace Laminas\Config;
 
 use Psr\Container\ContainerInterface;
 
+use function array_keys;
+use function array_values;
+use function class_exists;
+use function in_array;
+use function sprintf;
+use function strtolower;
+
 class StandaloneWriterPluginManager implements ContainerInterface
 {
     private $knownPlugins = [

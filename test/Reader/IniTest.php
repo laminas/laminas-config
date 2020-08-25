@@ -16,7 +16,7 @@ use Laminas\Config\Reader\Ini;
  */
 class IniTest extends AbstractReaderTestCase
 {
-    public function setUp()
+    protected function setUp() : void
     {
         $this->reader = new Ini();
     }
@@ -49,9 +49,9 @@ bar[]= "foo"
 ECS;
 
         $arrayIni = $this->reader->fromString($ini);
-        $this->assertEquals('foo', $arrayIni['test']);
-        $this->assertEquals('baz', $arrayIni['bar'][0]);
-        $this->assertEquals('foo', $arrayIni['bar'][1]);
+        self::assertEquals('foo', $arrayIni['test']);
+        self::assertEquals('baz', $arrayIni['bar'][0]);
+        self::assertEquals('foo', $arrayIni['bar'][1]);
     }
 
     public function testInvalidString()
@@ -75,9 +75,9 @@ bar[]= "foo"
 ECS;
 
         $arrayIni = $this->reader->fromString($ini);
-        $this->assertEquals('foo', $arrayIni['all']['test']);
-        $this->assertEquals('baz', $arrayIni['all']['bar'][0]);
-        $this->assertEquals('foo', $arrayIni['all']['bar'][1]);
+        self::assertEquals('foo', $arrayIni['all']['test']);
+        self::assertEquals('baz', $arrayIni['all']['bar'][0]);
+        self::assertEquals('foo', $arrayIni['all']['bar'][1]);
     }
 
     public function testFromStringNested()
@@ -91,20 +91,20 @@ bla.foo.baz[] = foobaz2
 ECS;
 
         $arrayIni = $this->reader->fromString($ini);
-        $this->assertEquals('foobar', $arrayIni['bla']['foo']['bar']);
-        $this->assertEquals('foobarArray', $arrayIni['bla']['foobar'][0]);
-        $this->assertEquals('foobaz1', $arrayIni['bla']['foo']['baz'][0]);
-        $this->assertEquals('foobaz2', $arrayIni['bla']['foo']['baz'][1]);
+        self::assertEquals('foobar', $arrayIni['bla']['foo']['bar']);
+        self::assertEquals('foobarArray', $arrayIni['bla']['foobar'][0]);
+        self::assertEquals('foobaz1', $arrayIni['bla']['foo']['baz'][0]);
+        self::assertEquals('foobaz2', $arrayIni['bla']['foo']['baz'][1]);
     }
 
     public function testFromFileParseSections()
     {
         $arrayIni = $this->reader->fromFile($this->getTestAssetPath('sections'));
 
-        $this->assertEquals('production', $arrayIni['production']['env']);
-        $this->assertEquals('foo', $arrayIni['production']['production_key']);
-        $this->assertEquals('staging', $arrayIni['staging : production']['env']);
-        $this->assertEquals('bar', $arrayIni['staging : production']['staging_key']);
+        self::assertEquals('production', $arrayIni['production']['env']);
+        self::assertEquals('foo', $arrayIni['production']['production_key']);
+        self::assertEquals('staging', $arrayIni['staging : production']['env']);
+        self::assertEquals('bar', $arrayIni['staging : production']['staging_key']);
     }
 
     public function testFromFileDontParseSections()
@@ -114,9 +114,9 @@ ECS;
 
         $arrayIni = $reader->fromFile($this->getTestAssetPath('sections'));
 
-        $this->assertEquals('staging', $arrayIni['env']);
-        $this->assertEquals('foo', $arrayIni['production_key']);
-        $this->assertEquals('bar', $arrayIni['staging_key']);
+        self::assertEquals('staging', $arrayIni['env']);
+        self::assertEquals('foo', $arrayIni['production_key']);
+        self::assertEquals('bar', $arrayIni['staging_key']);
     }
 
     public function testFromFileIgnoresNestingInSectionNamesWhenSectionsNotProcessed()
@@ -126,14 +126,14 @@ ECS;
 
         $arrayIni = $reader->fromFile($this->getTestAssetPath('nested-sections'));
 
-        $this->assertArrayNotHasKey('environments.production', $arrayIni);
-        $this->assertArrayNotHasKey('environments.staging', $arrayIni);
-        $this->assertArrayNotHasKey('environments', $arrayIni);
-        $this->assertArrayNotHasKey('production', $arrayIni);
-        $this->assertArrayNotHasKey('staging', $arrayIni);
-        $this->assertEquals('staging', $arrayIni['env']);
-        $this->assertEquals('foo', $arrayIni['production_key']);
-        $this->assertEquals('bar', $arrayIni['staging_key']);
+        self::assertArrayNotHasKey('environments.production', $arrayIni);
+        self::assertArrayNotHasKey('environments.staging', $arrayIni);
+        self::assertArrayNotHasKey('environments', $arrayIni);
+        self::assertArrayNotHasKey('production', $arrayIni);
+        self::assertArrayNotHasKey('staging', $arrayIni);
+        self::assertEquals('staging', $arrayIni['env']);
+        self::assertEquals('foo', $arrayIni['production_key']);
+        self::assertEquals('bar', $arrayIni['staging_key']);
     }
 
     public function testFromStringParseSections()
@@ -150,10 +150,10 @@ staging_key='bar'
 ECS;
         $arrayIni = $this->reader->fromString($ini);
 
-        $this->assertEquals('production', $arrayIni['production']['env']);
-        $this->assertEquals('foo', $arrayIni['production']['production_key']);
-        $this->assertEquals('staging', $arrayIni['staging : production']['env']);
-        $this->assertEquals('bar', $arrayIni['staging : production']['staging_key']);
+        self::assertEquals('production', $arrayIni['production']['env']);
+        self::assertEquals('foo', $arrayIni['production']['production_key']);
+        self::assertEquals('staging', $arrayIni['staging : production']['env']);
+        self::assertEquals('bar', $arrayIni['staging : production']['staging_key']);
     }
 
     public function testFromStringDontParseSections()
@@ -173,9 +173,9 @@ ECS;
 
         $arrayIni = $reader->fromString($ini);
 
-        $this->assertEquals('staging', $arrayIni['env']);
-        $this->assertEquals('foo', $arrayIni['production_key']);
-        $this->assertEquals('bar', $arrayIni['staging_key']);
+        self::assertEquals('staging', $arrayIni['env']);
+        self::assertEquals('foo', $arrayIni['production_key']);
+        self::assertEquals('bar', $arrayIni['staging_key']);
     }
 
     public function testFromStringIgnoresNestingInSectionNamesWhenSectionsNotProcessed()
@@ -194,13 +194,13 @@ ECS;
 
         $arrayIni = $reader->fromString($ini);
 
-        $this->assertArrayNotHasKey('environments.production', $arrayIni);
-        $this->assertArrayNotHasKey('environments.staging', $arrayIni);
-        $this->assertArrayNotHasKey('environments', $arrayIni);
-        $this->assertArrayNotHasKey('production', $arrayIni);
-        $this->assertArrayNotHasKey('staging', $arrayIni);
-        $this->assertEquals('staging', $arrayIni['env']);
-        $this->assertEquals('foo', $arrayIni['production_key']);
-        $this->assertEquals('bar', $arrayIni['staging_key']);
+        self::assertArrayNotHasKey('environments.production', $arrayIni);
+        self::assertArrayNotHasKey('environments.staging', $arrayIni);
+        self::assertArrayNotHasKey('environments', $arrayIni);
+        self::assertArrayNotHasKey('production', $arrayIni);
+        self::assertArrayNotHasKey('staging', $arrayIni);
+        self::assertEquals('staging', $arrayIni['env']);
+        self::assertEquals('foo', $arrayIni['production_key']);
+        self::assertEquals('bar', $arrayIni['staging_key']);
     }
 }

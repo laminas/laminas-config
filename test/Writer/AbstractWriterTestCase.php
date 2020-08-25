@@ -13,6 +13,13 @@ use Laminas\Config\Exception\InvalidArgumentException;
 use Laminas\Config\Exception\RuntimeException;
 use PHPUnit\Framework\TestCase;
 
+use function chmod;
+use function file_exists;
+use function is_writable;
+use function sys_get_temp_dir;
+use function tempnam;
+use function unlink;
+
 /**
  * @group      Laminas_Config
  */
@@ -48,7 +55,7 @@ abstract class AbstractWriterTestCase extends TestCase
         return $this->tmpfile;
     }
 
-    public function tearDown()
+    protected function tearDown() : void
     {
         if (file_exists($this->getTestAssetFileName())) {
             if (! is_writable($this->getTestAssetFileName())) {
@@ -86,6 +93,6 @@ abstract class AbstractWriterTestCase extends TestCase
 
         $config = $this->reader->fromFile($this->getTestAssetFileName());
 
-        $this->assertEquals('foo', $config['default']['test']);
+        self::assertEquals('foo', $config['default']['test']);
     }
 }

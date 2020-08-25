@@ -11,6 +11,26 @@ namespace Laminas\Config;
 use Laminas\Stdlib\ArrayUtils;
 use Psr\Container\ContainerInterface;
 
+use function dirname;
+use function file_exists;
+use function file_put_contents;
+use function get_class;
+use function get_include_path;
+use function gettype;
+use function is_array;
+use function is_dir;
+use function is_file;
+use function is_object;
+use function is_readable;
+use function is_string;
+use function is_writable;
+use function pathinfo;
+use function sprintf;
+use function stream_resolve_include_path;
+use function strrchr;
+use function strtolower;
+use function substr;
+
 class Factory
 {
     /**

@@ -10,6 +10,29 @@ namespace Laminas\Config\Writer;
 
 use Laminas\Config\Exception;
 
+use function addslashes;
+use function class_exists;
+use function dirname;
+use function file_put_contents;
+use function interface_exists;
+use function is_array;
+use function is_bool;
+use function is_int;
+use function is_object;
+use function is_string;
+use function preg_match;
+use function restore_error_handler;
+use function set_error_handler;
+use function sprintf;
+use function str_repeat;
+use function str_replace;
+use function strlen;
+use function trait_exists;
+use function var_export;
+
+use const E_WARNING;
+use const LOCK_EX;
+
 class PhpArray extends AbstractWriter
 {
     /**

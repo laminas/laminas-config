@@ -10,6 +10,12 @@ namespace Laminas\Config\Writer;
 
 use Laminas\Config\Exception;
 
+use function json_encode;
+use function json_last_error_msg;
+
+use const JSON_PRETTY_PRINT;
+use const JSON_UNESCAPED_SLASHES;
+
 class Json extends AbstractWriter
 {
     /**

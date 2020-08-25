@@ -12,6 +12,15 @@ use ArrayAccess;
 use Countable;
 use Iterator;
 
+use function array_key_exists;
+use function count;
+use function current;
+use function is_array;
+use function is_int;
+use function key;
+use function next;
+use function reset;
+
 /**
  * Provides a property based interface to an array.
  * The data are read-only unless $allowModifications is set to true

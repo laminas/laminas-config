@@ -12,12 +12,15 @@ use Laminas\Config\Config;
 use Laminas\Config\Reader\Yaml as YamlReader;
 use Laminas\Config\Writer\Yaml as YamlWriter;
 
+use function explode;
+use function getenv;
+
 /**
  * @group      Laminas_Config
  */
 class YamlTest extends AbstractWriterTestCase
 {
-    public function setUp()
+    protected function setUp() : void
     {
         if (! getenv('TESTS_LAMINAS_CONFIG_YAML_ENABLED')) {
             $this->markTestSkipped('Yaml test for Laminas\Config skipped');
@@ -58,8 +61,8 @@ class YamlTest extends AbstractWriterTestCase
 
         $config = $this->reader->fromFile($this->getTestAssetFileName());
 
-        $this->assertEquals('foo', $config['test']);
-        $this->assertEquals('bar', $config['test2']['test3']);
+        self::assertEquals('foo', $config['test']);
+        self::assertEquals('bar', $config['test2']['test3']);
     }
 
     public function testWriteAndReadOriginalFile()
@@ -70,6 +73,6 @@ class YamlTest extends AbstractWriterTestCase
 
         $config = $this->reader->fromFile($this->getTestAssetFileName());
 
-        $this->assertEquals('multi', $config['all']['one']['two']['three']);
+        self::assertEquals('multi', $config['all']['one']['two']['three']);
     }
 }
