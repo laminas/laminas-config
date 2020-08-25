@@ -12,6 +12,14 @@ use Laminas\Config\Config;
 use Laminas\Config\Exception;
 use PHPUnit\Framework\TestCase;
 
+use function count;
+use function is_string;
+use function ob_end_clean;
+use function ob_get_contents;
+use function ob_start;
+use function print_r;
+use function range;
+
 /**
  * @group      Laminas_Config
  */

@@ -8,6 +8,15 @@
 
 namespace Laminas\Config\Processor;
 
+use function class_exists;
+use function constant;
+use function defined;
+use function get_defined_constants;
+use function is_string;
+use function preg_match;
+use function strpos;
+use function substr;
+
 class Constant extends Token implements ProcessorInterface
 {
     /**

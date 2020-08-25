@@ -11,6 +11,10 @@ namespace LaminasTest\Config\Reader\TestAssets;
 use Laminas\Config\Exception;
 use Laminas\Config\Reader\ReaderInterface;
 
+use function file_get_contents;
+use function is_readable;
+use function unserialize;
+
 class DummyReader implements ReaderInterface
 {
     public function fromFile($filename)

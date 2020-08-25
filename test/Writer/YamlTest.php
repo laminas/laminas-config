@@ -12,6 +12,9 @@ use Laminas\Config\Config;
 use Laminas\Config\Reader\Yaml as YamlReader;
 use Laminas\Config\Writer\Yaml as YamlWriter;
 
+use function explode;
+use function getenv;
+
 /**
  * @group      Laminas_Config
  */

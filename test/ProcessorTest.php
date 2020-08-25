@@ -19,9 +19,15 @@ use Laminas\Filter\PregReplace;
 use Laminas\Filter\StringToLower;
 use Laminas\Filter\StringToUpper;
 use Laminas\I18n\Exception as I18nException;
-use Laminas\I18n\Translator\Loader\PhpArray;
 use Laminas\I18n\Translator\Translator;
 use PHPUnit\Framework\TestCase;
+
+use function define;
+use function extension_loaded;
+use function gettype;
+use function realpath;
+
+use const PHP_VERSION;
 
 /**
  * @group      Laminas_Config

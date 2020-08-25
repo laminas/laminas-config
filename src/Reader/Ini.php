@@ -10,6 +10,23 @@ namespace Laminas\Config\Reader;
 
 use Laminas\Config\Exception;
 
+use function array_merge_recursive;
+use function array_replace_recursive;
+use function array_shift;
+use function dirname;
+use function explode;
+use function is_array;
+use function is_file;
+use function is_readable;
+use function parse_ini_file;
+use function parse_ini_string;
+use function restore_error_handler;
+use function set_error_handler;
+use function sprintf;
+use function strpos;
+
+use const E_WARNING;
+
 /**
  * INI config reader.
  */

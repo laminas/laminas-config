@@ -14,6 +14,8 @@ use Laminas\ServiceManager;
 use Laminas\ServiceManager\Config as SMConfig;
 use PHPUnit\Framework\TestCase;
 
+use function count;
+
 /**
  * Class AbstractConfigFactoryTest
  */

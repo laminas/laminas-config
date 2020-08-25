@@ -10,6 +10,24 @@ namespace Laminas\Config\Reader;
 
 use Laminas\Config\Exception;
 
+use function array_replace_recursive;
+use function dirname;
+use function explode;
+use function file_get_contents;
+use function get_class;
+use function gettype;
+use function is_file;
+use function is_object;
+use function is_readable;
+use function is_string;
+use function sprintf;
+use function stripslashes;
+use function strlen;
+use function strpos;
+use function strrpos;
+use function substr;
+use function trim;
+
 /**
  * Java-style properties config reader.
  */

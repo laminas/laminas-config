@@ -13,6 +13,8 @@ use Laminas\Config\StandaloneWriterPluginManager;
 use Laminas\Config\Writer;
 use PHPUnit\Framework\TestCase;
 
+use function sprintf;
+
 class StandaloneWriterPluginManagerTest extends TestCase
 {
     public function supportedConfigTypes()

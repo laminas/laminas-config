@@ -11,6 +11,9 @@ namespace LaminasTest\Config\Reader;
 use Laminas\Config\Exception;
 use Laminas\Config\Reader\Yaml as YamlReader;
 
+use function explode;
+use function getenv;
+
 /**
  * @group      Laminas_Config
  */

@@ -14,6 +14,10 @@ use PHPUnit\Framework\Error\Warning;
 use ReflectionProperty;
 use XMLReader;
 
+use function class_exists;
+use function restore_error_handler;
+use function sys_get_temp_dir;
+
 /**
  * @group      Laminas_Config
  *

@@ -19,6 +19,16 @@ use PHPUnit\Framework\TestCase;
 use ReflectionProperty;
 use RuntimeException;
 
+use function chmod;
+use function file_exists;
+use function file_get_contents;
+use function get_include_path;
+use function is_writable;
+use function set_include_path;
+use function sys_get_temp_dir;
+use function tempnam;
+use function unlink;
+
 /**
  * @group      Laminas_Config
  */

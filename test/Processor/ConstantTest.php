@@ -12,6 +12,9 @@ use Laminas\Config\Config;
 use Laminas\Config\Processor\Constant as ConstantProcessor;
 use PHPUnit\Framework\TestCase;
 
+use function define;
+use function defined;
+
 class ConstantTest extends TestCase
 {
     const CONFIG_TEST = 'config';

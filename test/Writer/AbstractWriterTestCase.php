@@ -13,6 +13,13 @@ use Laminas\Config\Exception\InvalidArgumentException;
 use Laminas\Config\Exception\RuntimeException;
 use PHPUnit\Framework\TestCase;
 
+use function chmod;
+use function file_exists;
+use function is_writable;
+use function sys_get_temp_dir;
+use function tempnam;
+use function unlink;
+
 /**
  * @group      Laminas_Config
  */

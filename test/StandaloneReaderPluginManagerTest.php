@@ -13,6 +13,8 @@ use Laminas\Config\Reader;
 use Laminas\Config\StandaloneReaderPluginManager;
 use PHPUnit\Framework\TestCase;
 
+use function sprintf;
+
 class StandaloneReaderPluginManagerTest extends TestCase
 {
     public function supportedConfigExtensions()

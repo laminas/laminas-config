@@ -14,6 +14,17 @@ use LaminasTest\Config\Writer\TestAssets\DummyClassA;
 use LaminasTest\Config\Writer\TestAssets\DummyClassB;
 use LaminasTest\Config\Writer\TestAssets\PhpReader;
 
+use function class_exists;
+use function file_get_contents;
+use function file_put_contents;
+use function preg_replace;
+use function sprintf;
+use function trim;
+use function version_compare;
+
+use const PHP_EOL;
+use const PHP_VERSION;
+
 /**
  * @group      Laminas_Config
  */

@@ -12,6 +12,8 @@ use Laminas\Config\Config;
 use Laminas\Config\Reader\Xml as XmlReader;
 use Laminas\Config\Writer\Xml as XmlWriter;
 
+use function str_replace;
+
 /**
  * @group      Laminas_Config
  */

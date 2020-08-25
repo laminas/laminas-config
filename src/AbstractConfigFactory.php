@@ -13,6 +13,12 @@ use Laminas\ServiceManager\AbstractFactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 use Traversable;
 
+use function array_unshift;
+use function is_array;
+use function is_string;
+use function iterator_to_array;
+use function preg_match;
+
 /**
  * Class AbstractConfigFactory
  */

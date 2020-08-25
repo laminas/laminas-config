@@ -10,6 +10,14 @@ namespace Laminas\Config\Writer;
 
 use Laminas\Config\Exception;
 
+use function array_merge;
+use function implode;
+use function is_array;
+use function is_bool;
+use function is_float;
+use function is_int;
+use function strpos;
+
 class Ini extends AbstractWriter
 {
     /**
