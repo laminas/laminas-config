@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 3.4.0 - TBD
+## 3.4.0 - 2020-08-25
 
 ### Added
 
@@ -21,28 +21,6 @@ All notable changes to this project will be documented in this file, in reverse 
 - [#9](https://github.com/laminas/laminas-config/pull/9) removes support for PHP versions prior to PHP 7.3.
 
 - [#9](https://github.com/laminas/laminas-config/pull/9) removes support for laminas-servicemanager v2 releases.
-
-### Fixed
-
-- Nothing.
-
-## 3.3.1 - TBD
-
-### Added
-
-- Nothing.
-
-### Changed
-
-- Nothing.
-
-### Deprecated
-
-- Nothing.
-
-### Removed
-
-- Nothing.
 
 ### Fixed
 
