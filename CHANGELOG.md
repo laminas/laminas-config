@@ -20,6 +20,8 @@ All notable changes to this project will be documented in this file, in reverse 
 
 - [#9](https://github.com/laminas/laminas-config/pull/9) removes support for PHP versions prior to PHP 7.3.
 
+- [#9](https://github.com/laminas/laminas-config/pull/9) removes support for laminas-servicemanager v2 releases.
+
 ### Fixed
 
 - Nothing.
