@@ -41,12 +41,12 @@ abstract class AbstractReaderTestCase extends TestCase
     public function testFromFile()
     {
         $config = $this->reader->fromFile($this->getTestAssetPath('include-base'));
-        $this->assertEquals('foo', $config['foo']);
+        self::assertEquals('foo', $config['foo']);
     }
 
     public function testFromEmptyString()
     {
         $config = $this->reader->fromString('');
-        $this->assertEmpty($config);
+        self::assertEmpty($config);
     }
 }

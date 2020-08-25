@@ -35,14 +35,14 @@ class FactoryTest extends TestCase
         return $this->tmpfiles[$ext];
     }
 
-    public function setUp()
+    protected function setUp() : void
     {
         $this->originalIncludePath = get_include_path();
         set_include_path(__DIR__ . '/TestAssets');
         $this->resetPluginManagers();
     }
 
-    public function tearDown()
+    protected function tearDown() : void
     {
         set_include_path($this->originalIncludePath);
 
@@ -71,14 +71,14 @@ class FactoryTest extends TestCase
     {
         $config = Factory::fromFile(__DIR__ . '/TestAssets/Ini/include-base.ini');
 
-        $this->assertEquals('bar', $config['base']['foo']);
+        self::assertEquals('bar', $config['base']['foo']);
     }
 
     public function testFromXml()
     {
         $config = Factory::fromFile(__DIR__ . '/TestAssets/Xml/include-base.xml');
 
-        $this->assertEquals('bar', $config['base']['foo']);
+        self::assertEquals('bar', $config['base']['foo']);
     }
 
     public function testFromIniFiles()
@@ -89,8 +89,8 @@ class FactoryTest extends TestCase
         ];
         $config = Factory::fromFiles($files);
 
-        $this->assertEquals('bar', $config['base']['foo']);
-        $this->assertEquals('baz', $config['test']['bar']);
+        self::assertEquals('bar', $config['base']['foo']);
+        self::assertEquals('baz', $config['test']['bar']);
     }
 
     public function testFromXmlFiles()
@@ -101,8 +101,8 @@ class FactoryTest extends TestCase
         ];
         $config = Factory::fromFiles($files);
 
-        $this->assertEquals('bar', $config['base']['foo']);
-        $this->assertEquals('baz', $config['test']['bar']);
+        self::assertEquals('bar', $config['base']['foo']);
+        self::assertEquals('baz', $config['test']['bar']);
     }
 
     public function testFromPhpFiles()
@@ -113,8 +113,8 @@ class FactoryTest extends TestCase
         ];
         $config = Factory::fromFiles($files);
 
-        $this->assertEquals('bar', $config['base']['foo']);
-        $this->assertEquals('baz', $config['test']['bar']);
+        self::assertEquals('bar', $config['base']['foo']);
+        self::assertEquals('baz', $config['test']['bar']);
     }
 
     public function testFromIniAndXmlAndPhpFiles()
@@ -126,9 +126,9 @@ class FactoryTest extends TestCase
         ];
         $config = Factory::fromFiles($files);
 
-        $this->assertEquals('bar', $config['base']['foo']);
-        $this->assertEquals('baz', $config['test']['bar']);
-        $this->assertEquals('baz', $config['last']['bar']);
+        self::assertEquals('bar', $config['base']['foo']);
+        self::assertEquals('baz', $config['test']['bar']);
+        self::assertEquals('baz', $config['last']['bar']);
     }
 
     public function testFromIniAndXmlAndPhpFilesFromIncludePath()
@@ -140,9 +140,9 @@ class FactoryTest extends TestCase
         ];
         $config = Factory::fromFiles($files, false, true);
 
-        $this->assertEquals('bar', $config['base']['foo']);
-        $this->assertEquals('baz', $config['test']['bar']);
-        $this->assertEquals('baz', $config['last']['bar']);
+        self::assertEquals('bar', $config['base']['foo']);
+        self::assertEquals('baz', $config['test']['bar']);
+        self::assertEquals('baz', $config['last']['bar']);
     }
 
     public function testReturnsConfigObjectIfRequestedAndArrayOtherwise()
@@ -152,16 +152,16 @@ class FactoryTest extends TestCase
         ];
 
         $configArray = Factory::fromFile($files[0]);
-        $this->assertInternalType('array', $configArray);
+        self::assertIsArray($configArray);
 
         $configArray = Factory::fromFiles($files);
-        $this->assertInternalType('array', $configArray);
+        self::assertIsArray($configArray);
 
         $configObject = Factory::fromFile($files[0], true);
-        $this->assertInstanceOf('Laminas\Config\Config', $configObject);
+        self::assertInstanceOf('Laminas\Config\Config', $configObject);
 
         $configObject = Factory::fromFiles($files, true);
-        $this->assertInstanceOf('Laminas\Config\Config', $configObject);
+        self::assertInstanceOf('Laminas\Config\Config', $configObject);
     }
 
     public function testNonExistentFileThrowsRuntimeException()
@@ -181,9 +181,9 @@ class FactoryTest extends TestCase
         Factory::registerReader('dum', new Reader\TestAssets\DummyReader());
 
         $configObject = Factory::fromFile(__DIR__ . '/TestAssets/dummy.dum', true);
-        $this->assertInstanceOf('Laminas\Config\Config', $configObject);
+        self::assertInstanceOf('Laminas\Config\Config', $configObject);
 
-        $this->assertEquals($configObject['one'], 1);
+        self::assertEquals($configObject['one'], 1);
     }
 
     public function testFactoryCanRegisterCustomReaderPlugin()
@@ -196,9 +196,9 @@ class FactoryTest extends TestCase
         Factory::registerReader('dum', 'DummyReader');
 
         $configObject = Factory::fromFile(__DIR__ . '/TestAssets/dummy.dum', true);
-        $this->assertInstanceOf('Laminas\Config\Config', $configObject);
+        self::assertInstanceOf('Laminas\Config\Config', $configObject);
 
-        $this->assertEquals($configObject['one'], 1);
+        self::assertEquals($configObject['one'], 1);
     }
 
     public function testFactoryToFileInvalidFileExtension()
@@ -230,8 +230,8 @@ class FactoryTest extends TestCase
         $expected .= "    ),\n";
         $expected .= ");\n";
 
-        $this->assertEquals(true, $result);
-        $this->assertEquals($expected, file_get_contents($file));
+        self::assertEquals(true, $result);
+        self::assertEquals($expected, file_get_contents($file));
     }
 
     public function testFactoryToFileWrongConfig()
@@ -254,7 +254,7 @@ class FactoryTest extends TestCase
 
         $res = Factory::toFile($file, ['one' => 1]);
 
-        $this->assertEquals($res, true);
+        self::assertEquals($res, true);
     }
 
     public function testFactoryCanRegisterCustomWriterPlugin()
@@ -269,18 +269,18 @@ class FactoryTest extends TestCase
         $file = $this->getTestAssetFileName('dum');
 
         $res = Factory::toFile($file, ['one' => 1]);
-        $this->assertEquals($res, true);
+        self::assertEquals($res, true);
     }
 
     public function testDefaultReaderPluginManagerIsStandaloneVariant()
     {
         $readers = Factory::getReaderPluginManager();
-        $this->assertInstanceOf(StandaloneReaderPluginManager::class, $readers);
+        self::assertInstanceOf(StandaloneReaderPluginManager::class, $readers);
     }
 
     public function testDefaultWriterPluginManagerIsStandaloneVariant()
     {
         $writers = Factory::getWriterPluginManager();
-        $this->assertInstanceOf(StandaloneWriterPluginManager::class, $writers);
+        self::assertInstanceOf(StandaloneWriterPluginManager::class, $writers);
     }
 }

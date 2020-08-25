@@ -48,7 +48,7 @@ abstract class AbstractWriterTestCase extends TestCase
         return $this->tmpfile;
     }
 
-    public function tearDown()
+    protected function tearDown() : void
     {
         if (file_exists($this->getTestAssetFileName())) {
             if (! is_writable($this->getTestAssetFileName())) {
@@ -86,6 +86,6 @@ abstract class AbstractWriterTestCase extends TestCase
 
         $config = $this->reader->fromFile($this->getTestAssetFileName());
 
-        $this->assertEquals('foo', $config['default']['test']);
+        self::assertEquals('foo', $config['default']['test']);
     }
 }

@@ -16,7 +16,7 @@ use Laminas\Config\Reader\Json;
  */
 class JsonTest extends AbstractReaderTestCase
 {
-    public function setUp()
+    protected function setUp() : void
     {
         $this->reader = new Json();
     }
@@ -41,7 +41,7 @@ class JsonTest extends AbstractReaderTestCase
     public function testIncludeAsElement()
     {
         $arrayJson = $this->reader->fromFile($this->getTestAssetPath('include-base_nested'));
-        $this->assertEquals($arrayJson['bar']['foo'], 'foo');
+        self::assertEquals($arrayJson['bar']['foo'], 'foo');
     }
 
     public function testFromString()
@@ -50,9 +50,9 @@ class JsonTest extends AbstractReaderTestCase
 
         $arrayJson = $this->reader->fromString($json);
 
-        $this->assertEquals($arrayJson['test'], 'foo');
-        $this->assertEquals($arrayJson['bar'][0], 'baz');
-        $this->assertEquals($arrayJson['bar'][1], 'foo');
+        self::assertEquals($arrayJson['test'], 'foo');
+        self::assertEquals($arrayJson['bar'][0], 'baz');
+        self::assertEquals($arrayJson['bar'][1], 'foo');
     }
 
     public function testInvalidString()

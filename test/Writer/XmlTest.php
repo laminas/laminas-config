@@ -17,7 +17,7 @@ use Laminas\Config\Writer\Xml as XmlWriter;
  */
 class XmlTest extends AbstractWriterTestCase
 {
-    public function setUp()
+    protected function setUp() : void
     {
         $this->writer = new XmlWriter();
         $this->reader = new XmlReader();
@@ -39,7 +39,7 @@ class XmlTest extends AbstractWriterTestCase
 
 ECS;
 
-        $this->assertEquals($expected, $configString);
+        self::assertEquals($expected, $configString);
     }
 
     public function testSectionsToString()
@@ -76,7 +76,7 @@ ECS;
 ECS;
 
         $expected = str_replace("\r\n", "\n", $expected);
-        $this->assertEquals($expected, $configString);
+        self::assertEquals($expected, $configString);
     }
 
     /**
@@ -98,6 +98,6 @@ ECS;
 
 ECS;
 
-        $this->assertEquals($expected, $configString);
+        self::assertEquals($expected, $configString);
     }
 }

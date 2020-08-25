@@ -16,7 +16,7 @@ use Laminas\Config\Reader\Yaml as YamlReader;
  */
 class YamlTest extends AbstractReaderTestCase
 {
-    public function setUp()
+    protected function setUp() : void
     {
         if (! getenv('TESTS_LAMINAS_CONFIG_YAML_ENABLED')) {
             $this->markTestSkipped('Yaml test for Laminas\Config skipped');
@@ -66,9 +66,9 @@ bar:
 ECS;
 
         $arrayYaml = $this->reader->fromString($yaml);
-        $this->assertEquals($arrayYaml['test'], 'foo');
-        $this->assertEquals($arrayYaml['bar'][0], 'baz');
-        $this->assertEquals($arrayYaml['bar'][1], 'foo');
+        self::assertEquals($arrayYaml['test'], 'foo');
+        self::assertEquals($arrayYaml['bar'][0], 'baz');
+        self::assertEquals($arrayYaml['bar'][1], 'foo');
     }
 
     public function testFromStringWithSection()
@@ -83,8 +83,8 @@ all:
 ECS;
 
         $arrayYaml = $this->reader->fromString($yaml);
-        $this->assertEquals($arrayYaml['all']['test'], 'foo');
-        $this->assertEquals($arrayYaml['all']['bar'][0], 'baz');
-        $this->assertEquals($arrayYaml['all']['bar'][1], 'foo');
+        self::assertEquals($arrayYaml['all']['test'], 'foo');
+        self::assertEquals($arrayYaml['all']['bar'][0], 'baz');
+        self::assertEquals($arrayYaml['all']['bar'][1], 'foo');
     }
 }

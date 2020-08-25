@@ -17,7 +17,7 @@ use Laminas\Config\Writer\Json as JsonWriter;
  */
 class JsonTest extends AbstractWriterTestCase
 {
-    public function setUp()
+    protected function setUp() : void
     {
         $this->reader = new JsonReader();
         $this->writer = new JsonWriter();
@@ -31,8 +31,8 @@ class JsonTest extends AbstractWriterTestCase
 
         $config = $this->reader->fromFile($this->getTestAssetFileName());
 
-        $this->assertEquals('foo', $config['test']);
-        $this->assertEquals('bar', $config['test2']['test3']);
+        self::assertEquals('foo', $config['test']);
+        self::assertEquals('bar', $config['test2']['test3']);
     }
 
     public function testWriteAndReadOriginalFile()
@@ -43,6 +43,6 @@ class JsonTest extends AbstractWriterTestCase
 
         $config = $this->reader->fromFile($this->getTestAssetFileName());
 
-        $this->assertEquals('multi', $config['all']['one']['two']['three']);
+        self::assertEquals('multi', $config['all']['one']['two']['three']);
     }
 }

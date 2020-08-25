@@ -16,7 +16,7 @@ use Laminas\Config\Reader\JavaProperties;
  */
 class JavaPropertiesTest extends AbstractReaderTestCase
 {
-    public function setUp()
+    protected function setUp() : void
     {
         $this->reader = new JavaProperties();
     }
@@ -36,18 +36,18 @@ class JavaPropertiesTest extends AbstractReaderTestCase
     {
         $arrayJavaProperties = $this->reader->fromFile($this->getTestAssetPath('include-target'));
 
-        $this->assertNotEmpty($arrayJavaProperties);
-        $this->assertEquals($arrayJavaProperties['single.line'], 'test');
-        $this->assertEquals($arrayJavaProperties['multiple'], 'line test');
+        self::assertNotEmpty($arrayJavaProperties);
+        self::assertEquals($arrayJavaProperties['single.line'], 'test');
+        self::assertEquals($arrayJavaProperties['multiple'], 'line test');
     }
 
     public function testIncludeAsElement()
     {
         $arrayJavaProperties = $this->reader->fromFile($this->getTestAssetPath('include-base'));
 
-        $this->assertNotEmpty($arrayJavaProperties);
-        $this->assertEquals($arrayJavaProperties['single.line'], 'test');
-        $this->assertEquals($arrayJavaProperties['multiple'], 'line test');
+        self::assertNotEmpty($arrayJavaProperties);
+        self::assertEquals($arrayJavaProperties['single.line'], 'test');
+        self::assertEquals($arrayJavaProperties['multiple'], 'line test');
     }
 
     public function testFromString()
@@ -62,9 +62,9 @@ ASSET;
 
         $arrayJavaProperties = $this->reader->fromString($JavaProperties);
 
-        $this->assertNotEmpty($arrayJavaProperties);
-        $this->assertEquals($arrayJavaProperties['single.line'], 'test');
-        $this->assertEquals($arrayJavaProperties['multiple'], 'line test');
+        self::assertNotEmpty($arrayJavaProperties);
+        self::assertEquals($arrayJavaProperties['single.line'], 'test');
+        self::assertEquals($arrayJavaProperties['multiple'], 'line test');
     }
 
     public function testInvalidIncludeInString()
@@ -84,9 +84,9 @@ ASSET;
 
         $arrayJavaProperties = $reader->fromFile($this->getTestAssetPath('alternate-delimiter'));
 
-        $this->assertNotEmpty($arrayJavaProperties);
-        $this->assertEquals($arrayJavaProperties['single.line'], 'test');
-        $this->assertEquals($arrayJavaProperties['multiple'], 'line test');
+        self::assertNotEmpty($arrayJavaProperties);
+        self::assertEquals($arrayJavaProperties['single.line'], 'test');
+        self::assertEquals($arrayJavaProperties['multiple'], 'line test');
     }
 
     public function invalidDelimiters()
@@ -120,8 +120,8 @@ ASSET;
         $reader = new JavaProperties(JavaProperties::DELIMITER_DEFAULT, JavaProperties::WHITESPACE_TRIM);
         $arrayJavaProperties = $reader->fromFile($this->getTestAssetPath('key-value-whitespace'));
 
-        $this->assertNotEmpty($arrayJavaProperties);
-        $this->assertEquals($arrayJavaProperties['single.line'], 'test');
-        $this->assertEquals($arrayJavaProperties['multiple'], 'line test');
+        self::assertNotEmpty($arrayJavaProperties);
+        self::assertEquals($arrayJavaProperties['single.line'], 'test');
+        self::assertEquals($arrayJavaProperties['multiple'], 'line test');
     }
 }

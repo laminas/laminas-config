@@ -20,7 +20,7 @@ class ConfigTest extends TestCase
     protected $iniFileConfig;
     protected $iniFileNested;
 
-    public function setUp()
+    protected function setUp() : void
     {
         // Arrays representing common config configurations
         $this->all = [
@@ -115,19 +115,19 @@ class ConfigTest extends TestCase
     {
         $config = new Config($this->all, false);
 
-        $this->assertEquals('all', $config->hostname);
-        $this->assertEquals('live', $config->db->name);
-        $this->assertEquals('multi', $config->one->two->three);
-        $this->assertNull($config->nonexistent); // property doesn't exist
+        self::assertEquals('all', $config->hostname);
+        self::assertEquals('live', $config->db->name);
+        self::assertEquals('multi', $config->one->two->three);
+        self::assertNull($config->nonexistent); // property doesn't exist
     }
 
     public function testIsset()
     {
         $config = new Config($this->all, false);
 
-        $this->assertFalse(isset($config->notarealkey));
-        $this->assertTrue(isset($config->hostname)); // top level
-        $this->assertTrue(isset($config->db->name)); // one level down
+        self::assertFalse(isset($config->notarealkey));
+        self::assertTrue(isset($config->hostname)); // top level
+        self::assertTrue(isset($config->db->name)); // one level down
     }
 
     public function testModification()
@@ -135,18 +135,18 @@ class ConfigTest extends TestCase
         $config = new Config($this->all, true);
 
         // overwrite an existing key
-        $this->assertEquals('thisname', $config->name);
+        self::assertEquals('thisname', $config->name);
         $config->name = 'anothername';
-        $this->assertEquals('anothername', $config->name);
+        self::assertEquals('anothername', $config->name);
 
         // overwrite an existing multi-level key
-        $this->assertEquals('multi', $config->one->two->three);
+        self::assertEquals('multi', $config->one->two->three);
         $config->one->two->three = 'anothername';
-        $this->assertEquals('anothername', $config->one->two->three);
+        self::assertEquals('anothername', $config->one->two->three);
 
         // create a new multi-level key
         $config->does = ['not' => ['exist' => 'yet']];
-        $this->assertEquals('yet', $config->does->not->exist);
+        self::assertEquals('yet', $config->does->not->exist);
     }
 
     public function testNoModifications()
@@ -168,14 +168,14 @@ class ConfigTest extends TestCase
     public function testNumericKeys()
     {
         $data = new Config($this->numericData);
-        $this->assertEquals('test', $data->{1});
-        $this->assertEquals(34, $data->{0});
+        self::assertEquals('test', $data->{1});
+        self::assertEquals(34, $data->{0});
     }
 
     public function testCount()
     {
         $data = new Config($this->menuData1);
-        $this->assertCount(3, $data->button);
+        self::assertCount(3, $data->button);
     }
 
     public function testCountAfterMerge()
@@ -184,7 +184,7 @@ class ConfigTest extends TestCase
         $data->merge(
             new Config($this->toCombineA)
         );
-        $this->assertEquals(count($data->toArray()), $data->count());
+        self::assertEquals(count($data->toArray()), $data->count());
     }
 
     public function testCountWithDoubleKeys()
@@ -193,9 +193,9 @@ class ConfigTest extends TestCase
 
         $config->foo = 1;
         $config->foo = 2;
-        $this->assertSame(2, $config->foo);
-        $this->assertCount(1, $config->toArray());
-        $this->assertCount(1, $config);
+        self::assertSame(2, $config->foo);
+        self::assertCount(1, $config->toArray());
+        self::assertCount(1, $config);
     }
 
     public function testIterator()
@@ -208,14 +208,14 @@ class ConfigTest extends TestCase
                 $var .= "\nkey = $key, value = $value";
             }
         }
-        $this->assertContains('key = name, value = thisname', $var);
+        self::assertStringContainsString('key = name, value = thisname', $var);
 
         // 1 nest
         $var = '';
         foreach ($config->db as $key => $value) {
             $var .= "\nkey = $key, value = $value";
         }
-        $this->assertContains('key = host, value = 127.0.0.1', $var);
+        self::assertStringContainsString('key = host, value = 127.0.0.1', $var);
 
         // 2 nests
         $config = new Config($this->menuData1);
@@ -223,7 +223,7 @@ class ConfigTest extends TestCase
         foreach ($config->button->b1 as $key => $value) {
             $var .= "\nkey = $key, value = $value";
         }
-        $this->assertContains('key = L1, value = button1-1', $var);
+        self::assertStringContainsString('key = L1, value = button1-1', $var);
     }
 
     public function testArray()
@@ -235,9 +235,9 @@ class ConfigTest extends TestCase
         $contents = ob_get_contents();
         ob_end_clean();
 
-        $this->assertContains('Array', $contents);
-        $this->assertContains('[hostname] => all', $contents);
-        $this->assertContains('[user] => username', $contents);
+        self::assertStringContainsString('Array', $contents);
+        self::assertStringContainsString('[hostname] => all', $contents);
+        self::assertStringContainsString('[user] => username', $contents);
     }
 
     public function testErrorWriteToReadOnly()
@@ -260,7 +260,7 @@ class ConfigTest extends TestCase
             ],
         ];
         $form_config = new Config($config_array, true);
-        $this->assertSame([], $form_config->controls->visible->attribs->toArray());
+        self::assertSame([], $form_config->controls->visible->attribs->toArray());
     }
 
     public function testLaminas402()
@@ -272,9 +272,9 @@ class ConfigTest extends TestCase
             'data3'  => 'someValue'
             ];
         $config = new Config($configArray);
-        $this->assertEquals(count($configArray), count($config));
+        self::assertEquals(count($configArray), count($config));
         foreach ($config as $key => $value) {
-            $this->assertEquals($configArray[$key], $value);
+            self::assertEquals($configArray[$key], $value);
         }
     }
 
@@ -282,23 +282,23 @@ class ConfigTest extends TestCase
     {
         $config = new Config($this->leadingdot);
         $array = $config->toArray();
-        $this->assertContains('dot-test', $array['.test']);
+        self::assertStringContainsString('dot-test', $array['.test']);
     }
 
     public function testLaminas1019EmptyKeys()
     {
         $config = new Config($this->invalidkey);
         $array = $config->toArray();
-        $this->assertContains('test', $array[' ']);
-        $this->assertContains('test', $array['']);
+        self::assertStringContainsString('test', $array[' ']);
+        self::assertStringContainsString('test', $array['']);
     }
 
     public function testLaminas1417DefaultValues()
     {
         $config = new Config($this->all);
         $value = $config->get('notthere', 'default');
-        $this->assertEquals('default', $value);
-        $this->assertNull($config->notThere);
+        self::assertEquals('default', $value);
+        self::assertNull($config->notThere);
     }
 
     public function testUnsetException()
@@ -306,7 +306,7 @@ class ConfigTest extends TestCase
         // allow modifications is off - expect an exception
         $config = new Config($this->all, false);
 
-        $this->assertTrue(isset($config->hostname)); // top level
+        self::assertTrue(isset($config->hostname)); // top level
 
         $this->expectException(Exception\InvalidArgumentException::class);
         $this->expectExceptionMessage('is read only');
@@ -318,14 +318,14 @@ class ConfigTest extends TestCase
         // allow modifications is on
         $config = new Config($this->all, true);
 
-        $this->assertTrue(isset($config->hostname));
-        $this->assertTrue(isset($config->db->name));
+        self::assertTrue(isset($config->hostname));
+        self::assertTrue(isset($config->db->name));
 
         unset($config->hostname);
         unset($config->db->name);
 
-        $this->assertFalse(isset($config->hostname));
-        $this->assertFalse(isset($config->db->name));
+        self::assertFalse(isset($config->hostname));
+        self::assertFalse(isset($config->db->name));
     }
 
     public function testMerge()
@@ -335,66 +335,66 @@ class ConfigTest extends TestCase
         $configA->merge($configB);
 
         // config->
-        $this->assertEquals(3, $configA->foo);
-        $this->assertEquals(2, $configA->bar);
-        $this->assertEquals('bar', $configA->text);
+        self::assertEquals(3, $configA->foo);
+        self::assertEquals(2, $configA->bar);
+        self::assertEquals('bar', $configA->text);
 
         // config->numerical-> ...
-        $this->assertInstanceOf('\Laminas\Config\Config', $configA->numerical);
-        $this->assertEquals('first', $configA->numerical->{0});
-        $this->assertEquals('second', $configA->numerical->{1});
+        self::assertInstanceOf('\Laminas\Config\Config', $configA->numerical);
+        self::assertEquals('first', $configA->numerical->{0});
+        self::assertEquals('second', $configA->numerical->{1});
 
         // config->numerical->{2}-> ...
-        $this->assertInstanceOf('\Laminas\Config\Config', $configA->numerical->{2});
-        $this->assertEquals('third', $configA->numerical->{2}->{0});
-        $this->assertEquals(null, $configA->numerical->{2}->{1});
+        self::assertInstanceOf('\Laminas\Config\Config', $configA->numerical->{2});
+        self::assertEquals('third', $configA->numerical->{2}->{0});
+        self::assertEquals(null, $configA->numerical->{2}->{1});
 
         // config->numerical->  ...
-        $this->assertEquals('fourth', $configA->numerical->{3});
-        $this->assertEquals('fifth', $configA->numerical->{4});
+        self::assertEquals('fourth', $configA->numerical->{3});
+        self::assertEquals('fifth', $configA->numerical->{4});
 
         // config->numerical->{5}
-        $this->assertInstanceOf('\Laminas\Config\Config', $configA->numerical->{5});
-        $this->assertEquals('sixth', $configA->numerical->{5}->{0});
-        $this->assertEquals(null, $configA->numerical->{5}->{1});
+        self::assertInstanceOf('\Laminas\Config\Config', $configA->numerical->{5});
+        self::assertEquals('sixth', $configA->numerical->{5}->{0});
+        self::assertEquals(null, $configA->numerical->{5}->{1});
 
         // config->misaligned
-        $this->assertInstanceOf('\Laminas\Config\Config', $configA->misaligned);
-        $this->assertEquals('foo', $configA->misaligned->{2});
-        $this->assertEquals('bar', $configA->misaligned->{3});
-        $this->assertEquals('baz', $configA->misaligned->{4});
-        $this->assertEquals(null, $configA->misaligned->{0});
+        self::assertInstanceOf('\Laminas\Config\Config', $configA->misaligned);
+        self::assertEquals('foo', $configA->misaligned->{2});
+        self::assertEquals('bar', $configA->misaligned->{3});
+        self::assertEquals('baz', $configA->misaligned->{4});
+        self::assertEquals(null, $configA->misaligned->{0});
 
         // config->mixed
-        $this->assertInstanceOf('\Laminas\Config\Config', $configA->mixed);
-        $this->assertEquals('bar', $configA->mixed->foo);
-        $this->assertFalse($configA->mixed->{0});
-        $this->assertNull($configA->mixed->{1});
+        self::assertInstanceOf('\Laminas\Config\Config', $configA->mixed);
+        self::assertEquals('bar', $configA->mixed->foo);
+        self::assertFalse($configA->mixed->{0});
+        self::assertNull($configA->mixed->{1});
 
         // config->replaceAssoc
-        $this->assertNull($configA->replaceAssoc);
+        self::assertNull($configA->replaceAssoc);
 
         // config->replaceNumerical
-        $this->assertTrue($configA->replaceNumerical);
+        self::assertTrue($configA->replaceNumerical);
     }
 
     public function testArrayAccess()
     {
         $config = new Config($this->all, true);
 
-        $this->assertEquals('thisname', $config['name']);
+        self::assertEquals('thisname', $config['name']);
         $config['name'] = 'anothername';
-        $this->assertEquals('anothername', $config['name']);
-        $this->assertEquals('multi', $config['one']['two']['three']);
+        self::assertEquals('anothername', $config['name']);
+        self::assertEquals('multi', $config['one']['two']['three']);
 
-        $this->assertTrue(isset($config['hostname']));
-        $this->assertTrue(isset($config['db']['name']));
+        self::assertTrue(isset($config['hostname']));
+        self::assertTrue(isset($config['db']['name']));
 
         unset($config['hostname']);
         unset($config['db']['name']);
 
-        $this->assertFalse(isset($config['hostname']));
-        $this->assertFalse(isset($config['db']['name']));
+        self::assertFalse(isset($config['hostname']));
+        self::assertFalse(isset($config['db']['name']));
     }
 
     public function testArrayAccessModification()
@@ -416,13 +416,13 @@ class ConfigTest extends TestCase
         $config[] = $bacon;
 
         // Check if bacon now has a key that equals to 2
-        $this->assertEquals($bacon, $config[2]);
+        self::assertEquals($bacon, $config[2]);
 
         // Now let's try setting an array with no key supplied
         $config[] = $poem;
 
         // This should now be set with key 3
-        $this->assertEquals($poem, $config[3]->toArray());
+        self::assertEquals($poem, $config[3]->toArray());
     }
 
     /**
@@ -440,10 +440,10 @@ class ConfigTest extends TestCase
                 ]
             ];
         $config = new Config($configData);
-        $this->assertEquals($config->toArray(), $configData);
-        $this->assertInstanceOf('stdClass', $config->a);
-        $this->assertInstanceOf('stdClass', $config->b->c);
-        $this->assertInstanceOf('stdClass', $config->b->d);
+        self::assertEquals($config->toArray(), $configData);
+        self::assertInstanceOf('stdClass', $config->a);
+        self::assertInstanceOf('stdClass', $config->b->c);
+        self::assertInstanceOf('stdClass', $config->b->d);
     }
 
     /**
@@ -472,9 +472,9 @@ class ConfigTest extends TestCase
             'c' => 'c',
             ];
         $config = new Config($configData, true);
-        $this->assertCount(3, $config);
+        self::assertCount(3, $config);
         unset($config->b);
-        $this->assertCount(2, $config);
+        self::assertCount(2, $config);
     }
 
     public function testLaminas4107ensureCloneDoesNotKeepNestedReferences()
@@ -483,8 +483,8 @@ class ConfigTest extends TestCase
         $newConfig = clone $parent;
         $newConfig->merge(new Config(['key' => ['nested' => 'override']], true));
 
-        $this->assertEquals('override', $newConfig->key->nested, '$newConfig is not overridden');
-        $this->assertEquals('parent', $parent->key->nested, '$parent has been overridden');
+        self::assertEquals('override', $newConfig->key->nested, '$newConfig is not overridden');
+        self::assertEquals('parent', $parent->key->nested, '$parent has been overridden');
     }
 
     /**
@@ -500,11 +500,11 @@ class ConfigTest extends TestCase
 
         $config2->key2 = 'no';
 
-        $this->assertEquals('no', $config2->key2);
+        self::assertEquals('no', $config2->key2);
 
         $config2->key->nested = 'no';
 
-        $this->assertEquals('no', $config2->key->nested);
+        self::assertEquals('no', $config2->key->nested);
     }
 
     /**
@@ -527,9 +527,9 @@ class ConfigTest extends TestCase
             }
         }
 
-        $this->assertEquals('first', $keyList[0]);
-        $this->assertEquals('second', $keyList[1]);
-        $this->assertEquals('third', $keyList[2]);
+        self::assertEquals('first', $keyList[0]);
+        self::assertEquals('second', $keyList[1]);
+        self::assertEquals('third', $keyList[2]);
     }
 
     /**
@@ -552,9 +552,9 @@ class ConfigTest extends TestCase
             }
         }
 
-        $this->assertEquals('first', $keyList[0]);
-        $this->assertEquals('second', $keyList[1]);
-        $this->assertEquals('third', $keyList[2]);
+        self::assertEquals('first', $keyList[0]);
+        self::assertEquals('second', $keyList[1]);
+        self::assertEquals('third', $keyList[2]);
     }
 
     /**
@@ -577,9 +577,9 @@ class ConfigTest extends TestCase
             }
         }
 
-        $this->assertEquals('first', $keyList[0]);
-        $this->assertEquals('second', $keyList[1]);
-        $this->assertEquals('third', $keyList[2]);
+        self::assertEquals('first', $keyList[0]);
+        self::assertEquals('second', $keyList[1]);
+        self::assertEquals('third', $keyList[2]);
     }
 
     /**
@@ -591,19 +591,19 @@ class ConfigTest extends TestCase
         $config = new Config($this->all, true);
 
         $config->setReadOnly();
-        $this->assertTrue($config->isReadOnly());
-        $this->assertTrue($config->one->isReadOnly(), 'First level children are writable');
-        $this->assertTrue($config->one->two->isReadOnly(), 'Second level children are writable');
+        self::assertTrue($config->isReadOnly());
+        self::assertTrue($config->one->isReadOnly(), 'First level children are writable');
+        self::assertTrue($config->one->two->isReadOnly(), 'Second level children are writable');
     }
 
     public function testLaminas6995toArrayDoesNotDisturbInternalIterator()
     {
         $config = new Config(range(1, 10));
         $config->rewind();
-        $this->assertEquals(1, $config->current());
+        self::assertEquals(1, $config->current());
 
         $config->toArray();
-        $this->assertEquals(1, $config->current());
+        self::assertEquals(1, $config->current());
     }
 
     /**
@@ -638,7 +638,7 @@ class ConfigTest extends TestCase
         $configB = new Config($arrayB);
 
         $configA->merge($configB); // merge B onto A
-        $this->assertEquals($mergeResult, $configA->toArray());
+        self::assertEquals($mergeResult, $configA->toArray());
     }
 
     public function testExtendedConfigHasSubnodesTheSameType()
@@ -649,6 +649,6 @@ class ConfigTest extends TestCase
             ],
         ]);
 
-        $this->assertInstanceOf(TestAssets\ExtendedConfig::class, $config->node);
+        self::assertInstanceOf(TestAssets\ExtendedConfig::class, $config->node);
     }
 }
