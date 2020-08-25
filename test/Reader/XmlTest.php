@@ -14,6 +14,10 @@ use PHPUnit\Framework\Error\Warning;
 use ReflectionProperty;
 use XMLReader;
 
+use function class_exists;
+use function restore_error_handler;
+use function sys_get_temp_dir;
+
 /**
  * @group      Laminas_Config
  *
@@ -21,12 +25,12 @@ use XMLReader;
  */
 class XmlTest extends AbstractReaderTestCase
 {
-    public function setUp()
+    protected function setUp() : void
     {
         $this->reader = new Xml();
     }
 
-    public function tearDown()
+    protected function tearDown() : void
     {
         restore_error_handler();
     }
@@ -73,9 +77,9 @@ class XmlTest extends AbstractReaderTestCase
 ECS;
 
         $arrayXml = $this->reader->fromString($xml);
-        $this->assertEquals($arrayXml['test'], 'foo');
-        $this->assertEquals($arrayXml['bar'][0], 'baz');
-        $this->assertEquals($arrayXml['bar'][1], 'foo');
+        self::assertEquals($arrayXml['test'], 'foo');
+        self::assertEquals($arrayXml['bar'][0], 'baz');
+        self::assertEquals($arrayXml['bar'][1], 'foo');
     }
 
     public function testInvalidString()
@@ -95,22 +99,22 @@ ECS;
     {
         $config = $this->reader->fromFile($this->getTestAssetPath('array'));
 
-        $this->assertEquals('2a', $config['one']['two'][0]);
-        $this->assertEquals('2b', $config['one']['two'][1]);
-        $this->assertEquals('4', $config['three']['four'][1]);
-        $this->assertEquals('5', $config['three']['four'][0]['five']);
+        self::assertEquals('2a', $config['one']['two'][0]);
+        self::assertEquals('2b', $config['one']['two'][1]);
+        self::assertEquals('4', $config['three']['four'][1]);
+        self::assertEquals('5', $config['three']['four'][0]['five']);
     }
 
     public function testLaminas00ArraysWithMultipleChildren()
     {
         $config = $this->reader->fromFile($this->getTestAssetPath('array'));
 
-        $this->assertEquals('1', $config['six']['seven'][0]['eight']);
-        $this->assertEquals('2', $config['six']['seven'][1]['eight']);
-        $this->assertEquals('3', $config['six']['seven'][2]['eight']);
-        $this->assertEquals('1', $config['six']['seven'][0]['nine']);
-        $this->assertEquals('2', $config['six']['seven'][1]['nine']);
-        $this->assertEquals('3', $config['six']['seven'][2]['nine']);
+        self::assertEquals('1', $config['six']['seven'][0]['eight']);
+        self::assertEquals('2', $config['six']['seven'][1]['eight']);
+        self::assertEquals('3', $config['six']['seven'][2]['eight']);
+        self::assertEquals('1', $config['six']['seven'][0]['nine']);
+        self::assertEquals('2', $config['six']['seven'][1]['nine']);
+        self::assertEquals('3', $config['six']['seven'][2]['nine']);
     }
 
     /**
@@ -120,22 +124,22 @@ ECS;
     {
         $this->reader = new Xml();
         $arrayXml = $this->reader->fromFile($this->getTestAssetPath('attributes'));
-        $this->assertArrayHasKey('one', $arrayXml);
-        $this->assertInternalType('array', $arrayXml['one']);
+        self::assertArrayHasKey('one', $arrayXml);
+        self::assertIsArray($arrayXml['one']);
 
         // No attribute + text value == string
-        $this->assertArrayHasKey(0, $arrayXml['one']);
-        $this->assertEquals('bazbat', $arrayXml['one'][0]);
+        self::assertArrayHasKey(0, $arrayXml['one']);
+        self::assertEquals('bazbat', $arrayXml['one'][0]);
 
         // Attribute(s) + text value == array
-        $this->assertArrayHasKey(1, $arrayXml['one']);
-        $this->assertInternalType('array', $arrayXml['one'][1]);
+        self::assertArrayHasKey(1, $arrayXml['one']);
+        self::assertIsArray($arrayXml['one'][1]);
         // Attributes stored in named array keys
-        $this->assertArrayHasKey('foo', $arrayXml['one'][1]);
-        $this->assertEquals('bar', $arrayXml['one'][1]['foo']);
+        self::assertArrayHasKey('foo', $arrayXml['one'][1]);
+        self::assertEquals('bar', $arrayXml['one'][1]['foo']);
         // Element value stored in special key '_'
-        $this->assertArrayHasKey('_', $arrayXml['one'][1]);
-        $this->assertEquals('bazbat', $arrayXml['one'][1]['_']);
+        self::assertArrayHasKey('_', $arrayXml['one'][1]);
+        self::assertEquals('bazbat', $arrayXml['one'][1]['_']);
     }
 
     /**
@@ -212,7 +216,7 @@ ECS;
 
         $xmlReader = $reflectionReader->getValue($xml);
 
-        $this->assertInstanceOf('XMLReader', $xmlReader);
+        self::assertInstanceOf('XMLReader', $xmlReader);
 
         return $xmlReader;
     }

@@ -19,9 +19,15 @@ use Laminas\Filter\PregReplace;
 use Laminas\Filter\StringToLower;
 use Laminas\Filter\StringToUpper;
 use Laminas\I18n\Exception as I18nException;
-use Laminas\I18n\Translator\Loader\PhpArray;
 use Laminas\I18n\Translator\Translator;
 use PHPUnit\Framework\TestCase;
+
+use function define;
+use function extension_loaded;
+use function gettype;
+use function realpath;
+
+use const PHP_VERSION;
 
 /**
  * @group      Laminas_Config
@@ -40,7 +46,7 @@ class ProcessorTest extends TestCase
     protected $phpConstants;
     protected $filter;
 
-    public function setUp()
+    protected function setUp() : void
     {
         // Arrays representing common config configurations
         $this->nested = [
@@ -158,10 +164,10 @@ class ProcessorTest extends TestCase
         $queue->insert($processor1);
         $queue->insert($processor2);
 
-        $this->assertInstanceOf('\Laminas\Config\Processor\Queue', $queue);
-        $this->assertEquals(2, $queue->count());
-        $this->assertTrue($queue->contains($processor1));
-        $this->assertTrue($queue->contains($processor2));
+        self::assertInstanceOf('\Laminas\Config\Processor\Queue', $queue);
+        self::assertEquals(2, $queue->count());
+        self::assertTrue($queue->contains($processor1));
+        self::assertTrue($queue->contains($processor2));
     }
 
     public function testBareTokenPost()
@@ -171,11 +177,11 @@ class ProcessorTest extends TestCase
         $processor->addToken('BARETOKEN', 'some replaced value');
         $processor->process($config);
 
-        $this->assertEquals(['BARETOKEN' => 'some replaced value'], $processor->getTokens());
-        $this->assertEquals('some replaced value', $config->simple);
-        $this->assertEquals('some text with some replaced value inside', $config->inside);
-        $this->assertEquals('some replaced value', $config->nested->simple);
-        $this->assertEquals('some text with some replaced value inside', $config->nested->inside);
+        self::assertEquals(['BARETOKEN' => 'some replaced value'], $processor->getTokens());
+        self::assertEquals('some replaced value', $config->simple);
+        self::assertEquals('some text with some replaced value inside', $config->inside);
+        self::assertEquals('some replaced value', $config->nested->simple);
+        self::assertEquals('some text with some replaced value inside', $config->nested->inside);
     }
 
     public function testAddInvalidToken()
@@ -192,7 +198,7 @@ class ProcessorTest extends TestCase
         $processor->addToken('BARETOKEN', 'test');
         $data = 'BARETOKEN';
         $out = $processor->processValue($data);
-        $this->assertEquals($out, 'test');
+        self::assertEquals($out, 'test');
     }
 
     public function testTokenReadOnly()
@@ -212,10 +218,10 @@ class ProcessorTest extends TestCase
         $processor = new TokenProcessor(['TOKEN' => 'some replaced value'], '::');
         $processor->process($config);
 
-        $this->assertEquals('some replaced value', $config->simple);
-        $this->assertEquals(':: some text with some replaced value inside ::', $config->inside);
-        $this->assertEquals('some replaced value', $config->nested->simple);
-        $this->assertEquals(':: some text with some replaced value inside ::', $config->nested->inside);
+        self::assertEquals('some replaced value', $config->simple);
+        self::assertEquals(':: some text with some replaced value inside ::', $config->inside);
+        self::assertEquals('some replaced value', $config->nested->simple);
+        self::assertEquals(':: some text with some replaced value inside ::', $config->nested->inside);
     }
 
     public function testTokenSuffix()
@@ -224,10 +230,10 @@ class ProcessorTest extends TestCase
         $processor = new TokenProcessor(['TOKEN' => 'some replaced value'], '', '::');
         $processor->process($config);
 
-        $this->assertEquals('some replaced value', $config->simple);
-        $this->assertEquals(':: some text with some replaced value inside ::', $config->inside);
-        $this->assertEquals('some replaced value', $config->nested->simple);
-        $this->assertEquals(':: some text with some replaced value inside ::', $config->nested->inside);
+        self::assertEquals('some replaced value', $config->simple);
+        self::assertEquals(':: some text with some replaced value inside ::', $config->inside);
+        self::assertEquals('some replaced value', $config->nested->simple);
+        self::assertEquals(':: some text with some replaced value inside ::', $config->nested->inside);
     }
 
     /**
@@ -240,10 +246,10 @@ class ProcessorTest extends TestCase
         $processor = new TokenProcessor(['TOKEN' => 'some replaced value'], '##', '##');
         $processor->process($config);
 
-        $this->assertEquals('some replaced value', $config->simple);
-        $this->assertEquals('## some text with some replaced value inside ##', $config->inside);
-        $this->assertEquals('some replaced value', $config->nested->simple);
-        $this->assertEquals('## some text with some replaced value inside ##', $config->nested->inside);
+        self::assertEquals('some replaced value', $config->simple);
+        self::assertEquals('## some text with some replaced value inside ##', $config->inside);
+        self::assertEquals('some replaced value', $config->nested->simple);
+        self::assertEquals('## some text with some replaced value inside ##', $config->nested->inside);
     }
 
     /**
@@ -254,10 +260,10 @@ class ProcessorTest extends TestCase
         $config = new Config($this->tokenSurroundMixed, true);
         $processor = new TokenProcessor(['TOKEN' => 'some replaced value'], '##', '##');
         $processor->process($config);
-        $this->assertEquals('some replaced value', $config->simple);
-        $this->assertEquals('## some text with some replaced value inside ##', $config->inside);
-        $this->assertEquals('@@TOKEN@@', $config->nested->simple);
-        $this->assertEquals('@@ some text with @@TOKEN@@ inside @@', $config->nested->inside);
+        self::assertEquals('some replaced value', $config->simple);
+        self::assertEquals('## some text with some replaced value inside ##', $config->inside);
+        self::assertEquals('@@TOKEN@@', $config->nested->simple);
+        self::assertEquals('@@ some text with @@TOKEN@@ inside @@', $config->nested->inside);
 
         /**
          * Now change prefix and suffix on the processor
@@ -270,10 +276,10 @@ class ProcessorTest extends TestCase
          */
         $processor->process($config);
 
-        $this->assertEquals('some replaced value', $config->simple);
-        $this->assertEquals('## some text with some replaced value inside ##', $config->inside);
-        $this->assertEquals('some replaced value', $config->nested->simple);
-        $this->assertEquals('@@ some text with some replaced value inside @@', $config->nested->inside);
+        self::assertEquals('some replaced value', $config->simple);
+        self::assertEquals('## some text with some replaced value inside ##', $config->inside);
+        self::assertEquals('some replaced value', $config->nested->simple);
+        self::assertEquals('@@ some text with some replaced value inside @@', $config->nested->inside);
     }
 
     /**
@@ -296,11 +302,11 @@ class ProcessorTest extends TestCase
 
         $processor->process($config);
 
-        $this->assertTrue($config['trueBoolKey']);
-        $this->assertFalse($config['falseBoolKey']);
-        $this->assertSame(123, $config['intKey']);
-        $this->assertSame((float) 123.456, $config['floatKey']);
-        $this->assertSame((double) 456.789, $config['doubleKey']);
+        self::assertTrue($config['trueBoolKey']);
+        self::assertFalse($config['falseBoolKey']);
+        self::assertSame(123, $config['intKey']);
+        self::assertSame((float) 123.456, $config['floatKey']);
+        self::assertSame((double) 456.789, $config['doubleKey']);
     }
 
     /**
@@ -324,12 +330,12 @@ class ProcessorTest extends TestCase
 
         $processor->process($config);
 
-        $this->assertSame('R', $config['trueBoolKey']);
-        $this->assertSame('barR', $config['foo']);
-        $this->assertFalse($config['falseBoolKey']);
-        $this->assertSame('R23', $config['intKey']);
-        $this->assertSame('R23.456', $config['floatKey']);
-        $this->assertSame('456.78R', $config['doubleKey']);
+        self::assertSame('R', $config['trueBoolKey']);
+        self::assertSame('barR', $config['foo']);
+        self::assertFalse($config['falseBoolKey']);
+        self::assertSame('R23', $config['intKey']);
+        self::assertSame('R23.456', $config['floatKey']);
+        self::assertSame('456.78R', $config['doubleKey']);
     }
 
     /**
@@ -342,7 +348,7 @@ class ProcessorTest extends TestCase
 
         $processor->process($config);
 
-        $this->assertSame('bar', $config['foo']);
+        self::assertSame('bar', $config['foo']);
     }
 
     /**
@@ -357,14 +363,14 @@ class ProcessorTest extends TestCase
         $processor->process($config);
 
         $tokens = $processor->getTokens();
-        $this->assertInternalType('array', $tokens);
-        $this->assertArrayHasKey('SOME_USERLAND_CONSTANT', $tokens);
-        $this->assertFalse($processor->getUserOnly());
+        self::assertIsArray($tokens);
+        self::assertArrayHasKey('SOME_USERLAND_CONSTANT', $tokens);
+        self::assertFalse($processor->getUserOnly());
 
-        $this->assertEquals('some constant value', $config->simple);
-        $this->assertEquals('some text with some constant value inside', $config->inside);
-        $this->assertEquals('some constant value', $config->nested->simple);
-        $this->assertEquals('some text with some constant value inside', $config->nested->inside);
+        self::assertEquals('some constant value', $config->simple);
+        self::assertEquals('some text with some constant value inside', $config->inside);
+        self::assertEquals('some constant value', $config->nested->simple);
+        self::assertEquals('some text with some constant value inside', $config->nested->inside);
     }
 
     /**
@@ -378,14 +384,14 @@ class ProcessorTest extends TestCase
 
         $tokens = $processor->getTokens();
 
-        $this->assertInternalType('array', $tokens);
-        $this->assertArrayHasKey('SOME_USERLAND_CONSTANT', $tokens);
-        $this->assertTrue($processor->getUserOnly());
+        self::assertIsArray($tokens);
+        self::assertArrayHasKey('SOME_USERLAND_CONSTANT', $tokens);
+        self::assertTrue($processor->getUserOnly());
 
-        $this->assertEquals('some constant value', $config->simple);
-        $this->assertEquals('some text with some constant value inside', $config->inside);
-        $this->assertEquals('some constant value', $config->nested->simple);
-        $this->assertEquals('some text with some constant value inside', $config->nested->inside);
+        self::assertEquals('some constant value', $config->simple);
+        self::assertEquals('some text with some constant value inside', $config->inside);
+        self::assertEquals('some constant value', $config->nested->simple);
+        self::assertEquals('some text with some constant value inside', $config->nested->inside);
     }
 
     /**
@@ -397,10 +403,10 @@ class ProcessorTest extends TestCase
         $processor = new ConstantProcessor(false);
         $processor->process($config);
 
-        $this->assertEquals(PHP_VERSION, $config->phpVersion);
-        $this->assertEquals('Current PHP version is: ' . PHP_VERSION, $config->phpVersionInside);
-        $this->assertEquals(PHP_VERSION, $config->nested->phpVersion);
-        $this->assertEquals('Current PHP version is: ' . PHP_VERSION, $config->nested->phpVersionInside);
+        self::assertEquals(PHP_VERSION, $config->phpVersion);
+        self::assertEquals('Current PHP version is: ' . PHP_VERSION, $config->phpVersionInside);
+        self::assertEquals(PHP_VERSION, $config->nested->phpVersion);
+        self::assertEquals('Current PHP version is: ' . PHP_VERSION, $config->nested->phpVersionInside);
     }
 
     public function testTranslator()
@@ -416,10 +422,10 @@ class ProcessorTest extends TestCase
 
         $processor->process($config);
 
-        $this->assertEquals('oneDog', $config->pages[0]->id);
-        $this->assertEquals('ein Hund', $config->pages[0]->label);
-        $this->assertEquals('twoDogs', $config->pages[1]->id);
-        $this->assertEquals('zwei Hunde', $config->pages[1]->label);
+        self::assertEquals('oneDog', $config->pages[0]->id);
+        self::assertEquals('ein Hund', $config->pages[0]->label);
+        self::assertEquals('twoDogs', $config->pages[1]->id);
+        self::assertEquals('zwei Hunde', $config->pages[1]->label);
     }
 
     public function testTranslatorWithoutIntl()
@@ -462,7 +468,7 @@ class ProcessorTest extends TestCase
         $translator->addTranslationFile('phparray', $this->translatorFile);
         $processor  = new TranslatorProcessor($translator);
 
-        $this->assertEquals('ein Hund', $processor->processValue('one dog'));
+        self::assertEquals('ein Hund', $processor->processValue('one dog'));
     }
 
     public function testTranslatorSingleValueWithoutIntl()
@@ -478,7 +484,7 @@ class ProcessorTest extends TestCase
         $translator->addTranslationFile('phparray', $this->translatorFile);
         $processor  = new TranslatorProcessor($translator);
 
-        $this->assertEquals('ein Hund', $processor->processValue('one dog'));
+        self::assertEquals('ein Hund', $processor->processValue('one dog'));
     }
 
     public function testFilter()
@@ -487,11 +493,11 @@ class ProcessorTest extends TestCase
         $filter = new StringToLower();
         $processor = new FilterProcessor($filter);
 
-        $this->assertInstanceOf('Laminas\Filter\StringToLower', $processor->getFilter());
+        self::assertInstanceOf('Laminas\Filter\StringToLower', $processor->getFilter());
         $processor->process($config);
 
-        $this->assertEquals('some mixedcase value', $config->simple);
-        $this->assertEquals('other mixed case value', $config->nested->simple);
+        self::assertEquals('some mixedcase value', $config->simple);
+        self::assertEquals('other mixed case value', $config->nested->simple);
     }
 
     public function testFilterReadOnly()
@@ -511,7 +517,7 @@ class ProcessorTest extends TestCase
         $processor = new FilterProcessor($filter);
 
         $value = 'TEST';
-        $this->assertEquals('test', $processor->processValue($value));
+        self::assertEquals('test', $processor->processValue($value));
     }
 
     /**
@@ -533,8 +539,8 @@ class ProcessorTest extends TestCase
         $queue->insert($lowerProcessor);
         $queue->process($config);
 
-        $this->assertEquals('some mixedcase value', $config->simple);
-        $this->assertEquals('other mixed case value', $config->nested->simple);
+        self::assertEquals('some mixedcase value', $config->simple);
+        self::assertEquals('other mixed case value', $config->nested->simple);
     }
 
     public function testQueueReadOnly()
@@ -569,7 +575,7 @@ class ProcessorTest extends TestCase
         $queue->insert($lowerProcessor);
 
         $data = 'TeSt';
-        $this->assertEquals('test', $queue->processValue($data));
+        self::assertEquals('test', $queue->processValue($data));
     }
 
     /**
@@ -594,7 +600,7 @@ class ProcessorTest extends TestCase
 
         $config->simple = 'some MixedCase VALue';
         $queue->process($config);
-        $this->assertEquals('SOME MIXEDCASE VALUE', $config->simple);
+        self::assertEquals('SOME MIXEDCASE VALUE', $config->simple);
 
         /**
          * Add even higher priority replace processor that will remove all lowercase letters
@@ -602,6 +608,6 @@ class ProcessorTest extends TestCase
         $queue->insert($replaceProcessor, 10000);
         $config->newValue = 'THIRD mixed CASE value';
         $queue->process($config);
-        $this->assertEquals('THIRD  CASE ', $config->newValue);
+        self::assertEquals('THIRD  CASE ', $config->newValue);
     }
 }

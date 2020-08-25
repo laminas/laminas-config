@@ -12,6 +12,15 @@ use Laminas\Config\Exception;
 use Laminas\Stdlib\ArrayUtils;
 use Traversable;
 
+use function file_put_contents;
+use function is_array;
+use function restore_error_handler;
+use function set_error_handler;
+use function sprintf;
+
+use const E_WARNING;
+use const LOCK_EX;
+
 abstract class AbstractWriter implements WriterInterface
 {
     /**

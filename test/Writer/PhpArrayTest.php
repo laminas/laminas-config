@@ -14,12 +14,23 @@ use LaminasTest\Config\Writer\TestAssets\DummyClassA;
 use LaminasTest\Config\Writer\TestAssets\DummyClassB;
 use LaminasTest\Config\Writer\TestAssets\PhpReader;
 
+use function class_exists;
+use function file_get_contents;
+use function file_put_contents;
+use function preg_replace;
+use function sprintf;
+use function trim;
+use function version_compare;
+
+use const PHP_EOL;
+use const PHP_VERSION;
+
 /**
  * @group      Laminas_Config
  */
 class PhpArrayTest extends AbstractWriterTestCase
 {
-    public function setUp()
+    protected function setUp() : void
     {
         $this->writer = new PhpArray();
         $this->reader = new PhpReader();
@@ -67,7 +78,7 @@ class PhpArrayTest extends AbstractWriterTestCase
         $expected .= "    'null' => null,\n";
         $expected .= ");\n";
 
-        $this->assertEquals($expected, $configString);
+        self::assertEquals($expected, $configString);
     }
 
     public function testRenderWithBracketArraySyntax()
@@ -88,7 +99,7 @@ class PhpArrayTest extends AbstractWriterTestCase
         $expected .= "    'emptyArray' => [],\n";
         $expected .= "];\n";
 
-        $this->assertEquals($expected, $configString);
+        self::assertEquals($expected, $configString);
     }
 
     public function testRenderWithQuotesInString()
@@ -103,7 +114,7 @@ class PhpArrayTest extends AbstractWriterTestCase
         $expected .= "    'two' => 'Test with \\'single\\' quotes',\n";
         $expected .= ");\n";
 
-        $this->assertEquals($expected, $configString);
+        self::assertEquals($expected, $configString);
     }
 
     public function testWriteConvertsPathToDirWhenWritingBackToFile()
@@ -120,7 +131,7 @@ class PhpArrayTest extends AbstractWriterTestCase
         $result = trim(file_get_contents($filename));
         $result = preg_replace("~\r\n|\n|\r~", PHP_EOL, $result);
 
-        $this->assertSame($expected, $result);
+        self::assertSame($expected, $result);
     }
 
     public function testRenderWithClassNameScalarsEnabled()
@@ -132,10 +143,10 @@ class PhpArrayTest extends AbstractWriterTestCase
 
         // Dummy classes should not be loaded prior this test
         $message = sprintf('class %s should not be loaded prior test', $dummyFqnA);
-        $this->assertFalse(class_exists($dummyFqnA, false), $message);
+        self::assertFalse(class_exists($dummyFqnA, false), $message);
 
         $message = sprintf('class %s should not be loaded prior test', $dummyFqnB);
-        $this->assertFalse(class_exists($dummyFqnB, false), $message);
+        self::assertFalse(class_exists($dummyFqnB, false), $message);
 
         $config = new Config([
             "\\~" => 'bar',
@@ -164,21 +175,21 @@ return array(
 ECS;
         $result = $this->writer->toString($config);
 
-        $this->assertSame($expected, $result);
+        self::assertSame($expected, $result);
     }
 
     public function testUseClassNameScalarsIsFalseByDefault()
     {
-        $this->assertFalse($this->writer->getUseClassNameScalars(), 'useClassNameScalars should be false by default');
+        self::assertFalse($this->writer->getUseClassNameScalars(), 'useClassNameScalars should be false by default');
     }
 
     public function testSetUseBracketArraySyntaxReturnsFluentInterface()
     {
-        $this->assertSame($this->writer, $this->writer->setUseBracketArraySyntax(true));
+        self::assertSame($this->writer, $this->writer->setUseBracketArraySyntax(true));
     }
 
     public function testSetUseClassNameScalarsReturnsFluentInterface()
     {
-        $this->assertSame($this->writer, $this->writer->setUseClassNameScalars(true));
+        self::assertSame($this->writer, $this->writer->setUseClassNameScalars(true));
     }
 }

@@ -13,6 +13,8 @@ use Laminas\Config\StandaloneWriterPluginManager;
 use Laminas\Config\Writer;
 use PHPUnit\Framework\TestCase;
 
+use function sprintf;
+
 class StandaloneWriterPluginManagerTest extends TestCase
 {
     public function supportedConfigTypes()
@@ -43,13 +45,13 @@ class StandaloneWriterPluginManagerTest extends TestCase
     public function testCanRetrieveWriterByType($type, $expectedType)
     {
         $manager = new StandaloneWriterPluginManager();
-        $this->assertTrue(
+        self::assertTrue(
             $manager->has($type),
             sprintf('Failed to assert plugin manager has plugin %s', $type)
         );
 
         $plugin = $manager->get($type);
-        $this->assertInstanceOf($expectedType, $plugin);
+        self::assertInstanceOf($expectedType, $plugin);
     }
 
     public function supportedConfigClassNames()
@@ -71,13 +73,13 @@ class StandaloneWriterPluginManagerTest extends TestCase
     public function testCanRetrieveWriterByPluginClassName($class)
     {
         $manager = new StandaloneWriterPluginManager();
-        $this->assertTrue(
+        self::assertTrue(
             $manager->has($class),
             sprintf('Failed to assert plugin manager has plugin %s', $class)
         );
 
         $plugin = $manager->get($class);
-        $this->assertInstanceOf($class, $plugin);
+        self::assertInstanceOf($class, $plugin);
     }
 
     public function testGetThrowsExceptionIfPluginNotFound()

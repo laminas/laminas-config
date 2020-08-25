@@ -13,6 +13,8 @@ use Laminas\Config\Reader;
 use Laminas\Config\StandaloneReaderPluginManager;
 use PHPUnit\Framework\TestCase;
 
+use function sprintf;
+
 class StandaloneReaderPluginManagerTest extends TestCase
 {
     public function supportedConfigExtensions()
@@ -41,13 +43,13 @@ class StandaloneReaderPluginManagerTest extends TestCase
     public function testCanRetrieveReaderByExtension($extension, $expectedType)
     {
         $manager = new StandaloneReaderPluginManager();
-        $this->assertTrue(
+        self::assertTrue(
             $manager->has($extension),
             sprintf('Failed to assert plugin manager has plugin %s', $extension)
         );
 
         $plugin = $manager->get($extension);
-        $this->assertInstanceOf($expectedType, $plugin);
+        self::assertInstanceOf($expectedType, $plugin);
     }
 
     public function supportedConfigClassNames()
@@ -69,13 +71,13 @@ class StandaloneReaderPluginManagerTest extends TestCase
     public function testCanRetrieveReaderByPluginClassName($class)
     {
         $manager = new StandaloneReaderPluginManager();
-        $this->assertTrue(
+        self::assertTrue(
             $manager->has($class),
             sprintf('Failed to assert plugin manager has plugin %s', $class)
         );
 
         $plugin = $manager->get($class);
-        $this->assertInstanceOf($class, $plugin);
+        self::assertInstanceOf($class, $plugin);
     }
 
     public function testGetThrowsExceptionIfPluginNotFound()

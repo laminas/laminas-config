@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- Nothing.
+- [#9](https://github.com/laminas/laminas-config/pull/9) adds support for the upcoming PHP 8.0 release.
 
 ### Changed
 
@@ -18,7 +18,9 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Removed
 
-- Nothing.
+- [#9](https://github.com/laminas/laminas-config/pull/9) removes support for PHP versions prior to PHP 7.3.
+
+- [#9](https://github.com/laminas/laminas-config/pull/9) removes support for laminas-servicemanager v2 releases.
 
 ### Fixed
 

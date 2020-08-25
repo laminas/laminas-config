@@ -25,7 +25,7 @@
         }
     },
     "require": {
-        "php": "^5.6 || ^7.0",
+        "php": "^7.3 || ^8.0",
         "ext-json": "*",
         "laminas/laminas-stdlib": "^2.7.7 || ^3.1",
         "laminas/laminas-zendframework-bridge": "^1.0",
@@ -34,10 +34,10 @@
     "require-dev": {
         "laminas/laminas-coding-standard": "~1.0.0",
         "laminas/laminas-filter": "^2.7.2",
-        "laminas/laminas-i18n": "^2.7.4",
-        "laminas/laminas-servicemanager": "^2.7.8 || ^3.3",
+        "laminas/laminas-i18n": "^2.10.3",
+        "laminas/laminas-servicemanager": "^3.4.1",
         "malukenho/docheader": "^0.1.6",
-        "phpunit/phpunit": "^5.7.27 || ^6.5.8 || ^7.1.2"
+        "phpunit/phpunit": "^8.5.8"
     },
     "conflict": {
         "container-interop/container-interop": "<1.2.0"

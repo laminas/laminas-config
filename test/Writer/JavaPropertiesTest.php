@@ -14,7 +14,7 @@ use Laminas\Config\Writer\JavaProperties as JavaPropertiesWriter;
 
 class JavaPropertiesTest extends AbstractWriterTestCase
 {
-    public function setUp()
+    protected function setUp() : void
     {
         $this->reader = new JavaPropertiesReader();
         $this->writer = new JavaPropertiesWriter();
@@ -28,8 +28,8 @@ class JavaPropertiesTest extends AbstractWriterTestCase
 
         $config = $this->reader->fromFile($this->getTestAssetFileName());
 
-        $this->assertEquals('foo', $config['test']);
-        $this->assertEquals('bar', $config['test2.test3']);
+        self::assertEquals('foo', $config['test']);
+        self::assertEquals('bar', $config['test2.test3']);
     }
 
     public function testWriteAndRead()
@@ -45,7 +45,7 @@ class JavaPropertiesTest extends AbstractWriterTestCase
 
         $config = $this->reader->fromFile($this->getTestAssetFileName());
 
-        $this->assertEquals('multi', $config['one.two.three']);
+        self::assertEquals('multi', $config['one.two.three']);
     }
 
     public function testWriteAndReadOriginalFileWithCustomDelimiter()
@@ -58,6 +58,6 @@ class JavaPropertiesTest extends AbstractWriterTestCase
         $reader = new JavaPropertiesReader('=');
         $config = $reader->fromFile($this->getTestAssetFileName());
 
-        $this->assertEquals('multi', $config['one.two.three']);
+        self::assertEquals('multi', $config['one.two.three']);
     }
 }

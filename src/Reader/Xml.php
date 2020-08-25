@@ -11,6 +11,21 @@ namespace Laminas\Config\Reader;
 use Laminas\Config\Exception;
 use XMLReader;
 
+use function array_key_exists;
+use function array_merge;
+use function dirname;
+use function in_array;
+use function is_array;
+use function is_file;
+use function is_readable;
+use function is_string;
+use function restore_error_handler;
+use function set_error_handler;
+use function sprintf;
+
+use const E_WARNING;
+use const LIBXML_XINCLUDE;
+
 /**
  * XML config reader.
  */

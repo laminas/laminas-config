@@ -11,6 +11,10 @@ namespace Laminas\Config\Writer;
 use Laminas\Config\Exception;
 use XMLWriter;
 
+use function is_array;
+use function is_numeric;
+use function str_repeat;
+
 class Xml extends AbstractWriter
 {
     /**

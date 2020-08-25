@@ -13,6 +13,12 @@ use Laminas\ServiceManager\AbstractPluginManager;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 
+use function array_merge_recursive;
+use function get_class;
+use function gettype;
+use function is_object;
+use function sprintf;
+
 class ReaderPluginManager extends AbstractPluginManager
 {
     protected $instanceOf = Reader\ReaderInterface::class;

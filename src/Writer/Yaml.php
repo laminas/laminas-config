@@ -10,6 +10,10 @@ namespace Laminas\Config\Writer;
 
 use Laminas\Config\Exception;
 
+use function call_user_func;
+use function function_exists;
+use function is_callable;
+
 class Yaml extends AbstractWriter
 {
     /**
