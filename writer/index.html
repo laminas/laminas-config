@@ -1,151 +1,346 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        
-        
-        <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>Laminas\Config\Writer - laminas-config</title>
-        <link href="../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../css/font-awesome.min.css" rel="stylesheet">
-        <link href="../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
 
-        <script src="../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
-    </head>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Laminas\Config">  
+    <link rel="canonical" href="https://docs.laminas.dev/laminas-config/writer/">
+    <link rel="shortcut icon" href="https://docs.laminas.dev/img/trademark-laminas-foundation-rgb.svg">
 
-    <body>
-        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
-            <div class="container">
-                <a class="navbar-brand" href="..">laminas-config</a>
-                <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+    <title>Laminas\Config\Writer - laminas-config - Laminas Docs</title>
 
-                <!-- Expanded navigation -->
-                <div id="navbar-collapse" class="navbar-collapse collapse">
-                        <!-- Main navigation -->
-                        <ul class="nav navbar-nav">
-                            <li class="navitem">
-                                <a href=".." class="nav-link">Home</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../intro/" class="nav-link">Introduction</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../theory/" class="nav-link">Theory of Operation</a>
-                            </li>
-                            <li class="dropdown active">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Reference <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    
-<li>
-    <a href="../reader/" class="dropdown-item">Laminas\Config\Reader</a>
-</li>
-                                    
-<li>
-    <a href="./" class="dropdown-item active">Laminas\Config\Writer</a>
-</li>
-                                    
-<li>
-    <a href="../processor/" class="dropdown-item">Laminas\Config\Processor</a>
-</li>
-                                    
-<li>
-    <a href="../factory/" class="dropdown-item">Config Factory</a>
-</li>
-                                    
-  <li class="dropdown-submenu">
-    <a href="#" class="dropdown-item">Migration</a>
-    <ul class="dropdown-menu">
-            
-<li>
-    <a href="../migration/to-v3/" class="dropdown-item">To version 3</a>
-</li>
-    </ul>
-  </li>
-                                </ul>
-                            </li>
-                        </ul>
-
-                    <ul class="nav navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
-                                <i class="fa fa-search"></i> Search
-                            </a>
-                        </li>
-                            <li class="nav-item">
-                                <a rel="prev" href="../reader/" class="nav-link">
-                                    <i class="fa fa-arrow-left"></i> Previous
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a rel="next" href="../processor/" class="nav-link">
-                                    Next <i class="fa fa-arrow-right"></i>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="https://github.com/laminas/laminas-config/edit/master/docs/writer.md" class="nav-link"><i class="fa fa-github"></i> Edit on GitHub</a>
-                            </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="container">
-            <div class="row">
-                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
+    <link rel="stylesheet" href="https://docs.laminas.dev/css/styles.css">
+    
+</head>
+<body id="page-top" class="components" data-spy="scroll" data-target=".toc" data-offset="20">
 
     
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
-        <ul class="nav flex-column">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        
+        <a class="logo-link navbar-brand" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
+            <img src="https://docs.laminas.dev/img/laminas-foundation-white.svg" height="28" alt="Laminas">
+        </a>
+        <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
+            Documentation
+        </a>
+
+        
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
             
-            <li class="nav-item" data-level="1"><a href="#laminasconfigwriter" class="nav-link">Laminas\Config\Writer</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#laminasconfigwriterini" class="nav-link">Laminas\Config\Writer\Ini</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#laminasconfigwriterjavaproperties" class="nav-link">Laminas\Config\Writer\JavaProperties</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#laminasconfigwriterxml" class="nav-link">Laminas\Config\Writer\Xml</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#laminasconfigwriterphparray" class="nav-link">Laminas\Config\Writer\PhpArray</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#laminasconfigwriterjson" class="nav-link">Laminas\Config\Writer\Json</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#laminasconfigwriteryaml" class="nav-link">Laminas\Config\Writer\Yaml</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <div class="dropdown sub-project-selector">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a href="https://docs.mezzio.dev/" class="dropdown-item">
+                                <div class="row align-items-center">
+                                    <div class="col-md-4 col-sm-12">
+                                        <img src="https://docs.laminas.dev/img/laminas-mezzio-rgb.svg">
+                                    </div>
+                                    <div class="col-md-8 col-sm-12">
+                                        <strong>Mezzio</strong><br>
+                                        PSR-15 Middleware in Minutes
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="https://docs.laminas.dev/components/" class="dropdown-item">
+                                <div class="row align-items-center">
+                                    <div class="col-md-4 col-sm-12">
+                                        <img src="https://docs.laminas.dev/img/laminas-components-rgb.svg">
+                                    </div>
+                                    <div class="col-md-8 col-sm-12">
+                                        <strong>Components</strong><br>
+                                        Components for Enterprise Applications
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="https://docs.laminas.dev/mvc" class="dropdown-item">
+                                <div class="row align-items-center">
+                                    <div class="col-md-4 col-sm-12">
+                                        <img src="https://docs.laminas.dev/img/laminas-mvc-rgb.svg">
+                                    </div>
+                                    <div class="col-md-8 col-sm-12">
+                                        <strong>MVC</strong><br>
+                                        MVC for Enterprise Applications
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="https://api-tools.getlaminas.org/documentation" class="dropdown-item">
+                                <div class="row align-items-center">
+                                    <div class="col-md-4 col-sm-12">
+                                        <img src="https://docs.laminas.dev/img/laminas-api-tools-rgb.svg">
+                                    </div>
+                                    <div class="col-md-8 col-sm-12">
+                                        <strong>API Tools</strong><br>
+                                        Build RESTful APIs in Minutes
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item dropdown-item--secondardy" href="https://docs.laminas.dev/migration/">
+                                <div class="row align-items-center">
+                                    <div class="col-md-8 offset-md-4 col-sm-12">
+                                        Migration to Laminas
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="dropdown-item dropdown-item--secondardy" href="https://docs.laminas.dev/tutorials/">
+                                <div class="row align-items-center">
+                                    <div class="col-md-8 offset-md-4 col-sm-12">
+                                        Tutorials
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
+                </li>
+            </ul>
+
+            
+            
+                <div class="d-block d-sm-none">
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="..">laminas-config</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item ">
+                                <a href="../intro/" class="subnavigation__link">Introduction</a>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item ">
+                                <a href="../theory/" class="subnavigation__link">Theory of Operation</a>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Reference</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../reader/" class="subnavigation__link">Laminas\Config\Reader</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Laminas\Config\Writer</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../processor/" class="subnavigation__link">Laminas\Config\Processor</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../factory/" class="subnavigation__link">Config Factory</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Migration</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../migration/to-v3/" class="subnavigation__link">To version 3</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
         </ul>
     </div>
-</div></div>
-                    <div class="col-md-9" role="main">
 
-<h1 id="laminasconfigwriter">Laminas\Config\Writer</h1>
+                </div>
+            
+
+            
+            <div class="d-block d-sm-none">
+                <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+    
+    <header class="header">
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="col-8">
+                <h1 class="header__title">
+                    Components
+
+                    
+                        <small class="header__subtitle">laminas-config</small>
+                    
+                </h1>
+            </div>
+
+            
+            <div class="col-4 text-sm-right">
+                
+                    
+
+                    <a href="#" class="header__link header__link--search" data-toggle="modal" data-target="#mkdocs_search_modal" title="Open search">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                    <a href="https://github.com/laminas/laminas-config/" class="header__link header__link--github" title="Go to repository of laminas-config">
+                        <i class="fa fa-github"></i> GitHub
+                    </a>
+                
+            </div>
+        </div>
+    </div>
+</header>
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 col-sm-12 content" role="main">
+                
+                
+                    
+    
+
+    
+    
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+                
+                    <li class="toc__entry">
+                        <a href="#laminasconfigwriterini" class="toc__link nav-link">Laminas\Config\Writer\Ini</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#laminasconfigwriterjavaproperties" class="toc__link nav-link">Laminas\Config\Writer\JavaProperties</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#laminasconfigwriterxml" class="toc__link nav-link">Laminas\Config\Writer\Xml</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#laminasconfigwriterphparray" class="toc__link nav-link">Laminas\Config\Writer\PhpArray</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#laminasconfigwriterjson" class="toc__link nav-link">Laminas\Config\Writer\Json</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#laminasconfigwriteryaml" class="toc__link nav-link">Laminas\Config\Writer\Yaml</a>
+                    </li>
+                
+            </ul>
+        </div>
+    
+
+                
+
+                
+                    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        
+            <li class="breadcrumb-item"><a href="https://docs.laminas.dev/">Overview</a></li>
+            <li class="breadcrumb-item"><a href="https://docs.laminas.dev/components/">Components</a></li>
+
+            
+                <li class="breadcrumb-item"><a href="..">laminas-config</a></li>
+
+                
+                    
+                        
+                        
+                            <li class="breadcrumb-item">Reference</li>
+                        
+                    
+                
+
+                <li class="breadcrumb-item active" aria-current="page">Laminas\Config\Writer</li>
+            
+        
+    </ol>
+</nav>
+
+
+
+
+
+
+    
+    
+        <h2 class="chapter__headline">Reference</h2>
+    
+
+    <h1 id="laminasconfigwriter">Laminas\Config\Writer</h1>
 <p><code>Laminas\Config\Writer</code> provides the ability to write config files from an array,
 <code>Laminas\Config\Config</code> instance, or any <code>Traversable</code> object. <code>Laminas\Config\Writer</code>
 is itself only an interface that defining the methods <code>toFile()</code> and
@@ -173,9 +368,9 @@ considerations to keep in mind. To create or modify a value, you simply say set
 the parameter of the <code>Config</code> object via the parameter accessor (<code>-&gt;</code>). To
 create a section in the root or to create a branch, just create a new array
 (<code>$config-&gt;branch = [];</code>).</p>
-<h3 id="using-laminasconfigwriterini">Using Laminas\Config\Writer\Ini</h3>
+<h3>Using Laminas\Config\Writer\Ini</h3>
 <p>Consider the following code, which creates a configuration structure:</p>
-<pre><code class="php">// Create the config object
+<pre class="highlight"><code class="language-php">// Create the config object
 $config = new Laminas\Config\Config([], true);
 $config-&gt;production = [];
 
@@ -188,17 +383,15 @@ $config-&gt;production-&gt;database-&gt;params-&gt;password = 'secret';
 $config-&gt;production-&gt;database-&gt;params-&gt;dbname = 'dbproduction';
 
 $writer = new Laminas\Config\Writer\Ini();
-echo $writer-&gt;toString($config);
-</code></pre>
+echo $writer-&gt;toString($config);</code></pre>
 
 <p>The result of this code is the following INI string:</p>
-<pre><code class="ini">[production]
-webhost = &quot;www.example.com&quot;
-database.params.host = &quot;localhost&quot;
-database.params.username = &quot;production&quot;
-database.params.password = &quot;secret&quot;
-database.params.dbname = &quot;dbproduction&quot;
-</code></pre>
+<pre class="highlight"><code class="language-ini">[production]
+webhost = "www.example.com"
+database.params.host = "localhost"
+database.params.username = "production"
+database.params.password = "secret"
+database.params.dbname = "dbproduction"</code></pre>
 
 <p>You can use the method <code>toFile()</code> to store the INI data to a file instead.</p>
 <h2 id="laminasconfigwriterjavaproperties">Laminas\Config\Writer\JavaProperties</h2>
@@ -211,9 +404,9 @@ key/value pairs); this is a limitation of the JavaProperties format.</p>
 parameter, <code>delimiter</code>, which defines with which character the key/value pairs
 are separated. The default is a single colon (<code>:</code>), such as is accepted by
 <code>Laminas\Config\Reader\JavaProperties</code> by default.</p>
-<h3 id="using-laminasconfigwriterjavaproperties">Using Laminas\Config\Writer\JavaProperties</h3>
+<h3>Using Laminas\Config\Writer\JavaProperties</h3>
 <p>Consider the following code, creating configuration:</p>
-<pre><code class="php">// Create the config object
+<pre class="highlight"><code class="language-php">// Create the config object
 $config = new Laminas\Config\Config([], true);
 
 $config-&gt;webhost             = 'www.example.com'; // use object notation
@@ -223,37 +416,33 @@ $config['database.password'] = 'secret';
 $config['database.dbname']   = 'dbproduction';
 
 $writer = new Laminas\Config\Writer\JavaProperties();
-echo $writer-&gt;toString($config);
-</code></pre>
+echo $writer-&gt;toString($config);</code></pre>
 
 <p>The result of this code is the following JavaProperties string:</p>
-<pre><code class="properties">webhost:www.example.com
+<pre class="highlight"><code class="language-properties">webhost:www.example.com
 database.host:localhost
 database.username:production
 database.password:secret
-database.dbname:dbproduction
-</code></pre>
+database.dbname:dbproduction</code></pre>
 
 <p>You can use the method <code>toFile()</code> to store the JavaProperties data to a file instead.</p>
-<h3 id="using-an-alternate-delimiter">Using an alternate delimiter</h3>
+<h3>Using an alternate delimiter</h3>
 <p>If you want to use an alternate delimiter, such as <code>=</code>, pass it to the
 constructor:</p>
-<pre><code class="php">$writer = new Laminas\Config\Writer\JavaProperties('=');
-</code></pre>
+<pre class="highlight"><code class="language-php">$writer = new Laminas\Config\Writer\JavaProperties('=');</code></pre>
 
 <p>Using the above configuration, we would now receive:</p>
-<pre><code class="properties">webhost=www.example.com
+<pre class="highlight"><code class="language-properties">webhost=www.example.com
 database.host=localhost
 database.username=production
 database.password=secret
-database.dbname=dbproduction
-</code></pre>
+database.dbname=dbproduction</code></pre>
 
 <h2 id="laminasconfigwriterxml">Laminas\Config\Writer\Xml</h2>
 <p><code>Laminas\Config\Writer\Xml</code> can be used to generate an XML string or file.</p>
-<h3 id="using-laminasconfigwriterxml">Using Laminas\Config\Writer\Xml</h3>
+<h3>Using Laminas\Config\Writer\Xml</h3>
 <p>Consider the following code, which creates a configuration structure:</p>
-<pre><code class="php">// Create the config object
+<pre class="highlight"><code class="language-php">// Create the config object
 $config = new Laminas\Config\Config([], true);
 $config-&gt;production = [];
 
@@ -266,11 +455,10 @@ $config-&gt;production-&gt;database-&gt;params-&gt;password = 'secret';
 $config-&gt;production-&gt;database-&gt;params-&gt;dbname = 'dbproduction';
 
 $writer = new Laminas\Config\Writer\Xml();
-echo $writer-&gt;toString($config);
-</code></pre>
+echo $writer-&gt;toString($config);</code></pre>
 
 <p>The result of this code is the following XML string:</p>
-<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+<pre class="highlight"><code class="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;laminas-config&gt;
     &lt;production&gt;
         &lt;webhost&gt;www.example.com&lt;/webhost&gt;
@@ -283,16 +471,15 @@ echo $writer-&gt;toString($config);
             &lt;/params&gt;
         &lt;/database&gt;
     &lt;/production&gt;
-&lt;/laminas-config&gt;
-</code></pre>
+&lt;/laminas-config&gt;</code></pre>
 
 <p>You can use the method <code>toFile()</code> to store the XML data to a file.</p>
 <h2 id="laminasconfigwriterphparray">Laminas\Config\Writer\PhpArray</h2>
 <p><code>Laminas\Config\Writer\PhpArray</code> can be used to generate a PHP script that
 represents and returns configuration.</p>
-<h3 id="using-laminasconfigwriterphparray">Using Laminas\Config\Writer\PhpArray</h3>
+<h3>Using Laminas\Config\Writer\PhpArray</h3>
 <p>Consider the following code, which creates a configuration structure:</p>
-<pre><code class="php">// Create the config object
+<pre class="highlight"><code class="language-php">// Create the config object
 $config = new Laminas\Config\Config([], true);
 $config-&gt;production = [];
 
@@ -305,11 +492,10 @@ $config-&gt;production-&gt;database-&gt;params-&gt;password = 'secret';
 $config-&gt;production-&gt;database-&gt;params-&gt;dbname = 'dbproduction';
 
 $writer = new Laminas\Config\Writer\PhpArray();
-echo $writer-&gt;toString($config);
-</code></pre>
+echo $writer-&gt;toString($config);</code></pre>
 
 <p>The result of this code is the following PHP script:</p>
-<pre><code class="php">&lt;?php
+<pre class="highlight"><code class="language-php">&lt;?php
 return [
   'production' =&gt;
   [
@@ -325,16 +511,15 @@ return [
       ],
     ],
   ],
-];
-</code></pre>
+];</code></pre>
 
 <p>You can use the method <code>toFile()</code> to save the PHP script to a file.</p>
 <h2 id="laminasconfigwriterjson">Laminas\Config\Writer\Json</h2>
 <p><code>Laminas\Config\Writer\Json</code> can be used to generate a JSON representation of
 configuration.</p>
-<h3 id="using-laminasconfigwriterjson">Using Laminas\Config\Writer\Json</h3>
+<h3>Using Laminas\Config\Writer\Json</h3>
 <p>Consider the following code, which creates a configuration structure:</p>
-<pre><code class="php">// Create the config object
+<pre class="highlight"><code class="language-php">// Create the config object
 $config = new Laminas\Config\Config([], true);
 $config-&gt;production = [];
 
@@ -347,22 +532,20 @@ $config-&gt;production-&gt;database-&gt;params-&gt;password = 'secret';
 $config-&gt;production-&gt;database-&gt;params-&gt;dbname = 'dbproduction';
 
 $writer = new Laminas\Config\Writer\Json();
-echo $writer-&gt;toString($config);
-</code></pre>
+echo $writer-&gt;toString($config);</code></pre>
 
 <p>The result of this code is the following JSON string:</p>
-<pre><code class="json">{
-  &quot;webhost&quot;: &quot;www.example.com&quot;,
-  &quot;database&quot;: {
-    &quot;params&quot;: {
-      &quot;host&quot;: &quot;localhost&quot;,
-      &quot;username&quot;: &quot;production&quot;,
-      &quot;password&quot;: &quot;secret&quot;,
-      &quot;dbname&quot;: &quot;dbproduction&quot;
+<pre class="highlight"><code class="language-json">{
+  "webhost": "www.example.com",
+  "database": {
+    "params": {
+      "host": "localhost",
+      "username": "production",
+      "password": "secret",
+      "dbname": "dbproduction"
     }
   }
-}
-</code></pre>
+}</code></pre>
 
 <p>You can use the method <code>toFile()</code> to save the JSON data to a file.</p>
 <p><code>Laminas\Config\Writer\Json</code> uses the laminas-json component to convert the data to
@@ -372,10 +555,10 @@ JSON.</p>
 representation of configuration. In order to use the YAML writer, we need to pass a
 callback to an external PHP library, or use the
 <a href="http://www.php.net/manual/en/book.yaml.php">YAML PECL extension</a>.</p>
-<h3 id="using-laminasconfigwriteryaml">Using Laminas\Config\Writer\Yaml</h3>
+<h3>Using Laminas\Config\Writer\Yaml</h3>
 <p>Consider the following code, which creates a configuration structure using the
 YAML PECL extension:</p>
-<pre><code class="php">// Create the config object
+<pre class="highlight"><code class="language-php">// Create the config object
 $config = new Laminas\Config\Config([], true);
 $config-&gt;production = [];
 
@@ -388,107 +571,297 @@ $config-&gt;production-&gt;database-&gt;params-&gt;password = 'secret';
 $config-&gt;production-&gt;database-&gt;params-&gt;dbname = 'dbproduction';
 
 $writer = new Laminas\Config\Writer\Yaml();
-echo $writer-&gt;toString($config);
-</code></pre>
+echo $writer-&gt;toString($config);</code></pre>
 
 <p>The result of this code is the following YAML string contains the following value:</p>
-<pre><code class="yaml">webhost: www.example.com
+<pre class="highlight"><code class="language-yaml">webhost: www.example.com
 database:
     params:
       host:     localhost
       username: production
       password: secret
-      dbname:   dbproduction
-</code></pre>
+      dbname:   dbproduction</code></pre>
 
 <p>You can use the method <code>toFile()</code> to save the YAML data to a file.</p>
 <p>If you want to use an external YAML writer library, pass the callback function
 that will generate the YAML from the configuration when instantiating the
 writer.  For instance, to use the <a href="https://github.com/mustangostang/spyc/">Spyc</a>
 library:</p>
-<pre><code class="php">// include the Spyc library
+<pre class="highlight"><code class="language-php">// include the Spyc library
 require_once 'path/to/spyc.php';
 
 $writer = new Laminas\Config\Writer\Yaml(['Spyc', 'YAMLDump']);
-echo $writer-&gt;toString($config);
-</code></pre></div>
+echo $writer-&gt;toString($config);</code></pre>
+
+
+
+
+    <nav>
+    <ul class="page-nav hidden-print">
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../reader/">
+                    <i class="fa fa-chevron-left"></i> Previous
+                </a>
+            
+        </li>
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../processor/">
+                    Next <i class="fa fa-chevron-right"></i>
+                </a>
+            
+        </li>
+    </ul>
+</nav>
+
+
+
+
+    <div class="help-wanted">
+        <p>
+            Found a mistake or want to contribute to the documentation?
+            <a href="https://github.com/laminas/laminas-config/edit/master/docs/book/writer.md" target="_blank" class="help-wanted__link">
+                Edit this page on GitHub!
+            </a>
+        </p>
+    </div>
+
+                
+            </div>
+            <div class="col-md-3 col-sm-12 sidebar">
+                <div class="donation-banner">
+    <a href="https://getlaminas.org/support/">
+        <h2>Donate</h2>
+        <p>Support Laminas Developers Directly</p>
+        <img src="https://funding.communitybridge.org/assets/cb-f-horizontal-white.svg">
+    </a>
+</div>
+
+                
+                    <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="..">laminas-config</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item ">
+                                <a href="../intro/" class="subnavigation__link">Introduction</a>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item ">
+                                <a href="../theory/" class="subnavigation__link">Theory of Operation</a>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Reference</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../reader/" class="subnavigation__link">Laminas\Config\Reader</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Laminas\Config\Writer</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../processor/" class="subnavigation__link">Laminas\Config\Processor</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../factory/" class="subnavigation__link">Config Factory</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Migration</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../migration/to-v3/" class="subnavigation__link">To version 3</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+        </ul>
+    </div>
+
+                
+            </div>
+        </div>
+    </div>
+
+    
+    <footer class="footer">
+    <div class="container">
+
+        
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
             </div>
         </div>
 
-        <footer class="col-md-12">
-            <hr>
-            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
-        </footer>
-        <script>
-            var base_url = "..",
-                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
-        </script>
-        <script src="../js/base.js" defer></script>
-        <script src="../search/main.js" defer></script>
+        <div class="row">
+            <div class="col-md-12">
+                <h5>Laminas</h5>
+                <ul>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                </ul>
+            </div>
+        </div>
 
-        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+
+                    
+                    <div class="col-md-4">
+                        <h4 class="footer__headline">Support</h4>
+                        <ul class="support__list">
+                            <li class="support__list-item">
+                                <a href="https://discourse.laminas.dev" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                            </li>
+                            <li class="support__list-item">
+                                <a href="https://laminas.dev/chat" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                            </li>
+                            <li class="support__list-item">
+                                <a href="https://github.com/laminas" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                            </li>
+                            <li class="support__list-item">
+                                <a href="https://twitter.com/getlaminas" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                            </li>
+                            <li class="support__list-item">
+                                <a href="https://getlaminas.org/blog/rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                            </li>
+                            <li class="support__list-item">
+                                <a href="https://getlaminas.org/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    
+                    <div class="col-md-4">
+                        <h4 class="footer__headline">License</h4>
+                        <p>
+                            Code licensed under <a
+                                href="https://github.com/laminas/laminas-config/blob/master/LICENSE.md">BSD 3-Clause</a>.
+                        </p>
+                    </div>
+
+                    
+                    <div class="col-md-4">
+                        <h4 class="footer__headline">Copyright</h4>
+                        <p>
+                            <!--Built with love by the Laminas team with the help of our
+                            <a href="https://github.com/laminas/laminas-config/graphs/contributors">contributors</a>.<br>-->
+                            &copy; 2020 <a href="https://getlaminas.org/">Laminas Project</a> a Series of LF Projects, LLC.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script>
+        let base_url = '..',
+            project  = "components",
+            siteName = 'laminas-config';
+    </script>
+    <script src="https://docs.laminas.dev/js/scripts.js"></script>
+    
+        <script src="../search/main.js"></script>
+    
+
+    
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="searchModalLabel">Search</h4>
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h5 class="modal-title">Search</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
             </div>
             <div class="modal-body">
-                <p>
-                    From here you can search these documents. Enter
-                    your search terms below.
-                </p>
-                <form>
+                <form role="form">
                     <div class="form-group">
-                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                        <input type="text" class="form-control" placeholder="Search in laminas-config" id="mkdocs-search-query">
                     </div>
                 </form>
                 <div id="mkdocs-search-results"></div>
             </div>
-            <div class="modal-footer">
-            </div>
-        </div>
-    </div>
-</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            </div>
-            <div class="modal-body">
-              <div class="table-responsive"><table class="table">
-                <thead>
-                  <tr>
-                    <th style="width: 20%;">Keys</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="help shortcut"><kbd>?</kbd></td>
-                    <td>Open this help</td>
-                  </tr>
-                  <tr>
-                    <td class="next shortcut"><kbd>n</kbd></td>
-                    <td>Next page</td>
-                  </tr>
-                  <tr>
-                    <td class="prev shortcut"><kbd>p</kbd></td>
-                    <td>Previous page</td>
-                  </tr>
-                  <tr>
-                    <td class="search shortcut"><kbd>s</kbd></td>
-                    <td>Search</td>
-                  </tr>
-                </tbody>
-              </table></div>
-            </div>
-            <div class="modal-footer">
-            </div>
         </div>
     </div>
 </div>
+</body>
 
-    </body>
+
 </html>
