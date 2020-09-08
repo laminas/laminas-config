@@ -203,4 +203,74 @@ ECS;
         self::assertEquals('foo', $arrayIni['production_key']);
         self::assertEquals('bar', $arrayIni['staging_key']);
     }
+
+    public function testFromFileWithoutTypes()
+    {
+        $arrayIni = $this->reader->fromFile($this->getTestAssetPath('types'));
+
+        self::assertSame('Bob Smith', $arrayIni['production']['name']);
+        self::assertSame('55', $arrayIni['production']['age']);
+        self::assertSame('55', $arrayIni['production']['age_str']);
+        self::assertSame('1', $arrayIni['production']['is_married']);
+        self::assertSame('', $arrayIni['production']['is_employed']);
+        self::assertSame('', $arrayIni['production']['employer']);
+    }
+
+    public function testFromFileWithTypes()
+    {
+        $reader = $this->reader;
+        $reader->setTypedMode(true);
+        $arrayIni = $reader->fromFile($this->getTestAssetPath('types'));
+
+        self::assertSame('Bob Smith', $arrayIni['production']['name']);
+        self::assertSame(55, $arrayIni['production']['age']);
+        self::assertSame('55', $arrayIni['production']['age_str']);
+        self::assertSame(true, $arrayIni['production']['is_married']);
+        self::assertSame(false, $arrayIni['production']['is_employed']);
+        self::assertSame(null, $arrayIni['production']['employer']);
+    }
+
+    public function testFromStringWithoutTypes()
+    {
+        $ini = <<<ECS
+[production]
+name="Bob Smith"
+age=55
+age_str="55"
+is_married=yes
+is_employed=FALSE
+employer=null
+ECS;
+        $arrayIni = $this->reader->fromString($ini);
+
+        self::assertSame('Bob Smith', $arrayIni['production']['name']);
+        self::assertSame('55', $arrayIni['production']['age']);
+        self::assertSame('55', $arrayIni['production']['age_str']);
+        self::assertSame('1', $arrayIni['production']['is_married']);
+        self::assertSame('', $arrayIni['production']['is_employed']);
+        self::assertSame('', $arrayIni['production']['employer']);
+    }
+
+    public function testFromStringWithTypes()
+    {
+        $ini = <<<ECS
+[production]
+name="Bob Smith"
+age=55
+age_str="55"
+is_married=yes
+is_employed=FALSE
+employer=null
+ECS;
+        $reader = $this->reader;
+        $reader->setTypedMode(true);
+        $arrayIni = $reader->fromString($ini);
+
+        self::assertSame('Bob Smith', $arrayIni['production']['name']);
+        self::assertSame(55, $arrayIni['production']['age']);
+        self::assertSame('55', $arrayIni['production']['age_str']);
+        self::assertSame(true, $arrayIni['production']['is_married']);
+        self::assertSame(false, $arrayIni['production']['is_employed']);
+        self::assertSame(null, $arrayIni['production']['employer']);
+    }
 }

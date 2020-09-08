@@ -54,6 +54,17 @@ function. Please review this documentation to be aware of its specific behaviors
 > $reader->setProcessSections(false);
 > ```
 
+> ### Typed Mode
+>
+> By default, the INI reader executes `parse_ini_file()`  with the optional parameter `$scanner_mode` set to `INI_SCANNER_NORMAL`. This results in all config values being returned as strings.
+>
+> To automatically return integer, boolean, and null values as the appropriate types, switch to typed mode with `setTypedMode()`, and `parse_ini_file()` will be called with `INI_SCANNER_TYPED` instead.
+>
+> ```php
+> $reader = new Laminas\Config\Reader\Ini();
+> $reader->setTypedMode(true);
+> ```
+
 The following example illustrates basic usage of `Laminas\Config\Reader\Ini` for
 loading configuration data from an INI file. In this example, configuration data
 for both a production system and for a staging system exists.

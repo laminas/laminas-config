@@ -55,6 +55,15 @@ class Ini implements ReaderInterface
     protected $processSections = true;
 
     /**
+     * Flag which determines whether boolean, null, and integer values should be
+     * returned as their proper types.
+     *
+     * @see https://www.php.net/parse_ini_file
+     * @var bool
+     */
+    protected $typedMode = false;
+
+    /**
      * Set nest separator.
      *
      * @param  string $separator
@@ -105,6 +114,44 @@ class Ini implements ReaderInterface
     }
 
     /**
+     * Set whether boolean, null, and integer values should be returned as their proper types.
+     * When set to false, all values will be returned as strings.
+     *
+     * @see https://www.php.net/parse_ini_file
+     * @param bool $typedMode
+     * @return $this
+     */
+    public function setTypedMode($typedMode)
+    {
+        $this->typedMode = (bool) $typedMode;
+        return $this;
+    }
+
+    /**
+     * Get whether boolean, null, and integer values should be returned as their proper types.
+     * When set to false, all values will be returned as strings.
+     *
+     * @see https://www.php.net/parse_ini_file
+     * @return bool
+     */
+    public function getTypedMode()
+    {
+        return $this->typedMode;
+    }
+
+    /**
+     * Get the scanner-mode constant value to be used with the built-in parse_ini_file function.
+     * Either INI_SCANNER_NORMAL or INI_SCANNER_TYPED depending on $typedMode.
+     *
+     * @see https://www.php.net/parse_ini_file
+     * @return int
+     */
+    public function getScannerMode()
+    {
+        return $this->getTypedMode() ? INI_SCANNER_TYPED : INI_SCANNER_NORMAL;
+    }
+
+    /**
      * fromFile(): defined by Reader interface.
      *
      * @see    ReaderInterface::fromFile()
@@ -132,7 +179,7 @@ class Ini implements ReaderInterface
             },
             E_WARNING
         );
-        $ini = parse_ini_file($filename, $this->getProcessSections());
+        $ini = parse_ini_file($filename, $this->getProcessSections(), $this->getScannerMode());
         restore_error_handler();
 
         return $this->process($ini);
@@ -161,7 +208,7 @@ class Ini implements ReaderInterface
             },
             E_WARNING
         );
-        $ini = parse_ini_string($string, $this->getProcessSections());
+        $ini = parse_ini_string($string, $this->getProcessSections(), $this->getScannerMode());
         restore_error_handler();
 
         return $this->process($ini);
