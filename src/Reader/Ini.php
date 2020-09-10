@@ -121,9 +121,9 @@ class Ini implements ReaderInterface
      * @param bool $typedMode
      * @return $this
      */
-    public function setTypedMode($typedMode)
+    public function setTypedMode(bool $typedMode): Ini
     {
-        $this->typedMode = (bool) $typedMode;
+        $this->typedMode = $typedMode;
         return $this;
     }
 
@@ -134,7 +134,7 @@ class Ini implements ReaderInterface
      * @see https://www.php.net/parse_ini_file
      * @return bool
      */
-    public function getTypedMode()
+    public function getTypedMode(): bool
     {
         return $this->typedMode;
     }
@@ -146,7 +146,7 @@ class Ini implements ReaderInterface
      * @see https://www.php.net/parse_ini_file
      * @return int
      */
-    public function getScannerMode()
+    public function getScannerMode(): int
     {
         return $this->getTypedMode() ? INI_SCANNER_TYPED : INI_SCANNER_NORMAL;
     }
