@@ -19,7 +19,7 @@
         "sort-packages": true
     },
     "require": {
-        "php": "^7.3 || ^8.0",
+        "php": "^7.3 || ~8.0.0",
         "ext-json": "*",
         "laminas/laminas-stdlib": "^2.7.7 || ^3.1",
         "laminas/laminas-zendframework-bridge": "^1.0",
