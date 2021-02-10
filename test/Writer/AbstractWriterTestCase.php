@@ -57,11 +57,15 @@ abstract class AbstractWriterTestCase extends TestCase
 
     protected function tearDown() : void
     {
-        if (file_exists($this->getTestAssetFileName())) {
-            if (! is_writable($this->getTestAssetFileName())) {
-                chmod($this->getTestAssetFileName(), 0777);
+        $testAssetFileName = $this->getTestAssetFileName();
+        if (file_exists($testAssetFileName)) {
+            if (getenv('USER') === 'root') {
+                system('chattr -i ' . $testAssetFileName);
             }
-            @unlink($this->getTestAssetFileName());
+            if (! is_writable($testAssetFileName)) {
+                chmod($testAssetFileName, 0777);
+            }
+            @unlink($testAssetFileName);
         }
     }
 
@@ -80,9 +84,13 @@ abstract class AbstractWriterTestCase extends TestCase
 
     public function testFileNotWritable()
     {
+        $testAssetFileName = $this->getTestAssetFileName();
+        chmod($testAssetFileName, 0444);
+        if (getenv('USER') === 'root') {
+            system('chattr +i ' . $testAssetFileName);
+        }
         $this->expectException(RuntimeException::class);
-        chmod($this->getTestAssetFileName(), 0444);
-        $this->writer->toFile($this->getTestAssetFileName(), new Config([]));
+        $this->writer->toFile($testAssetFileName, new Config([]));
     }
 
     public function testWriteAndRead()
