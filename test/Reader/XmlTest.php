@@ -12,6 +12,7 @@ use Laminas\Config\Exception;
 use Laminas\Config\Reader\Xml;
 use PHPUnit\Framework\Error\Warning;
 use ReflectionProperty;
+use ValueError;
 use XMLReader;
 
 use function class_exists;
@@ -54,6 +55,10 @@ class XmlTest extends AbstractReaderTestCase
      */
     protected function getExpectedWarningClass()
     {
+        if (PHP_MAJOR_VERSION === 8) {
+            return ValueError::class;
+        }
+
         return class_exists(Warning::class) ? Warning::class : \PHPUnit_Framework_Error_Warning::class;
     }
 
@@ -61,20 +66,20 @@ class XmlTest extends AbstractReaderTestCase
     {
         $this->reader = new Xml();
         $this->expectException(Exception\RuntimeException::class);
-        $arrayXml = $this->reader->fromFile($this->getTestAssetPath('invalid'));
+        $this->reader->fromFile($this->getTestAssetPath('invalid'));
     }
 
     public function testFromString()
     {
         $xml = <<<ECS
-<?xml version="1.0" encoding="UTF-8"?>
-<laminas-config>
-    <test>foo</test>
-    <bar>baz</bar>
-    <bar>foo</bar>
-</laminas-config>
-
-ECS;
+            <?xml version="1.0" encoding="UTF-8"?>
+            <laminas-config>
+                <test>foo</test>
+                <bar>baz</bar>
+                <bar>foo</bar>
+            </laminas-config>
+            
+            ECS;
 
         $arrayXml = $this->reader->fromString($xml);
         self::assertEquals($arrayXml['test'], 'foo');
@@ -85,12 +90,12 @@ ECS;
     public function testInvalidString()
     {
         $xml = <<<ECS
-<?xml version="1.0" encoding="UTF-8"?>
-<laminas-config>
-    <bar>baz</baz>
-</laminas-config>
-
-ECS;
+            <?xml version="1.0" encoding="UTF-8"?>
+            <laminas-config>
+                <bar>baz</baz>
+            </laminas-config>
+            
+            ECS;
         $this->expectException(Exception\RuntimeException::class);
         $this->reader->fromString($xml);
     }
@@ -180,14 +185,14 @@ ECS;
     public function testCloseWhenCallFromStringReaderGetInvalid()
     {
         $xml = <<<ECS
-<?xml version="1.0" encoding="UTF-8"?>
-<laminas-config>
-    <test>foo</test>
-    <bar>baz</bar>
-    <bar>foo</bar>
-</laminas-config>
-
-ECS;
+            <?xml version="1.0" encoding="UTF-8"?>
+            <laminas-config>
+                <test>foo</test>
+                <bar>baz</bar>
+                <bar>foo</bar>
+            </laminas-config>
+            
+            ECS;
 
         $configReader = new Xml();
 
