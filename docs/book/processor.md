@@ -12,6 +12,7 @@ laminas-config provides the following concrete implementations:
 - `Laminas\Config\Processor\Token`: find and replace specific tokens.
 - `Laminas\Config\Processor\Translator`: translate configuration values in other languages using `Laminas\I18n\Translator`.
 
+<!-- markdownlint-disable-next-line header-increment -->
 > ### What gets processed?
 >
 > Typically, you will process configuration _values_. However, there are use
@@ -186,6 +187,7 @@ print_r($config->toArray());
 //     [vhost] => /
 // )
 ```
+
 Do note, however, that only values present in environment will be replaced.
 This allows multiple fallback processors to be provided as a queue.
 

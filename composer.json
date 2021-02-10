@@ -18,12 +18,6 @@
     "config": {
         "sort-packages": true
     },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "3.4.x-dev",
-            "dev-develop": "3.5.x-dev"
-        }
-    },
     "require": {
         "php": "^7.3 || ^8.0",
         "ext-json": "*",

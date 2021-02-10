@@ -14,6 +14,7 @@ is itself an array, then the resulting object property is created as a new
 recursively, such that a hierarchy of configuration data may be created with any
 number of levels.
 
+<!-- markdownlint-disable-next-line header-increment -->
 > ### Extending `Laminas\Config\Config` class
 >
 > If you decide to extend `Laminas\Config\Config` class, each property (subnode)

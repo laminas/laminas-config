@@ -14,12 +14,13 @@ concrete implementations of this interface are:
 `fromFile()` and `fromString()` are expected to return a PHP array containing
 the data from the specified configuration.
 
+<!-- markdownlint-disable-next-line header-increment -->
 > ### Differences from Laminas1
 >
 > The `Laminas\Config\Reader` component no longer supports the following features:
 >
-> * Inheritance of sections.
-> * Reading of specific sections.
+> - Inheritance of sections.
+> - Reading of specific sections.
 
 ## Laminas\\Config\\Reader\\Ini
 

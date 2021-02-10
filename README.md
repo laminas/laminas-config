@@ -1,7 +1,6 @@
 # laminas-config
 
-[![Build Status](https://travis-ci.com/laminas/laminas-config.svg?branch=master)](https://travis-ci.com/laminas/laminas-config)
-[![Coverage Status](https://coveralls.io/repos/github/laminas/laminas-config/badge.svg?branch=master)](https://coveralls.io/github/laminas/laminas-config?branch=master)
+[![Build Status](https://github.com/laminas/laminas-config/workflows/Continuous%20Integration/badge.svg)](https://github.com/laminas/laminas-config/actions?query=workflow%3A"Continuous+Integration")
 
 laminas-config is designed to simplify access to configuration data within
 applications. It provides a nested object property-based user interface for
