@@ -233,14 +233,14 @@ ECS;
     public function testFromStringWithoutTypes()
     {
         $ini = <<<ECS
-[production]
-name="Bob Smith"
-age=55
-age_str="55"
-is_married=yes
-is_employed=FALSE
-employer=null
-ECS;
+            [production]
+            name="Bob Smith"
+            age=55
+            age_str="55"
+            is_married=yes
+            is_employed=FALSE
+            employer=null
+            ECS;
         $arrayIni = $this->reader->fromString($ini);
 
         self::assertSame('Bob Smith', $arrayIni['production']['name']);
@@ -254,14 +254,14 @@ ECS;
     public function testFromStringWithTypes()
     {
         $ini = <<<ECS
-[production]
-name="Bob Smith"
-age=55
-age_str="55"
-is_married=yes
-is_employed=FALSE
-employer=null
-ECS;
+            [production]
+            name="Bob Smith"
+            age=55
+            age_str="55"
+            is_married=yes
+            is_employed=FALSE
+            employer=null
+            ECS;
         $reader = $this->reader;
         $reader->setTypedMode(true);
         $arrayIni = $reader->fromString($ini);

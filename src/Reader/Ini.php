@@ -118,10 +118,8 @@ class Ini implements ReaderInterface
      * When set to false, all values will be returned as strings.
      *
      * @see https://www.php.net/parse_ini_file
-     * @param bool $typedMode
-     * @return $this
      */
-    public function setTypedMode(bool $typedMode): Ini
+    public function setTypedMode(bool $typedMode): self
     {
         $this->typedMode = $typedMode;
         return $this;
@@ -132,7 +130,6 @@ class Ini implements ReaderInterface
      * When set to false, all values will be returned as strings.
      *
      * @see https://www.php.net/parse_ini_file
-     * @return bool
      */
     public function getTypedMode(): bool
     {
@@ -144,7 +141,6 @@ class Ini implements ReaderInterface
      * Either INI_SCANNER_NORMAL or INI_SCANNER_TYPED depending on $typedMode.
      *
      * @see https://www.php.net/parse_ini_file
-     * @return int
      */
     public function getScannerMode(): int
     {
