@@ -45,7 +45,8 @@ function. Please review this documentation to be aware of its specific behaviors
 
 > ### Process Sections
 >
-> By default, the INI reader executes `parse_ini_file()`  with the optional parameter `$process_sections` being `true`. The result is a multidimensional array, with the section names and settings included.
+> By default, the INI reader executes `parse_ini_file()`  with the optional parameter `$process_sections` being `true`.
+> The result is a multidimensional array, with the section names and settings included.
 >
 > To merge sections, set the parameter via `setProcessSections()` to `false` as follows.
 >
@@ -56,7 +57,8 @@ function. Please review this documentation to be aware of its specific behaviors
 
 > ### Typed Mode
 >
-> By default, the INI reader executes `parse_ini_file()`  with the optional parameter `$scanner_mode` set to `INI_SCANNER_NORMAL`. This results in all config values being returned as strings.
+> By default, the INI reader executes `parse_ini_file()`  with the optional parameter `$scanner_mode` set to `INI_SCANNER_NORMAL`.
+> This results in all config values being returned as strings.
 >
 > To automatically return integer, boolean, and null values as the appropriate types, switch to typed mode with `setTypedMode()`, and `parse_ini_file()` will be called with `INI_SCANNER_TYPED` instead.
 >
