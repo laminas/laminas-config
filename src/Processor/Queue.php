@@ -25,6 +25,8 @@ class Queue extends PriorityQueue implements ProcessorInterface
             /** @var $parser ProcessorInterface */
             $parser->process($config);
         }
+
+        return $config;
     }
 
     /**
