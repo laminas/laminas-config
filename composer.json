@@ -22,7 +22,6 @@
         "php": "^7.3 || ~8.0.0",
         "ext-json": "*",
         "laminas/laminas-stdlib": "^2.7.7 || ^3.1",
-        "laminas/laminas-zendframework-bridge": "^1.0",
         "psr/container": "^1.0"
     },
     "require-dev": {
@@ -34,7 +33,8 @@
         "phpunit/phpunit": "^8.5.8"
     },
     "conflict": {
-        "container-interop/container-interop": "<1.2.0"
+        "container-interop/container-interop": "<1.2.0",
+        "zendframework/zend-config": "*"
     },
     "suggest": {
         "laminas/laminas-filter": "^2.7.2; install if you want to use the Filter processor",
@@ -62,8 +62,5 @@
         "test": "phpunit --colors=always",
         "test-coverage": "phpunit --colors=always --coverage-clover clover.xml",
         "license-check": "docheader check src/"
-    },
-    "replace": {
-        "zendframework/zend-config": "^3.3.0"
     }
 }
