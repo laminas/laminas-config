@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
-         bootstrap="vendor/autoload.php"
-         colors="true">
+<phpunit
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+    bootstrap="vendor/autoload.php"
+    colors="true">
+    <coverage processUncoveredFiles="true">
+        <include>
+            <directory suffix=".php">./src</directory>
+        </include>
+    </coverage>
+
     <testsuites>
         <testsuite name="laminas-config Test Suite">
             <directory>./test</directory>
         </testsuite>
     </testsuites>
 
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./src</directory>
-        </whitelist>
-    </filter>
-
     <php>
-        <env name="TESTS_LAMINAS_CONFIG_YAML_ENABLED" value="false" />
-        <env name="TESTS_LAMINAS_CONFIG_YAML_LIB_INCLUDE" value="" />
-        <env name="TESTS_LAMINAS_CONFIG_WRITER_YAML_CALLBACK" value="" />
-        <env name="TESTS_LAMINAS_CONFIG_READER_YAML_CALLBACK" value="" />
+        <env name="TESTS_LAMINAS_CONFIG_YAML_ENABLED" value="false"/>
+        <env name="TESTS_LAMINAS_CONFIG_YAML_LIB_INCLUDE" value=""/>
+        <env name="TESTS_LAMINAS_CONFIG_WRITER_YAML_CALLBACK" value=""/>
+        <env name="TESTS_LAMINAS_CONFIG_READER_YAML_CALLBACK" value=""/>
     </php>
 </phpunit>

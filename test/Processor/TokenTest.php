@@ -3,6 +3,7 @@
 namespace LaminasTest\Config\Processor;
 
 use Laminas\Config\Processor\Token as TokenProcessor;
+use LaminasTest\Config\DeprecatedAssertionTrait;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -11,6 +12,8 @@ use PHPUnit\Framework\TestCase;
  */
 class TokenTest extends TestCase
 {
+    use DeprecatedAssertionTrait;
+
     public function testKeyProcessingDisabledByDefault()
     {
         $processor = new TokenProcessor();

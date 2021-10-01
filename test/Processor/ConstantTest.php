@@ -4,6 +4,7 @@ namespace LaminasTest\Config\Processor;
 
 use Laminas\Config\Config;
 use Laminas\Config\Processor\Constant as ConstantProcessor;
+use LaminasTest\Config\DeprecatedAssertionTrait;
 use PHPUnit\Framework\TestCase;
 
 use function define;
@@ -11,6 +12,8 @@ use function defined;
 
 class ConstantTest extends TestCase
 {
+    use DeprecatedAssertionTrait;
+
     const CONFIG_TEST = 'config';
 
     public function constantProvider()

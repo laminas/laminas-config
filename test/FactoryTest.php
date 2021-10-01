@@ -9,6 +9,7 @@ use Laminas\Config\ReaderPluginManager;
 use Laminas\Config\StandaloneReaderPluginManager;
 use Laminas\Config\StandaloneWriterPluginManager;
 use Laminas\Config\WriterPluginManager;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use ReflectionProperty;
 use RuntimeException;
@@ -192,8 +193,9 @@ class FactoryTest extends TestCase
 
     public function testFactoryCanRegisterCustomReaderPlugin()
     {
-        $services      = $this->prophesize(ContainerInterface::class);
-        $pluginManager = new ReaderPluginManager($services->reveal(), ['services' => [
+        /** @var ContainerInterface&MockObject $services */
+        $services      = $this->createMock(ContainerInterface::class);
+        $pluginManager = new ReaderPluginManager($services, ['services' => [
             'DummyReader' => new Reader\TestAssets\DummyReader(),
         ]]);
         Factory::setReaderPluginManager($pluginManager);
@@ -208,13 +210,13 @@ class FactoryTest extends TestCase
     public function testFactoryToFileInvalidFileExtension()
     {
         $this->expectException(RuntimeException::class);
-        $result = Factory::toFile(__DIR__.'/TestAssets/bad.ext', []);
+        Factory::toFile(__DIR__.'/TestAssets/bad.ext', []);
     }
 
     public function testFactoryToFileNoDirInHere()
     {
         $this->expectException(RuntimeException::class);
-        $result = Factory::toFile(__DIR__.'/TestAssets/NoDirInHere/nonExisiting/dummy.php', []);
+        Factory::toFile(__DIR__.'/TestAssets/NoDirInHere/nonExisiting/dummy.php', []);
     }
 
     public function testFactoryWriteToFile()
@@ -263,8 +265,9 @@ class FactoryTest extends TestCase
 
     public function testFactoryCanRegisterCustomWriterPlugin()
     {
-        $services = $this->prophesize(ContainerInterface::class);
-        $pluginManager = new WriterPluginManager($services->reveal(), ['services' => [
+        /** @var ContainerInterface&MockObject $services */
+        $services = $this->createMock(ContainerInterface::class);
+        $pluginManager = new WriterPluginManager($services, ['services' => [
             'DummyWriter' => new Writer\TestAssets\DummyWriter(),
         ]]);
         Factory::setWriterPluginManager($pluginManager);

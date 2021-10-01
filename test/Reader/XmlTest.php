@@ -4,12 +4,10 @@ namespace LaminasTest\Config\Reader;
 
 use Laminas\Config\Exception;
 use Laminas\Config\Reader\Xml;
-use PHPUnit\Framework\Error\Warning;
 use ReflectionProperty;
 use ValueError;
 use XMLReader;
 
-use function class_exists;
 use function restore_error_handler;
 use function sys_get_temp_dir;
 
@@ -42,18 +40,21 @@ class XmlTest extends AbstractReaderTestCase
     }
 
     /**
-     * PHPUnit 5.7 does not namespace error classes; retrieve appropriate one
-     * based on what is available.
+     * Determine how to expect a warning condition.
+     *
+     * In PHP versions less than 8.0, we can expect a warning in several
+     * scenarios. Those same scenarios in 8.0+ result in a ValueError.
      *
      * @return string
      */
-    protected function getExpectedWarningClass()
+    protected function expectWarningOrValueError()
     {
         if (PHP_MAJOR_VERSION === 8) {
-            return ValueError::class;
+            $this->expectException(ValueError::class);
+            return;
         }
 
-        return class_exists(Warning::class) ? Warning::class : \PHPUnit_Framework_Error_Warning::class;
+        $this->expectWarning();
     }
 
     public function testInvalidXmlFile()
@@ -166,7 +167,7 @@ class XmlTest extends AbstractReaderTestCase
 
         $xmlReader = $this->getInternalXmlReader($configReader);
 
-        $this->expectException($this->getExpectedWarningClass());
+        $this->expectWarningOrValueError();
 
         // following operation should fail because the internal reader is closed (and expected to be closed)
         $xmlReader->setParserProperty(XMLReader::VALIDATE, true);
@@ -194,7 +195,7 @@ class XmlTest extends AbstractReaderTestCase
 
         $xmlReader = $this->getInternalXmlReader($configReader);
 
-        $this->expectException($this->getExpectedWarningClass());
+        $this->expectWarningOrValueError();
 
         // following operation should fail because the internal reader is closed (and expected to be closed)
         $xmlReader->setParserProperty(XMLReader::VALIDATE, true);
