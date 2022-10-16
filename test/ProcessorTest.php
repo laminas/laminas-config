@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\Config;
 
 use Laminas\Config\Config;
@@ -28,19 +30,30 @@ use const PHP_VERSION;
  */
 class ProcessorTest extends TestCase
 {
+    /** @var array */
     protected $nested;
+    /** @var array */
     protected $tokenBare;
+    /** @var array */
     protected $tokenPrefix;
+    /** @var array */
     protected $tokenSuffix;
+    /** @var array */
     protected $tokenSurround;
+    /** @var array */
     protected $tokenSurroundMixed;
+    /** @var string[][][] */
     protected $translatorData;
+    /** @var false|string */
     protected $translatorFile;
+    /** @var array */
     protected $userConstants;
+    /** @var array */
     protected $phpConstants;
+    /** @var array */
     protected $filter;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         // Arrays representing common config configurations
         $this->nested = [
@@ -52,14 +65,14 @@ class ProcessorTest extends TestCase
                 'cc' => 5,
                 'cd' => [
                     'cda' => 6,
-                    'cdb' => 7
+                    'cdb' => 7,
                 ],
             ],
             'd' => [
                 'da' => 8,
-                'db' => 9
+                'db' => 9,
             ],
-            'e' => 10
+            'e' => 10,
         ];
 
         $this->tokenBare = [
@@ -110,16 +123,16 @@ class ProcessorTest extends TestCase
         $this->translatorData = [
             'pages' => [
                 [
-                    'id' => 'oneDog',
+                    'id'    => 'oneDog',
                     'label' => 'one dog',
-                    'route' => 'app-one-dog'
+                    'route' => 'app-one-dog',
                 ],
                 [
-                    'id' => 'twoDogs',
+                    'id'    => 'twoDogs',
                     'label' => 'two dogs',
-                    'route' => 'app-two-dogs'
+                    'route' => 'app-two-dogs',
                 ],
-            ]
+            ],
         ];
 
         $this->translatorFile = realpath(__DIR__ . '/_files/translations-de_DE.php');
@@ -141,10 +154,10 @@ class ProcessorTest extends TestCase
         ];
 
         $this->phpConstants = [
-            'phpVersion' => 'PHP_VERSION',
+            'phpVersion'       => 'PHP_VERSION',
             'phpVersionInside' => 'Current PHP version is: PHP_VERSION',
-            'nested' => [
-                'phpVersion' => 'PHP_VERSION',
+            'nested'           => [
+                'phpVersion'       => 'PHP_VERSION',
                 'phpVersionInside' => 'Current PHP version is: PHP_VERSION',
             ],
         ];
@@ -154,11 +167,11 @@ class ProcessorTest extends TestCase
     {
         $processor1 = new TokenProcessor();
         $processor2 = new TokenProcessor();
-        $queue = new Queue();
+        $queue      = new Queue();
         $queue->insert($processor1);
         $queue->insert($processor2);
 
-        self::assertInstanceOf('\Laminas\Config\Processor\Queue', $queue);
+        self::assertInstanceOf(Queue::class, $queue);
         self::assertEquals(2, $queue->count());
         self::assertTrue($queue->contains($processor1));
         self::assertTrue($queue->contains($processor2));
@@ -166,7 +179,7 @@ class ProcessorTest extends TestCase
 
     public function testBareTokenPost()
     {
-        $config = new Config($this->tokenBare, true);
+        $config    = new Config($this->tokenBare, true);
         $processor = new TokenProcessor();
         $processor->addToken('BARETOKEN', 'some replaced value');
         $processor->process($config);
@@ -191,13 +204,13 @@ class ProcessorTest extends TestCase
         $processor = new TokenProcessor();
         $processor->addToken('BARETOKEN', 'test');
         $data = 'BARETOKEN';
-        $out = $processor->processValue($data);
+        $out  = $processor->processValue($data);
         self::assertEquals($out, 'test');
     }
 
     public function testTokenReadOnly()
     {
-        $config = new Config($this->tokenBare, false);
+        $config    = new Config($this->tokenBare, false);
         $processor = new TokenProcessor();
         $processor->addToken('BARETOKEN', 'some replaced value');
 
@@ -208,7 +221,7 @@ class ProcessorTest extends TestCase
 
     public function testTokenPrefix()
     {
-        $config = new Config($this->tokenPrefix, true);
+        $config    = new Config($this->tokenPrefix, true);
         $processor = new TokenProcessor(['TOKEN' => 'some replaced value'], '::');
         $processor->process($config);
 
@@ -220,7 +233,7 @@ class ProcessorTest extends TestCase
 
     public function testTokenSuffix()
     {
-        $config = new Config($this->tokenSuffix, true);
+        $config    = new Config($this->tokenSuffix, true);
         $processor = new TokenProcessor(['TOKEN' => 'some replaced value'], '', '::');
         $processor->process($config);
 
@@ -236,7 +249,7 @@ class ProcessorTest extends TestCase
      */
     public function testTokenSurround()
     {
-        $config = new Config($this->tokenSurround, true);
+        $config    = new Config($this->tokenSurround, true);
         $processor = new TokenProcessor(['TOKEN' => 'some replaced value'], '##', '##');
         $processor->process($config);
 
@@ -251,7 +264,7 @@ class ProcessorTest extends TestCase
      */
     public function testTokenChangeParams()
     {
-        $config = new Config($this->tokenSurroundMixed, true);
+        $config    = new Config($this->tokenSurroundMixed, true);
         $processor = new TokenProcessor(['TOKEN' => 'some replaced value'], '##', '##');
         $processor->process($config);
         self::assertEquals('some replaced value', $config->simple);
@@ -283,11 +296,11 @@ class ProcessorTest extends TestCase
     {
         $config = new Config(
             [
-                'trueBoolKey' => true,
+                'trueBoolKey'  => true,
                 'falseBoolKey' => false,
-                'intKey' => 123,
-                'floatKey' => (float) 123.456,
-                'doubleKey' => (double) 456.789,
+                'intKey'       => 123,
+                'floatKey'     => (float) 123.456,
+                'doubleKey'    => (double) 456.789,
             ],
             true
         );
@@ -310,12 +323,12 @@ class ProcessorTest extends TestCase
     {
         $config = new Config(
             [
-                'foo' => 'bar1',
-                'trueBoolKey' => true,
+                'foo'          => 'bar1',
+                'trueBoolKey'  => true,
                 'falseBoolKey' => false,
-                'intKey' => 123,
-                'floatKey' => (float) 123.456,
-                'doubleKey' => (double) 456.789,
+                'intKey'       => 123,
+                'floatKey'     => (float) 123.456,
+                'doubleKey'    => (double) 456.789,
             ],
             true
         );
@@ -352,7 +365,7 @@ class ProcessorTest extends TestCase
     {
         define('SOME_USERLAND_CONSTANT', 'some constant value');
 
-        $config = new Config($this->userConstants, true);
+        $config    = new Config($this->userConstants, true);
         $processor = new ConstantProcessor(false);
         $processor->process($config);
 
@@ -372,7 +385,7 @@ class ProcessorTest extends TestCase
      */
     public function testUserOnlyConstants()
     {
-        $config = new Config($this->userConstants, true);
+        $config    = new Config($this->userConstants, true);
         $processor = new ConstantProcessor();
         $processor->process($config);
 
@@ -393,7 +406,7 @@ class ProcessorTest extends TestCase
      */
     public function testPHPConstants()
     {
-        $config = new Config($this->phpConstants, true);
+        $config    = new Config($this->phpConstants, true);
         $processor = new ConstantProcessor(false);
         $processor->process($config);
 
@@ -412,7 +425,7 @@ class ProcessorTest extends TestCase
         $config     = new Config($this->translatorData, true);
         $translator = new Translator();
         $translator->addTranslationFile('phparray', $this->translatorFile);
-        $processor  = new TranslatorProcessor($translator);
+        $processor = new TranslatorProcessor($translator);
 
         $processor->process($config);
 
@@ -436,7 +449,7 @@ class ProcessorTest extends TestCase
         $config     = new Config($this->translatorData, true);
         $translator = new Translator();
         $translator->addTranslationFile('phparray', $this->translatorFile);
-        $processor  = new TranslatorProcessor($translator);
+        $processor = new TranslatorProcessor($translator);
 
         $processor->process($config);
     }
@@ -460,7 +473,7 @@ class ProcessorTest extends TestCase
 
         $translator = new Translator();
         $translator->addTranslationFile('phparray', $this->translatorFile);
-        $processor  = new TranslatorProcessor($translator);
+        $processor = new TranslatorProcessor($translator);
 
         self::assertEquals('ein Hund', $processor->processValue('one dog'));
     }
@@ -476,18 +489,18 @@ class ProcessorTest extends TestCase
 
         $translator = new Translator();
         $translator->addTranslationFile('phparray', $this->translatorFile);
-        $processor  = new TranslatorProcessor($translator);
+        $processor = new TranslatorProcessor($translator);
 
         self::assertEquals('ein Hund', $processor->processValue('one dog'));
     }
 
     public function testFilter()
     {
-        $config = new Config($this->filter, true);
-        $filter = new StringToLower();
+        $config    = new Config($this->filter, true);
+        $filter    = new StringToLower();
         $processor = new FilterProcessor($filter);
 
-        self::assertInstanceOf('Laminas\Filter\StringToLower', $processor->getFilter());
+        self::assertInstanceOf(StringToLower::class, $processor->getFilter());
         $processor->process($config);
 
         self::assertEquals('some mixedcase value', $config->simple);
@@ -496,8 +509,8 @@ class ProcessorTest extends TestCase
 
     public function testFilterReadOnly()
     {
-        $config = new Config($this->filter, false);
-        $filter = new StringToLower();
+        $config    = new Config($this->filter, false);
+        $filter    = new StringToLower();
         $processor = new FilterProcessor($filter);
 
         $this->expectException(Exception\InvalidArgumentException::class);
@@ -507,7 +520,7 @@ class ProcessorTest extends TestCase
 
     public function testFilterValue()
     {
-        $filter = new StringToLower();
+        $filter    = new StringToLower();
         $processor = new FilterProcessor($filter);
 
         $value = 'TEST';
@@ -519,9 +532,9 @@ class ProcessorTest extends TestCase
      */
     public function testQueueFIFO()
     {
-        $config = new Config($this->filter, true);
-        $lower = new StringToLower();
-        $upper = new StringToUpper();
+        $config         = new Config($this->filter, true);
+        $lower          = new StringToLower();
+        $upper          = new StringToUpper();
         $lowerProcessor = new FilterProcessor($lower);
         $upperProcessor = new FilterProcessor($upper);
 
@@ -539,8 +552,8 @@ class ProcessorTest extends TestCase
 
     public function testQueueReadOnly()
     {
-        $config = new Config($this->filter, false);
-        $lower = new StringToLower();
+        $config         = new Config($this->filter, false);
+        $lower          = new StringToLower();
         $lowerProcessor = new FilterProcessor($lower);
 
         /**
@@ -556,8 +569,8 @@ class ProcessorTest extends TestCase
 
     public function testQueueSingleValue()
     {
-        $lower = new StringToLower();
-        $upper = new StringToUpper();
+        $lower          = new StringToLower();
+        $upper          = new StringToUpper();
         $lowerProcessor = new FilterProcessor($lower);
         $upperProcessor = new FilterProcessor($upper);
 
@@ -577,14 +590,14 @@ class ProcessorTest extends TestCase
      */
     public function testQueuePriorities()
     {
-        $config = new Config($this->filter, 1);
-        $lower = new StringToLower();
-        $upper = new StringToUpper();
-        $replace = new PregReplace('/[a-z]/', '');
-        $lowerProcessor = new FilterProcessor($lower);
-        $upperProcessor = new FilterProcessor($upper);
+        $config           = new Config($this->filter, 1);
+        $lower            = new StringToLower();
+        $upper            = new StringToUpper();
+        $replace          = new PregReplace('/[a-z]/', '');
+        $lowerProcessor   = new FilterProcessor($lower);
+        $upperProcessor   = new FilterProcessor($upper);
         $replaceProcessor = new FilterProcessor($replace);
-        $queue = new Queue();
+        $queue            = new Queue();
 
         /**
          * Insert lower case filter with higher priority

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\Config\Writer;
 
 use Laminas\Config\Config;
@@ -8,7 +10,7 @@ use Laminas\Config\Writer\JavaProperties as JavaPropertiesWriter;
 
 class JavaPropertiesTest extends AbstractWriterTestCase
 {
-    protected function setUp() : void
+    protected function setUp(): void
     {
         $this->reader = new JavaPropertiesReader();
         $this->writer = new JavaPropertiesWriter();

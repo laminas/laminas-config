@@ -46,7 +46,6 @@ class Xml extends AbstractWriter
      *
      * @param  string    $branchName
      * @param  array     $config
-     * @param  XMLWriter $writer
      * @return void
      * @throws Exception\RuntimeException
      */

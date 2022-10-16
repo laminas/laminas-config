@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\Config\Writer;
 
 use Laminas\Config\Config;
@@ -13,7 +15,7 @@ use function str_replace;
  */
 class XmlTest extends AbstractWriterTestCase
 {
-    protected function setUp() : void
+    protected function setUp(): void
     {
         $this->writer = new XmlWriter();
         $this->reader = new XmlReader();
@@ -40,16 +42,16 @@ ECS;
 
     public function testSectionsToString()
     {
-        $config = new Config([], true);
+        $config             = new Config([], true);
         $config->production = [];
 
-        $config->production->webhost = 'www.example.com';
-        $config->production->database = [];
-        $config->production->database->params = [];
-        $config->production->database->params->host = 'localhost';
+        $config->production->webhost                    = 'www.example.com';
+        $config->production->database                   = [];
+        $config->production->database->params           = [];
+        $config->production->database->params->host     = 'localhost';
         $config->production->database->params->username = 'production';
         $config->production->database->params->password = 'secret';
-        $config->production->database->params->dbname = 'dbproduction';
+        $config->production->database->params->dbname   = 'dbproduction';
 
         $configString = $this->writer->toString($config);
 
@@ -80,7 +82,7 @@ ECS;
      */
     public function testAddBranchProperyConstructsSubBranchesOfTypeNumeric()
     {
-        $config = new Config([], true);
+        $config             = new Config([], true);
         $config->production = [['foo'], ['bar']];
 
         $configString = $this->writer->toString($config);

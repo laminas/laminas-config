@@ -13,6 +13,7 @@ use function strtolower;
 
 class StandaloneWriterPluginManager implements ContainerInterface
 {
+    /** @var array<string, class-string> */
     private $knownPlugins = [
         'ini'            => Writer\Ini::class,
         'javaproperties' => Writer\JavaProperties::class,

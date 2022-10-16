@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\Config;
 
 use Laminas\Config\Exception;
@@ -11,6 +13,9 @@ use function sprintf;
 
 class StandaloneWriterPluginManagerTest extends TestCase
 {
+    /**
+     * @return string[][]
+     */
     public function supportedConfigTypes()
     {
         return [
@@ -32,7 +37,6 @@ class StandaloneWriterPluginManagerTest extends TestCase
 
     /**
      * @dataProvider supportedConfigTypes
-     *
      * @param string $type Configuration type.
      * @param string $expectedType Expected plugin class.
      */
@@ -48,6 +52,9 @@ class StandaloneWriterPluginManagerTest extends TestCase
         self::assertInstanceOf($expectedType, $plugin);
     }
 
+    /**
+     * @return string[][]
+     */
     public function supportedConfigClassNames()
     {
         return [
@@ -61,7 +68,6 @@ class StandaloneWriterPluginManagerTest extends TestCase
 
     /**
      * @dataProvider supportedConfigClassNames
-     *
      * @param string $class Plugin class to retrieve and expect.
      */
     public function testCanRetrieveWriterByPluginClassName($class)

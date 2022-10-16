@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\Config;
 
 use Laminas\Config\Config;
 use Laminas\Config\Exception;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 
 use function count;
 use function is_string;
@@ -19,94 +22,91 @@ use function range;
  */
 class ConfigTest extends TestCase
 {
-    protected $iniFileConfig;
-    protected $iniFileNested;
-
-    protected function setUp() : void
+    protected function setUp(): void
     {
         // Arrays representing common config configurations
         $this->all = [
             'hostname' => 'all',
-            'name' => 'thisname',
-            'db' => [
+            'name'     => 'thisname',
+            'db'       => [
                 'host' => '127.0.0.1',
                 'user' => 'username',
                 'pass' => 'password',
-                'name' => 'live'
-                ],
-            'one' => [
+                'name' => 'live',
+            ],
+            'one'      => [
                 'two' => [
-                    'three' => 'multi'
-                    ]
-                ]
-            ];
+                    'three' => 'multi',
+                ],
+            ],
+        ];
 
         $this->numericData = [
-             0 => 34,
-             1 => 'test',
-            ];
+            0 => 34,
+            1 => 'test',
+        ];
 
         $this->menuData1 = [
             'button' => [
                 'b0' => [
                     'L1' => 'button0-1',
                     'L2' => 'button0-2',
-                    'L3' => 'button0-3'
+                    'L3' => 'button0-3',
                 ],
                 'b1' => [
                     'L1' => 'button1-1',
-                    'L2' => 'button1-2'
+                    'L2' => 'button1-2',
                 ],
                 'b2' => [
-                    'L1' => 'button2-1'
-                    ]
-                ]
-            ];
+                    'L1' => 'button2-1',
+                ],
+            ],
+        ];
 
         $this->toCombineA = [
-            'foo' => 1,
-            'bar' => 2,
-            'text' => 'foo',
-            'numerical' => [
+            'foo'              => 1,
+            'bar'              => 2,
+            'text'             => 'foo',
+            'numerical'        => [
                 'first',
                 'second',
                 [
-                    'third'
-                ]
+                    'third',
+                ],
             ],
-            'misaligned' => [
+            'misaligned'       => [
                 2 => 'foo',
-                3 => 'bar'
+                3 => 'bar',
             ],
-            'mixed' => [
-                'foo' => 'bar'
+            'mixed'            => [
+                'foo' => 'bar',
             ],
-            'replaceAssoc' => [
-                'foo' => 'bar'
+            'replaceAssoc'     => [
+                'foo' => 'bar',
             ],
             'replaceNumerical' => [
-                'foo'
-            ]
+                'foo',
+            ],
         ];
 
         $this->toCombineB = [
-            'foo' => 3,
-            'text' => 'bar',
-            'numerical' => [
+            'foo'              => 3,
+            'text'             => 'bar',
+            'numerical'        => [
                 'fourth',
                 'fifth',
                 [
-                    'sixth'
-                ]
+                    'sixth',
+                ],
             ],
-            'misaligned' => [
-                3 => 'baz'
+            'misaligned'       => [
+                3 => 'baz',
             ],
-            'mixed' => [
-                false
+            'mixed'            => [
+                false,
             ],
-            'replaceAssoc' => null,
-            'replaceNumerical' => true
+            'replaceAssoc'     => null,
+            'replaceNumerical' => true,
         ];
 
         $this->leadingdot = ['.test' => 'dot-test'];
@@ -155,7 +155,7 @@ class ConfigTest extends TestCase
     {
         $this->expectException(Exception\RuntimeException::class);
         $this->expectExceptionMessage('Config is read only');
-        $config = new Config($this->all);
+        $config           = new Config($this->all);
         $config->hostname = 'test';
     }
 
@@ -163,7 +163,7 @@ class ConfigTest extends TestCase
     {
         $this->expectException(Exception\RuntimeException::class);
         $this->expectExceptionMessage('Config is read only');
-        $config = new Config($this->all);
+        $config           = new Config($this->all);
         $config->db->host = 'test';
     }
 
@@ -204,7 +204,7 @@ class ConfigTest extends TestCase
     {
         // top level
         $config = new Config($this->all);
-        $var = '';
+        $var    = '';
         foreach ($config as $key => $value) {
             if (is_string($value)) {
                 $var .= "\nkey = $key, value = $value";
@@ -221,7 +221,7 @@ class ConfigTest extends TestCase
 
         // 2 nests
         $config = new Config($this->menuData1);
-        $var = '';
+        $var    = '';
         foreach ($config->button->b1 as $key => $value) {
             $var .= "\nkey = $key, value = $value";
         }
@@ -246,23 +246,23 @@ class ConfigTest extends TestCase
     {
         $this->expectException(Exception\RuntimeException::class);
         $this->expectExceptionMessage('Config is read only');
-        $config = new Config($this->all);
+        $config       = new Config($this->all);
         $config->test = '32';
     }
 
     public function testLaminas43()
     {
-        $config_array = [
+        $configArray = [
             'controls' => [
                 'visible' => [
-                    'name' => 'visible',
-                    'type' => 'checkbox',
+                    'name'    => 'visible',
+                    'type'    => 'checkbox',
                     'attribs' => [], // empty array
                 ],
             ],
         ];
-        $form_config = new Config($config_array, true);
-        self::assertSame([], $form_config->controls->visible->attribs->toArray());
+        $formConfig  = new Config($configArray, true);
+        self::assertSame([], $formConfig->controls->visible->attribs->toArray());
     }
 
     public function testLaminas402()
@@ -271,9 +271,9 @@ class ConfigTest extends TestCase
             'data1'  => 'someValue',
             'data2'  => 'someValue',
             'false1' => false,
-            'data3'  => 'someValue'
-            ];
-        $config = new Config($configArray);
+            'data3'  => 'someValue',
+        ];
+        $config      = new Config($configArray);
         self::assertEquals(count($configArray), count($config));
         foreach ($config as $key => $value) {
             self::assertEquals($configArray[$key], $value);
@@ -283,14 +283,14 @@ class ConfigTest extends TestCase
     public function testLaminas1019HandlingInvalidKeyNames()
     {
         $config = new Config($this->leadingdot);
-        $array = $config->toArray();
+        $array  = $config->toArray();
         self::assertStringContainsString('dot-test', $array['.test']);
     }
 
     public function testLaminas1019EmptyKeys()
     {
         $config = new Config($this->invalidkey);
-        $array = $config->toArray();
+        $array  = $config->toArray();
         self::assertStringContainsString('test', $array[' ']);
         self::assertStringContainsString('test', $array['']);
     }
@@ -298,7 +298,7 @@ class ConfigTest extends TestCase
     public function testLaminas1417DefaultValues()
     {
         $config = new Config($this->all);
-        $value = $config->get('notthere', 'default');
+        $value  = $config->get('notthere', 'default');
         self::assertEquals('default', $value);
         self::assertNull($config->notThere);
     }
@@ -342,12 +342,12 @@ class ConfigTest extends TestCase
         self::assertEquals('bar', $configA->text);
 
         // config->numerical-> ...
-        self::assertInstanceOf('\Laminas\Config\Config', $configA->numerical);
+        self::assertInstanceOf(Config::class, $configA->numerical);
         self::assertEquals('first', $configA->numerical->{0});
         self::assertEquals('second', $configA->numerical->{1});
 
         // config->numerical->{2}-> ...
-        self::assertInstanceOf('\Laminas\Config\Config', $configA->numerical->{2});
+        self::assertInstanceOf(Config::class, $configA->numerical->{2});
         self::assertEquals('third', $configA->numerical->{2}->{0});
         self::assertEquals(null, $configA->numerical->{2}->{1});
 
@@ -356,19 +356,19 @@ class ConfigTest extends TestCase
         self::assertEquals('fifth', $configA->numerical->{4});
 
         // config->numerical->{5}
-        self::assertInstanceOf('\Laminas\Config\Config', $configA->numerical->{5});
+        self::assertInstanceOf(Config::class, $configA->numerical->{5});
         self::assertEquals('sixth', $configA->numerical->{5}->{0});
         self::assertEquals(null, $configA->numerical->{5}->{1});
 
         // config->misaligned
-        self::assertInstanceOf('\Laminas\Config\Config', $configA->misaligned);
+        self::assertInstanceOf(Config::class, $configA->misaligned);
         self::assertEquals('foo', $configA->misaligned->{2});
         self::assertEquals('bar', $configA->misaligned->{3});
         self::assertEquals('baz', $configA->misaligned->{4});
         self::assertEquals(null, $configA->misaligned->{0});
 
         // config->mixed
-        self::assertInstanceOf('\Laminas\Config\Config', $configA->mixed);
+        self::assertInstanceOf(Config::class, $configA->mixed);
         self::assertEquals('bar', $configA->mixed->foo);
         self::assertFalse($configA->mixed->{0});
         self::assertNull($configA->mixed->{1});
@@ -435,13 +435,13 @@ class ConfigTest extends TestCase
     public function testToArraySupportsObjects()
     {
         $configData = [
-            'a' => new \stdClass(),
+            'a' => new stdClass(),
             'b' => [
-                'c' => new \stdClass(),
-                'd' => new \stdClass()
-                ]
-            ];
-        $config = new Config($configData);
+                'c' => new stdClass(),
+                'd' => new stdClass(),
+            ],
+        ];
+        $config     = new Config($configData);
         self::assertEquals($config->toArray(), $configData);
         self::assertInstanceOf('stdClass', $config->a);
         self::assertInstanceOf('stdClass', $config->b->c);
@@ -450,15 +450,14 @@ class ConfigTest extends TestCase
 
     /**
      * ensure that modification is not allowed after calling setReadOnly()
-     *
      */
     public function testSetReadOnly()
     {
         $configData = [
-            'a' => 'a'
-            ];
-        $config = new Config($configData, true);
-        $config->b = 'b';
+            'a' => 'a',
+        ];
+        $config     = new Config($configData, true);
+        $config->b  = 'b';
 
         $config->setReadOnly();
         $this->expectException(Exception\RuntimeException::class);
@@ -472,8 +471,8 @@ class ConfigTest extends TestCase
             'a' => 'a',
             'b' => 'b',
             'c' => 'c',
-            ];
-        $config = new Config($configData, true);
+        ];
+        $config     = new Config($configData, true);
         self::assertCount(3, $config);
         unset($config->b);
         self::assertCount(2, $config);
@@ -481,7 +480,7 @@ class ConfigTest extends TestCase
 
     public function testLaminas4107ensureCloneDoesNotKeepNestedReferences()
     {
-        $parent = new Config(['key' => ['nested' => 'parent']], true);
+        $parent    = new Config(['key' => ['nested' => 'parent']], true);
         $newConfig = clone $parent;
         $newConfig->merge(new Config(['key' => ['nested' => 'override']], true));
 
@@ -491,11 +490,10 @@ class ConfigTest extends TestCase
 
     /**
      * @group Laminas-3575
-     *
      */
     public function testMergeHonoursAllowModificationsFlagAtAllLevels()
     {
-        $config = new Config(['key' => ['nested' => 'yes'], 'key2' => 'yes'], false);
+        $config  = new Config(['key' => ['nested' => 'yes'], 'key2' => 'yes'], false);
         $config2 = new Config([], true);
 
         $config2->merge($config);
@@ -511,20 +509,19 @@ class ConfigTest extends TestCase
 
     /**
      * @group Laminas-5771a
-     *
      */
     public function testUnsettingFirstElementDuringForeachDoesNotSkipAnElement()
     {
         $config = new Config([
             'first'  => [1],
             'second' => [2],
-            'third'  => [3]
+            'third'  => [3],
         ], true);
 
         $keyList = [];
         foreach ($config as $key => $value) {
             $keyList[] = $key;
-            if ($key == 'first') {
+            if ($key === 'first') {
                 unset($config->$key); // uses magic Laminas\Config\Config::__unset() method
             }
         }
@@ -536,20 +533,19 @@ class ConfigTest extends TestCase
 
     /**
      * @group Laminas-5771
-     *
      */
     public function testUnsettingAMiddleElementDuringForeachDoesNotSkipAnElement()
     {
         $config = new Config([
             'first'  => [1],
             'second' => [2],
-            'third'  => [3]
+            'third'  => [3],
         ], true);
 
         $keyList = [];
         foreach ($config as $key => $value) {
             $keyList[] = $key;
-            if ($key == 'second') {
+            if ($key === 'second') {
                 unset($config->$key); // uses magic Laminas\Config\Config::__unset() method
             }
         }
@@ -561,20 +557,19 @@ class ConfigTest extends TestCase
 
     /**
      * @group Laminas-5771
-     *
      */
     public function testUnsettingLastElementDuringForeachDoesNotSkipAnElement()
     {
         $config = new Config([
             'first'  => [1],
             'second' => [2],
-            'third'  => [3]
+            'third'  => [3],
         ], true);
 
         $keyList = [];
         foreach ($config as $key => $value) {
             $keyList[] = $key;
-            if ($key == 'third') {
+            if ($key === 'third') {
                 unset($config->$key); // uses magic Laminas\Config\Config::__unset() method
             }
         }
@@ -586,7 +581,6 @@ class ConfigTest extends TestCase
 
     /**
      * @group Laminas-4728
-     *
      */
     public function testSetReadOnlyAppliesToChildren()
     {
@@ -609,31 +603,32 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @depends testMerge
      * @link https://getlaminas.org/issues/browse/Laminas-186
+     *
+     * @depends testMerge
      */
     public function testLaminas186mergeReplacingUnnamedConfigSettings()
     {
         $arrayA = [
-            'flag' => true,
-            'text' => 'foo',
-            'list' => [ 'a', 'b', 'c' ],
-            'aSpecific' => 12
+            'flag'      => true,
+            'text'      => 'foo',
+            'list'      => ['a', 'b', 'c'],
+            'aSpecific' => 12,
         ];
 
         $arrayB = [
-            'flag' => false,
-            'text' => 'bar',
-            'list' => [ 'd', 'e' ],
-            'bSpecific' => 100
+            'flag'      => false,
+            'text'      => 'bar',
+            'list'      => ['d', 'e'],
+            'bSpecific' => 100,
         ];
 
         $mergeResult = [
-            'flag' => false,
-            'text' => 'bar',
-            'list' => [ 'a', 'b', 'c', 'd', 'e' ],
+            'flag'      => false,
+            'text'      => 'bar',
+            'list'      => ['a', 'b', 'c', 'd', 'e'],
             'aSpecific' => 12,
-            'bSpecific' => 100
+            'bSpecific' => 100,
         ];
 
         $configA = new Config($arrayA);

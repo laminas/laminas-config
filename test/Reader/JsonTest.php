@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\Config\Reader;
 
 use Laminas\Config\Exception;
@@ -10,7 +12,7 @@ use Laminas\Config\Reader\Json;
  */
 class JsonTest extends AbstractReaderTestCase
 {
-    protected function setUp() : void
+    protected function setUp(): void
     {
         $this->reader = new Json();
     }
@@ -19,6 +21,8 @@ class JsonTest extends AbstractReaderTestCase
      * getTestAssetPath(): defined by AbstractReaderTestCase.
      *
      * @see    AbstractReaderTestCase::getTestAssetPath()
+     *
+     * @param  string $name
      * @return string
      */
     protected function getTestAssetPath($name)

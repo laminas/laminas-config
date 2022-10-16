@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\Config;
 
-use Interop\Container\ContainerInterface;
+use interop\container\containerinterface;
 use InvalidArgumentException;
+use Laminas\Config\Config;
 use Laminas\Config\Factory;
 use Laminas\Config\ReaderPluginManager;
 use Laminas\Config\StandaloneReaderPluginManager;
@@ -29,25 +32,31 @@ use function unlink;
  */
 class FactoryTest extends TestCase
 {
+    /** @var array */
     protected $tmpFiles = [];
+    /** @var false|string */
     protected $originalIncludePath;
 
+    /**
+     * @param string $ext
+     * @return mixed|string
+     */
     protected function getTestAssetFileName($ext)
     {
         if (empty($this->tmpfiles[$ext])) {
-            $this->tmpfiles[$ext] = tempnam(sys_get_temp_dir(), 'laminas-config-writer').'.'.$ext;
+            $this->tmpfiles[$ext] = tempnam(sys_get_temp_dir(), 'laminas-config-writer') . '.' . $ext;
         }
         return $this->tmpfiles[$ext];
     }
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         $this->originalIncludePath = get_include_path();
         set_include_path(__DIR__ . '/TestAssets');
         $this->resetPluginManagers();
     }
 
-    protected function tearDown() : void
+    protected function tearDown(): void
     {
         set_include_path($this->originalIncludePath);
 
@@ -88,9 +97,9 @@ class FactoryTest extends TestCase
 
     public function testFromIniFiles()
     {
-        $files = [
+        $files  = [
             __DIR__ . '/TestAssets/Ini/include-base.ini',
-            __DIR__ . '/TestAssets/Ini/include-base2.ini'
+            __DIR__ . '/TestAssets/Ini/include-base2.ini',
         ];
         $config = Factory::fromFiles($files);
 
@@ -100,9 +109,9 @@ class FactoryTest extends TestCase
 
     public function testFromXmlFiles()
     {
-        $files = [
+        $files  = [
             __DIR__ . '/TestAssets/Xml/include-base.xml',
-            __DIR__ . '/TestAssets/Xml/include-base2.xml'
+            __DIR__ . '/TestAssets/Xml/include-base2.xml',
         ];
         $config = Factory::fromFiles($files);
 
@@ -112,9 +121,9 @@ class FactoryTest extends TestCase
 
     public function testFromPhpFiles()
     {
-        $files = [
+        $files  = [
             __DIR__ . '/TestAssets/Php/include-base.php',
-            __DIR__ . '/TestAssets/Php/include-base2.php'
+            __DIR__ . '/TestAssets/Php/include-base2.php',
         ];
         $config = Factory::fromFiles($files);
 
@@ -124,7 +133,7 @@ class FactoryTest extends TestCase
 
     public function testFromIniAndXmlAndPhpFiles()
     {
-        $files = [
+        $files  = [
             __DIR__ . '/TestAssets/Ini/include-base.ini',
             __DIR__ . '/TestAssets/Xml/include-base2.xml',
             __DIR__ . '/TestAssets/Php/include-base3.php',
@@ -138,7 +147,7 @@ class FactoryTest extends TestCase
 
     public function testFromIniAndXmlAndPhpFilesFromIncludePath()
     {
-        $files = [
+        $files  = [
             'Ini/include-base.ini',
             'Xml/include-base2.xml',
             'Php/include-base3.php',
@@ -163,10 +172,10 @@ class FactoryTest extends TestCase
         self::assertIsArray($configArray);
 
         $configObject = Factory::fromFile($files[0], true);
-        self::assertInstanceOf('Laminas\Config\Config', $configObject);
+        self::assertInstanceOf(Config::class, $configObject);
 
         $configObject = Factory::fromFiles($files, true);
-        self::assertInstanceOf('Laminas\Config\Config', $configObject);
+        self::assertInstanceOf(Config::class, $configObject);
     }
 
     public function testNonExistentFileThrowsRuntimeException()
@@ -186,23 +195,25 @@ class FactoryTest extends TestCase
         Factory::registerReader('dum', new Reader\TestAssets\DummyReader());
 
         $configObject = Factory::fromFile(__DIR__ . '/TestAssets/dummy.dum', true);
-        self::assertInstanceOf('Laminas\Config\Config', $configObject);
+        self::assertInstanceOf(Config::class, $configObject);
 
         self::assertEquals($configObject['one'], 1);
     }
 
     public function testFactoryCanRegisterCustomReaderPlugin()
     {
-        /** @var ContainerInterface&MockObject $services */
-        $services      = $this->createMock(ContainerInterface::class);
-        $pluginManager = new ReaderPluginManager($services, ['services' => [
-            'DummyReader' => new Reader\TestAssets\DummyReader(),
-        ]]);
+        /** @var containerinterface&MockObject $services */
+        $services      = $this->createMock(containerinterface::class);
+        $pluginManager = new ReaderPluginManager($services, [
+            'services' => [
+                'DummyReader' => new Reader\TestAssets\DummyReader(),
+            ],
+        ]);
         Factory::setReaderPluginManager($pluginManager);
         Factory::registerReader('dum', 'DummyReader');
 
         $configObject = Factory::fromFile(__DIR__ . '/TestAssets/dummy.dum', true);
-        self::assertInstanceOf('Laminas\Config\Config', $configObject);
+        self::assertInstanceOf(Config::class, $configObject);
 
         self::assertEquals($configObject['one'], 1);
     }
@@ -210,24 +221,24 @@ class FactoryTest extends TestCase
     public function testFactoryToFileInvalidFileExtension()
     {
         $this->expectException(RuntimeException::class);
-        Factory::toFile(__DIR__.'/TestAssets/bad.ext', []);
+        Factory::toFile(__DIR__ . '/TestAssets/bad.ext', []);
     }
 
     public function testFactoryToFileNoDirInHere()
     {
         $this->expectException(RuntimeException::class);
-        Factory::toFile(__DIR__.'/TestAssets/NoDirInHere/nonExisiting/dummy.php', []);
+        Factory::toFile(__DIR__ . '/TestAssets/NoDirInHere/nonExisiting/dummy.php', []);
     }
 
     public function testFactoryWriteToFile()
     {
         $config = ['test' => 'foo', 'bar' => [0 => 'baz', 1 => 'foo']];
 
-        $file = $this->getTestAssetFileName('php');
+        $file   = $this->getTestAssetFileName('php');
         $result = Factory::toFile($file, $config);
 
         // build string line by line as we are trailing-whitespace sensitive.
-        $expected = "<?php\n";
+        $expected  = "<?php\n";
         $expected .= "return array(\n";
         $expected .= "    'test' => 'foo',\n";
         $expected .= "    'bar' => array(\n";
@@ -265,11 +276,13 @@ class FactoryTest extends TestCase
 
     public function testFactoryCanRegisterCustomWriterPlugin()
     {
-        /** @var ContainerInterface&MockObject $services */
-        $services = $this->createMock(ContainerInterface::class);
-        $pluginManager = new WriterPluginManager($services, ['services' => [
-            'DummyWriter' => new Writer\TestAssets\DummyWriter(),
-        ]]);
+        /** @var containerinterface&MockObject $services */
+        $services      = $this->createMock(containerinterface::class);
+        $pluginManager = new WriterPluginManager($services, [
+            'services' => [
+                'DummyWriter' => new Writer\TestAssets\DummyWriter(),
+            ],
+        ]);
         Factory::setWriterPluginManager($pluginManager);
         Factory::registerWriter('dum', 'DummyWriter');
 

@@ -1,16 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\Config\Writer;
 
 use Laminas\Config\Config;
 use Laminas\Config\Exception\InvalidArgumentException;
 use Laminas\Config\Exception\RuntimeException;
+use Laminas\Config\Reader\ReaderInterface;
+use Laminas\Config\Writer\WriterInterface;
 use PHPUnit\Framework\TestCase;
 
 use function chmod;
 use function file_exists;
+use function getenv;
 use function is_writable;
 use function sys_get_temp_dir;
+use function system;
 use function tempnam;
 use function unlink;
 
@@ -19,21 +25,13 @@ use function unlink;
  */
 abstract class AbstractWriterTestCase extends TestCase
 {
-    /**
-     * @var \Laminas\Config\Reader\ReaderInterface
-     */
+    /** @var ReaderInterface */
     protected $reader;
 
-    /**
-     *
-     * @var \Laminas\Config\Writer\WriterInterface
-     */
+    /** @var WriterInterface */
     protected $writer;
 
-    /**
-     *
-     * @var string
-     */
+    /** @var string */
     protected $tmpfile;
 
     /**
@@ -49,7 +47,7 @@ abstract class AbstractWriterTestCase extends TestCase
         return $this->tmpfile;
     }
 
-    protected function tearDown() : void
+    protected function tearDown(): void
     {
         $testAssetFileName = $this->getTestAssetFileName();
         if (file_exists($testAssetFileName)) {

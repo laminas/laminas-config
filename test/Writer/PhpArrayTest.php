@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\Config\Writer;
 
 use Laminas\Config\Config;
@@ -24,7 +26,7 @@ use const PHP_VERSION;
  */
 class PhpArrayTest extends AbstractWriterTestCase
 {
-    protected function setUp() : void
+    protected function setUp(): void
     {
         $this->writer = new PhpArray();
         $this->reader = new PhpReader();
@@ -36,13 +38,13 @@ class PhpArrayTest extends AbstractWriterTestCase
     public function testRender()
     {
         $config = new Config([
-            'test' => 'foo',
-            'bar' => [0 => 'baz', 1 => 'foo'],
+            'test'       => 'foo',
+            'bar'        => [0 => 'baz', 1 => 'foo'],
             'emptyArray' => [],
-            'object' => (object) ['foo' => 'bar'],
-            'integer' => 123,
-            'boolean' => false,
-            'null' => null,
+            'object'     => (object) ['foo' => 'bar'],
+            'integer'    => 123,
+            'boolean'    => false,
+            'null'       => null,
         ]);
 
         $configString = $this->writer->toString($config);
@@ -58,7 +60,7 @@ class PhpArrayTest extends AbstractWriterTestCase
         }
 
         // build string line by line as we are trailing-whitespace sensitive.
-        $expected = "<?php\n";
+        $expected  = "<?php\n";
         $expected .= "return array(\n";
         $expected .= "    'test' => 'foo',\n";
         $expected .= "    'bar' => array(\n";
@@ -83,7 +85,7 @@ class PhpArrayTest extends AbstractWriterTestCase
         $configString = $this->writer->toString($config);
 
         // build string line by line as we are trailing-whitespace sensitive.
-        $expected = "<?php\n";
+        $expected  = "<?php\n";
         $expected .= "return [\n";
         $expected .= "    'test' => 'foo',\n";
         $expected .= "    'bar' => [\n";
@@ -102,7 +104,7 @@ class PhpArrayTest extends AbstractWriterTestCase
 
         $configString = $this->writer->toString($config);
 
-        $expected = "<?php\n";
+        $expected  = "<?php\n";
         $expected .= "return array(\n";
         $expected .= "    'one' => 'Test with \"double\" quotes',\n";
         $expected .= "    'two' => 'Test with \\'single\\' quotes',\n";
@@ -143,17 +145,17 @@ class PhpArrayTest extends AbstractWriterTestCase
         self::assertFalse(class_exists($dummyFqnB, false), $message);
 
         $config = new Config([
-            "\\~" => 'bar',
-            'PhpArrayTest' => 'PhpArrayTest',
-            '' => 'emptyString',
+            "\\~"                   => 'bar',
+            'PhpArrayTest'          => 'PhpArrayTest',
+            ''                      => 'emptyString',
             'TestAssets\DummyClass' => 'foo',
-            $dummyFqnA => [
-                'fqnValue' => $dummyFqnB
+            $dummyFqnA              => [
+                'fqnValue' => $dummyFqnB,
             ],
-            '\\' . $dummyFqnA => ''
+            '\\' . $dummyFqnA       => '',
         ]);
 
-        $expected = <<< ECS
+        $expected = <<<ECS
 <?php
 return array(
     '\\\~' => 'bar',
@@ -167,7 +169,7 @@ return array(
 );
 
 ECS;
-        $result = $this->writer->toString($config);
+        $result   = $this->writer->toString($config);
 
         self::assertSame($expected, $result);
     }

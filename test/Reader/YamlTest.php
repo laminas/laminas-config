@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\Config\Reader;
 
 use Laminas\Config\Exception;
@@ -13,7 +15,7 @@ use function getenv;
  */
 class YamlTest extends AbstractReaderTestCase
 {
-    protected function setUp() : void
+    protected function setUp(): void
     {
         if (! getenv('TESTS_LAMINAS_CONFIG_YAML_ENABLED')) {
             $this->markTestSkipped('Yaml test for Laminas\Config skipped');
@@ -39,6 +41,8 @@ class YamlTest extends AbstractReaderTestCase
      * getTestAssetPath(): defined by AbstractReaderTestCase.
      *
      * @see    AbstractReaderTestCase::getTestAssetPath()
+     *
+     * @param  string $name
      * @return string
      */
     protected function getTestAssetPath($name)

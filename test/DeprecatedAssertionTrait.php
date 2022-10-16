@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\Config;
 
 use PHPUnit\Framework\TestCase;
 use ReflectionProperty;
 
 use function sprintf;
+use function var_export;
 
 trait DeprecatedAssertionTrait
 {
@@ -18,7 +21,7 @@ trait DeprecatedAssertionTrait
         if ($message === '') {
             $message = sprintf(
                 'Failed asserting property %s::$%s with value %s matches value %s',
-                get_class($instance),
+                $instance::class,
                 $property,
                 var_export($value, true),
                 var_export($r->getValue($instance), true)

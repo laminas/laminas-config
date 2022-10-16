@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\Config\Reader;
 
+use Error;
 use Laminas\Config\Exception;
 use Laminas\Config\Reader\Xml;
 use ReflectionProperty;
-use ValueError;
 use XMLReader;
 
 use function restore_error_handler;
@@ -13,17 +15,16 @@ use function sys_get_temp_dir;
 
 /**
  * @group      Laminas_Config
- *
  * @covers \Laminas\Config\Reader\Xml
  */
 class XmlTest extends AbstractReaderTestCase
 {
-    protected function setUp() : void
+    protected function setUp(): void
     {
         $this->reader = new Xml();
     }
 
-    protected function tearDown() : void
+    protected function tearDown(): void
     {
         restore_error_handler();
     }
@@ -32,29 +33,13 @@ class XmlTest extends AbstractReaderTestCase
      * getTestAssetPath(): defined by AbstractReaderTestCase.
      *
      * @see    AbstractReaderTestCase::getTestAssetPath()
+     *
+     * @param  string $name
      * @return string
      */
     protected function getTestAssetPath($name)
     {
         return __DIR__ . '/TestAssets/Xml/' . $name . '.xml';
-    }
-
-    /**
-     * Determine how to expect a warning condition.
-     *
-     * In PHP versions less than 8.0, we can expect a warning in several
-     * scenarios. Those same scenarios in 8.0+ result in a ValueError.
-     *
-     * @return string
-     */
-    protected function expectWarningOrValueError()
-    {
-        if (PHP_MAJOR_VERSION === 8) {
-            $this->expectException(ValueError::class);
-            return;
-        }
-
-        $this->expectWarning();
     }
 
     public function testInvalidXmlFile()
@@ -123,7 +108,7 @@ class XmlTest extends AbstractReaderTestCase
     public function testElementWithBothAttributesAndAStringValueIsProcessedCorrectly()
     {
         $this->reader = new Xml();
-        $arrayXml = $this->reader->fromFile($this->getTestAssetPath('attributes'));
+        $arrayXml     = $this->reader->fromFile($this->getTestAssetPath('attributes'));
         self::assertArrayHasKey('one', $arrayXml);
         self::assertIsArray($arrayXml['one']);
 
@@ -167,7 +152,7 @@ class XmlTest extends AbstractReaderTestCase
 
         $xmlReader = $this->getInternalXmlReader($configReader);
 
-        $this->expectWarningOrValueError();
+        $this->expectException(Error::class);
 
         // following operation should fail because the internal reader is closed (and expected to be closed)
         $xmlReader->setParserProperty(XMLReader::VALIDATE, true);
@@ -195,7 +180,7 @@ class XmlTest extends AbstractReaderTestCase
 
         $xmlReader = $this->getInternalXmlReader($configReader);
 
-        $this->expectWarningOrValueError();
+        $this->expectException(Error::class);
 
         // following operation should fail because the internal reader is closed (and expected to be closed)
         $xmlReader->setParserProperty(XMLReader::VALIDATE, true);
@@ -204,13 +189,11 @@ class XmlTest extends AbstractReaderTestCase
     /**
      * Reads the internal XML reader from a given Xml config reader
      *
-     * @param Xml $xml
-     *
      * @return XMLReader
      */
     private function getInternalXmlReader(Xml $xml)
     {
-        $reflectionReader = new ReflectionProperty('Laminas\Config\Reader\Xml', 'reader');
+        $reflectionReader = new ReflectionProperty(Xml::class, 'reader');
 
         $reflectionReader->setAccessible(true);
 

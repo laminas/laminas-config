@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\Config\Writer;
 
 use Laminas\Config\Config;
@@ -14,7 +16,7 @@ use function getenv;
  */
 class YamlTest extends AbstractWriterTestCase
 {
-    protected function setUp() : void
+    protected function setUp(): void
     {
         if (! getenv('TESTS_LAMINAS_CONFIG_YAML_ENABLED')) {
             $this->markTestSkipped('Yaml test for Laminas\Config skipped');
