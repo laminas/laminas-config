@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\Config\Reader;
 
 use Laminas\Config\Exception;
@@ -10,7 +12,7 @@ use Laminas\Config\Reader\JavaProperties;
  */
 class JavaPropertiesTest extends AbstractReaderTestCase
 {
-    protected function setUp() : void
+    protected function setUp(): void
     {
         $this->reader = new JavaProperties();
     }
@@ -19,6 +21,8 @@ class JavaPropertiesTest extends AbstractReaderTestCase
      * getTestAssetPath(): defined by AbstractReaderTestCase.
      *
      * @see    AbstractReaderTestCase::getTestAssetPath()
+     *
+     * @param  string $name
      * @return string
      */
     protected function getTestAssetPath($name)
@@ -46,7 +50,7 @@ class JavaPropertiesTest extends AbstractReaderTestCase
 
     public function testFromString()
     {
-        $JavaProperties = <<<'ASSET'
+        $javaProperties = <<<'ASSET'
 #comment
 !comment
 single.line:test
@@ -54,7 +58,7 @@ multiple:line \
 test
 ASSET;
 
-        $arrayJavaProperties = $this->reader->fromString($JavaProperties);
+        $arrayJavaProperties = $this->reader->fromString($javaProperties);
 
         self::assertNotEmpty($arrayJavaProperties);
         self::assertEquals($arrayJavaProperties['single.line'], 'test');
@@ -63,13 +67,13 @@ ASSET;
 
     public function testInvalidIncludeInString()
     {
-        $JavaProperties = '@include:fail.properties';
+        $javaProperties = '@include:fail.properties';
 
         $expectedErrorMessage = 'Cannot process @include statement for a string';
 
         $this->expectException(Exception\RuntimeException::class);
         $this->expectExceptionMessage($expectedErrorMessage);
-        $arrayJavaPropterties = $this->reader->fromString($JavaProperties);
+        $arrayJavaPropterties = $this->reader->fromString($javaProperties);
     }
 
     public function testAllowsSpecifyingAlternateKeyValueDelimiter()
@@ -83,6 +87,9 @@ ASSET;
         self::assertEquals($arrayJavaProperties['multiple'], 'line test');
     }
 
+    /**
+     * @return array
+     */
     public function invalidDelimiters()
     {
         return [
@@ -111,7 +118,7 @@ ASSET;
 
     public function testProvidesOptionToTrimWhitespaceFromKeysAndValues()
     {
-        $reader = new JavaProperties(JavaProperties::DELIMITER_DEFAULT, JavaProperties::WHITESPACE_TRIM);
+        $reader              = new JavaProperties(JavaProperties::DELIMITER_DEFAULT, JavaProperties::WHITESPACE_TRIM);
         $arrayJavaProperties = $reader->fromFile($this->getTestAssetPath('key-value-whitespace'));
 
         self::assertNotEmpty($arrayJavaProperties);

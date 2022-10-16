@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\Config\Reader;
 
 use Laminas\Config\Exception;
@@ -11,9 +13,7 @@ use PHPUnit\Framework\TestCase;
  */
 abstract class AbstractReaderTestCase extends TestCase
 {
-    /**
-     * @var ReaderInterface
-     */
+    /** @var ReaderInterface */
     protected $reader;
 
     /**

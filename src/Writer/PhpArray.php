@@ -32,16 +32,12 @@ class PhpArray extends AbstractWriter
     /**
      * @var string
      */
-    const INDENT_STRING = '    ';
+    public const INDENT_STRING = '    ';
 
-    /**
-     * @var bool
-     */
+    /** @var bool */
     protected $useBracketArraySyntax = false;
 
-    /**
-     * @var bool
-     */
+    /** @var bool */
     protected $useClassNameScalars = false;
 
     /**
@@ -53,13 +49,13 @@ class PhpArray extends AbstractWriter
     public function processConfig(array $config)
     {
         $arraySyntax = [
-            'open' => $this->useBracketArraySyntax ? '[' : 'array(',
-            'close' => $this->useBracketArraySyntax ? ']' : ')'
+            'open'  => $this->useBracketArraySyntax ? '[' : 'array(',
+            'close' => $this->useBracketArraySyntax ? ']' : ')',
         ];
 
-        return "<?php\n" .
-        "return " . $arraySyntax['open'] . "\n" . $this->processIndented($config, $arraySyntax) .
-        $arraySyntax['close'] . ";\n";
+        return "<?php\n"
+        . "return " . $arraySyntax['open'] . "\n" . $this->processIndented($config, $arraySyntax)
+        . $arraySyntax['close'] . ";\n";
     }
 
     /**
@@ -98,6 +94,7 @@ class PhpArray extends AbstractWriter
      * toFile(): defined by Writer interface.
      *
      * @see    WriterInterface::toFile()
+     *
      * @param  string  $filename
      * @param  mixed   $config
      * @param  bool $exclusiveLock
@@ -130,8 +127,8 @@ class PhpArray extends AbstractWriter
             // for Windows, paths are escaped.
             $dirname = str_replace('\\', '\\\\', dirname($filename));
 
-            $string  = $this->toString($config);
-            $string  = str_replace("'" . $dirname, "__DIR__ . '", $string);
+            $string = $this->toString($config);
+            $string = str_replace("'" . $dirname, "__DIR__ . '", $string);
 
             file_put_contents($filename, $string, $flags);
         } catch (\Exception $e) {

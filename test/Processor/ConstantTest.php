@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\Config\Processor;
 
 use Laminas\Config\Config;
@@ -14,8 +16,11 @@ class ConstantTest extends TestCase
 {
     use DeprecatedAssertionTrait;
 
-    const CONFIG_TEST = 'config';
+    public const CONFIG_TEST = 'config';
 
+    /**
+     * @return array
+     */
     public function constantProvider()
     {
         if (! defined('LAMINAS_CONFIG_PROCESSOR_CONSTANT_TEST')) {
@@ -35,7 +40,6 @@ class ConstantTest extends TestCase
 
     /**
      * @dataProvider constantProvider
-     *
      * @param string $constantString
      * @param string $constantValue
      */
@@ -51,13 +55,12 @@ class ConstantTest extends TestCase
 
     /**
      * @dataProvider constantProvider
-     *
      * @param string $constantString
      * @param string $constantValue
      */
     public function testWillNotProcessConstantValuesInKeysByDefault($constantString, $constantValue)
     {
-        $config = new Config([$constantString => 'value'], true);
+        $config    = new Config([$constantString => 'value'], true);
         $processor = new ConstantProcessor();
         $processor->process($config);
 
@@ -67,13 +70,12 @@ class ConstantTest extends TestCase
 
     /**
      * @dataProvider constantProvider
-     *
      * @param string $constantString
      * @param string $constantValue
      */
     public function testCanProcessConstantValuesInKeys($constantString, $constantValue)
     {
-        $config = new Config([$constantString => 'value'], true);
+        $config    = new Config([$constantString => 'value'], true);
         $processor = new ConstantProcessor();
         $processor->enableKeyProcessing();
         $processor->process($config);

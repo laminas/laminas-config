@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\Config\Processor;
 
 use Laminas\Config\Processor\Token as TokenProcessor;

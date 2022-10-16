@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\Config;
 
 use InvalidArgumentException;
@@ -7,48 +9,39 @@ use Laminas\Config\AbstractConfigFactory;
 use Laminas\ServiceManager;
 use Laminas\ServiceManager\Config as SMConfig;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 
 use function count;
 
-/**
- * Class AbstractConfigFactoryTest
- */
 class AbstractConfigFactoryTest extends TestCase
 {
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $config;
 
-    /**
-     * @var ServiceManager
-     */
+    /** @var ServiceManager */
     protected $serviceManager;
 
-    /**
-     * @return void
-     */
-    protected function setUp() : void
+    protected function setUp(): void
     {
         $this->config = [
-            'MyModule' => [
+            'MyModule'  => [
                 'foo' => [
-                    'bar'
-                ]
+                    'bar',
+                ],
             ],
             'phly-blog' => [
                 'foo' => [
-                    'bar'
-                ]
-            ]
+                    'bar',
+                ],
+            ],
         ];
 
-        $this->serviceManager = new ServiceManager\ServiceManager;
-        $smConfig = new SMConfig([
+        $this->serviceManager = new ServiceManager\ServiceManager();
+        $smConfig             = new SMConfig([
             'abstract_factories' => [
                 AbstractConfigFactory::class,
             ],
-            'services' => [
+            'services'           => [
                 'config' => $this->config,
             ],
         ]);
@@ -60,7 +53,7 @@ class AbstractConfigFactoryTest extends TestCase
         $factory = new AbstractConfigFactory();
 
         $this->expectException(InvalidArgumentException::class);
-        $factory->addPattern(new \stdClass());
+        $factory->addPattern(new stdClass());
     }
 
     public function testInvalidPatternIterator()
@@ -76,7 +69,7 @@ class AbstractConfigFactoryTest extends TestCase
      */
     public function testPatterns()
     {
-        $factory = new AbstractConfigFactory();
+        $factory  = new AbstractConfigFactory();
         $defaults = $factory->getPatterns();
 
         // Tests that the accessor returns an array
@@ -102,7 +95,7 @@ class AbstractConfigFactoryTest extends TestCase
      */
     public function testCanCreateService()
     {
-        $factory = new AbstractConfigFactory();
+        $factory        = new AbstractConfigFactory();
         $serviceLocator = $this->serviceManager;
 
         self::assertFalse($factory->canCreate($serviceLocator, 'MyModule\Fail'));
@@ -126,7 +119,6 @@ class AbstractConfigFactoryTest extends TestCase
 
     /**
      * @depends testCreateService
-     *
      * @group 7142
      * @group 7144
      */

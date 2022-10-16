@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\Config;
 
 use Laminas\Config\Exception;
@@ -11,6 +13,9 @@ use function sprintf;
 
 class StandaloneReaderPluginManagerTest extends TestCase
 {
+    /**
+     * @return string[][]
+     */
     public function supportedConfigExtensions()
     {
         return [
@@ -30,7 +35,6 @@ class StandaloneReaderPluginManagerTest extends TestCase
 
     /**
      * @dataProvider supportedConfigExtensions
-     *
      * @param string $extension Configuration file extension.
      * @param string $expectedType Expected plugin class.
      */
@@ -46,6 +50,9 @@ class StandaloneReaderPluginManagerTest extends TestCase
         self::assertInstanceOf($expectedType, $plugin);
     }
 
+    /**
+     * @return string[][]
+     */
     public function supportedConfigClassNames()
     {
         return [
@@ -59,7 +66,6 @@ class StandaloneReaderPluginManagerTest extends TestCase
 
     /**
      * @dataProvider supportedConfigClassNames
-     *
      * @param string $class Plugin class to retrieve and expect.
      */
     public function testCanRetrieveReaderByPluginClassName($class)

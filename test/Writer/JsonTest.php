@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\Config\Writer;
 
 use Laminas\Config\Config;
@@ -11,7 +13,7 @@ use Laminas\Config\Writer\Json as JsonWriter;
  */
 class JsonTest extends AbstractWriterTestCase
 {
-    protected function setUp() : void
+    protected function setUp(): void
     {
         $this->reader = new JsonReader();
         $this->writer = new JsonWriter();

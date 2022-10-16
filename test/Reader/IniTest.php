@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\Config\Reader;
 
 use Laminas\Config\Exception;
@@ -10,7 +12,7 @@ use Laminas\Config\Reader\Ini;
  */
 class IniTest extends AbstractReaderTestCase
 {
-    protected function setUp() : void
+    protected function setUp(): void
     {
         $this->reader = new Ini();
     }
@@ -19,6 +21,8 @@ class IniTest extends AbstractReaderTestCase
      * getTestAssetPath(): defined by AbstractReaderTestCase.
      *
      * @see    AbstractReaderTestCase::getTestAssetPath()
+     *
+     * @param  string $name
      * @return string
      */
     protected function getTestAssetPath($name)
@@ -132,7 +136,7 @@ ECS;
 
     public function testFromStringParseSections()
     {
-        $ini = <<<ECS
+        $ini      = <<<ECS
 [production]
 env='production'
 production_key='foo'
@@ -152,7 +156,7 @@ ECS;
 
     public function testFromStringDontParseSections()
     {
-        $ini = <<<ECS
+        $ini    = <<<ECS
 [production]
 env='production'
 production_key='foo'
@@ -174,7 +178,7 @@ ECS;
 
     public function testFromStringIgnoresNestingInSectionNamesWhenSectionsNotProcessed()
     {
-        $ini = <<<ECS
+        $ini    = <<<ECS
 [environments.production]
 env='production'
 production_key='foo'
@@ -226,7 +230,7 @@ ECS;
 
     public function testFromStringWithoutTypes()
     {
-        $ini = <<<ECS
+        $ini      = <<<ECS
             [production]
             name="Bob Smith"
             age=55
@@ -247,7 +251,7 @@ ECS;
 
     public function testFromStringWithTypes()
     {
-        $ini = <<<ECS
+        $ini    = <<<ECS
             [production]
             name="Bob Smith"
             age=55

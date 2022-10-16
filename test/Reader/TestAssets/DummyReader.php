@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\Config\Reader\TestAssets;
 
 use Laminas\Config\Exception;
@@ -11,6 +13,10 @@ use function unserialize;
 
 class DummyReader implements ReaderInterface
 {
+    /**
+     * @param  string $filename
+     * @return array
+     */
     public function fromFile($filename)
     {
         if (! is_readable($filename)) {
@@ -20,6 +26,10 @@ class DummyReader implements ReaderInterface
         return unserialize(file_get_contents($filename));
     }
 
+    /**
+     * @param  string $string
+     * @return array|bool
+     */
     public function fromString($string)
     {
         if (empty($string)) {

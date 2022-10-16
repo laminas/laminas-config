@@ -8,7 +8,6 @@ use function array_replace_recursive;
 use function dirname;
 use function explode;
 use function file_get_contents;
-use function get_class;
 use function gettype;
 use function is_file;
 use function is_object;
@@ -27,9 +26,9 @@ use function trim;
  */
 class JavaProperties implements ReaderInterface
 {
-    const DELIMITER_DEFAULT = ':';
-    const WHITESPACE_TRIM = true;
-    const WHITESPACE_KEEP = false;
+    public const DELIMITER_DEFAULT = ':';
+    public const WHITESPACE_TRIM   = true;
+    public const WHITESPACE_KEEP   = false;
 
     /**
      * Directory of the Java-style properties file
@@ -40,10 +39,12 @@ class JavaProperties implements ReaderInterface
 
     /**
      * Delimiter for key/value pairs.
+     *
+     * @var string
      */
     private $delimiter;
 
-    /*
+    /**
      * Whether or not to trim whitespace from discovered keys and values.
      *
      * @var bool
@@ -54,18 +55,18 @@ class JavaProperties implements ReaderInterface
      * @param string $delimiter Delimiter to use for key/value pairs; defaults
      *     to self::DELIMITER_DEFAULT (':')
      * @param bool $trimWhitespace
-     * @throws Exception\InvalidArgumentException for invalid $delimiter values.
+     * @throws Exception\InvalidArgumentException For invalid $delimiter values.
      */
     public function __construct($delimiter = self::DELIMITER_DEFAULT, $trimWhitespace = self::WHITESPACE_KEEP)
     {
         if (! is_string($delimiter) || '' === $delimiter) {
             throw new Exception\InvalidArgumentException(sprintf(
                 'Invalid delimiter of type "%s"; must be a non-empty string',
-                is_object($delimiter) ? get_class($delimiter) : gettype($delimiter)
+                is_object($delimiter) ? $delimiter::class : gettype($delimiter)
             ));
         }
 
-        $this->delimiter = $delimiter;
+        $this->delimiter      = $delimiter;
         $this->trimWhitespace = (bool) $trimWhitespace;
     }
 
@@ -73,9 +74,10 @@ class JavaProperties implements ReaderInterface
      * fromFile(): defined by Reader interface.
      *
      * @see    ReaderInterface::fromFile()
+     *
      * @param  string $filename
      * @return array
-     * @throws Exception\RuntimeException if the file cannot be read
+     * @throws Exception\RuntimeException If the file cannot be read.
      */
     public function fromFile($filename)
     {
@@ -97,9 +99,10 @@ class JavaProperties implements ReaderInterface
      * fromString(): defined by Reader interface.
      *
      * @see    ReaderInterface::fromString()
+     *
      * @param  string $string
      * @return array
-     * @throws Exception\RuntimeException if an @include key is found
+     * @throws Exception\RuntimeException If an @include key is found.
      */
     public function fromString($string)
     {
@@ -119,7 +122,7 @@ class JavaProperties implements ReaderInterface
      *
      * @param  array $data
      * @return array
-     * @throws Exception\RuntimeException if an @include key is found
+     * @throws Exception\RuntimeException If an @include key is found.
      */
     protected function process(array $data)
     {
@@ -141,30 +144,30 @@ class JavaProperties implements ReaderInterface
      *
      * @todo Support use of the equals sign "key=value" as key-value delimiter
      * @todo Ignore whitespace that precedes text past the first line of multiline values
-     *
      * @param  string $string
      * @return array
      */
     protected function parse($string)
     {
-        $delimiter = $this->delimiter;
-        $delimLength = strlen($delimiter);
-        $result = [];
-        $lines = explode("\n", $string);
-        $key = '';
+        $delimiter          = $this->delimiter;
+        $delimLength        = strlen($delimiter);
+        $result             = [];
+        $lines              = explode("\n", $string);
+        $key                = '';
         $isWaitingOtherLine = false;
         foreach ($lines as $i => $line) {
             // Ignore empty lines and commented lines
-            if (empty($line)
-               || (! $isWaitingOtherLine && strpos($line, "#") === 0)
-               || (! $isWaitingOtherLine && strpos($line, "!") === 0)
+            if (
+                empty($line)
+                || (! $isWaitingOtherLine && strpos($line, "#") === 0)
+                || (! $isWaitingOtherLine && strpos($line, "!") === 0)
             ) {
                 continue;
             }
 
             // Add a new key-value pair or append value to a previous pair
             if (! $isWaitingOtherLine) {
-                $key = substr($line, 0, strpos($line, $delimiter));
+                $key   = substr($line, 0, strpos($line, $delimiter));
                 $value = substr($line, strpos($line, $delimiter) + $delimLength, strlen($line));
             } else {
                 $value .= $line;
@@ -172,13 +175,13 @@ class JavaProperties implements ReaderInterface
 
             // Check if ends with single '\' (indicating another line is expected)
             if (strrpos($value, "\\") === strlen($value) - strlen("\\")) {
-                $value = substr($value, 0, -1);
+                $value              = substr($value, 0, -1);
                 $isWaitingOtherLine = true;
             } else {
                 $isWaitingOtherLine = false;
             }
 
-            $key = $this->trimWhitespace ? trim($key) : $key;
+            $key   = $this->trimWhitespace ? trim($key) : $key;
             $value = $this->trimWhitespace && ! $isWaitingOtherLine
                 ? trim($value)
                 : $value;

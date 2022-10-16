@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\Config;
 
 use Laminas\Config\Exception\InvalidArgumentException;
@@ -13,16 +15,25 @@ class WriterPluginManagerCompatibilityTest extends TestCase
 {
     use CommonPluginManagerTrait;
 
+    /**
+     * @return WriterPluginManager
+     */
     protected function getPluginManager()
     {
         return new WriterPluginManager(new ServiceManager());
     }
 
+    /**
+     * @return string
+     */
     protected function getV2InvalidPluginException()
     {
         return InvalidArgumentException::class;
     }
 
+    /**
+     * @return string
+     */
     protected function getInstanceOf()
     {
         return AbstractWriter::class;
