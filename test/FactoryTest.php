@@ -43,10 +43,10 @@ class FactoryTest extends TestCase
      */
     protected function getTestAssetFileName($ext)
     {
-        if (empty($this->tmpfiles[$ext])) {
-            $this->tmpfiles[$ext] = tempnam(sys_get_temp_dir(), 'laminas-config-writer') . '.' . $ext;
+        if (empty($this->tmpFiles[$ext])) {
+            $this->tmpFiles[$ext] = tempnam(sys_get_temp_dir(), 'laminas-config-writer') . '.' . $ext;
         }
-        return $this->tmpfiles[$ext];
+        return $this->tmpFiles[$ext];
     }
 
     protected function setUp(): void
