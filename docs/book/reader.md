@@ -15,7 +15,7 @@ concrete implementations of this interface are:
 the data from the specified configuration.
 
 <!-- markdownlint-disable-next-line header-increment -->
-> ### Differences from Laminas1
+> ### Differences from Zend Framework 1
 >
 > The `Laminas\Config\Reader` component no longer supports the following features:
 >
