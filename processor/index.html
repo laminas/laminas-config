@@ -5,7 +5,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Laminas\Config">  
+    <meta name="description" content="Laminas\Config"> 
+
+    
+    
+    <meta name="docsearch:version" content="latest">
+    <meta name="docsearch:language" content="en">
+    <meta name="docsearch:component" content="laminas-config">
+
     <link rel="canonical" href="https://docs.laminas.dev/laminas-config/processor/">
     <link rel="shortcut icon" href="https://docs.laminas.dev/img/trademark-laminas-foundation-rgb.svg">
 
@@ -244,15 +251,15 @@
             </div>
 
             
-            <div class="col-4 text-sm-right">
+            <div class="col-4 text-right">
                 
                     
 
                     <a href="#" class="header__link header__link--search" data-toggle="modal" data-target="#mkdocs_search_modal" title="Open search">
                         <i class="fa fa-search"></i> Search
                     </a>
-                    <a href="https://github.com/laminas/laminas-config/" class="header__link header__link--github" title="Go to repository of laminas-config">
-                        <i class="fa fa-github"></i> GitHub
+                    <a href="https://github.com/laminas/laminas-config" class="header__link header__link--github" title="Go to repository of laminas-config">
+                        <i class="fab fa-github"></i> GitHub
                     </a>
                 
             </div>
@@ -348,22 +355,22 @@ defining two methods: <code>process()</code> and <code>processValue()</code>.</p
 <li><code>Laminas\Config\Processor\Token</code>: find and replace specific tokens.</li>
 <li><code>Laminas\Config\Processor\Translator</code>: translate configuration values in other languages using <code>Laminas\I18n\Translator</code>.</li>
 </ul>
+<!-- markdownlint-disable-next-line header-increment -->
 <blockquote>
-<h3>What gets processed?</h3>
+<h3 id="what-gets-processed">What gets processed?</h3>
 <p>Typically, you will process configuration <em>values</em>. However, there are use
 cases for supplying constant and/or token <em>keys</em>; one common one is for
 using class-based constants as keys to avoid using magic "strings":</p>
 <pre class="highlight"><code class="language-json">{
     "Acme\\Compoment::CONFIG_KEY": {}
 }</code></pre>
-
 <p>As such, as of version 3.1.0, the <code>Constant</code> and <code>Token</code> processors can
 optionally also process the keys of the <code>Config</code> instance provided to them, by
 calling <code>enableKeyProcessing()</code> on their instances, or passing a boolean
 <code>true</code> value for the fourth constructor argument.</p>
 </blockquote>
 <h2 id="laminasconfigprocessorconstant">Laminas\Config\Processor\Constant</h2>
-<h3>Using Laminas\Config\Processor\Constant</h3>
+<h3 id="using-laminasconfigprocessorconstant">Using Laminas\Config\Processor\Constant</h3>
 <p>This example illustrates the basic usage of <code>Laminas\Config\Processor\Constant</code>:</p>
 <pre class="highlight"><code class="language-php">define ('TEST_CONST', 'bar');
 
@@ -374,7 +381,6 @@ $processor = new Laminas\Config\Processor\Constant();
 echo $config-&gt;foo . ',';
 $processor-&gt;process($config);
 echo $config-&gt;foo;</code></pre>
-
 <p>This example returns the output: <code>TEST_CONST,bar</code>.</p>
 <p>As of version 3.1.0, you can also tell the <code>Constant</code> processor to process keys:</p>
 <pre class="highlight"><code class="language-php">// At instantiation:
@@ -382,10 +388,9 @@ $processor = new Laminas\Config\Processor\Constant(true, '', '', true);
 
 // Or later, via a method call:
 $processor-&gt;enableKeyProcessing();</code></pre>
-
 <p>When enabled, any constant values found in keys will also be replaced.</p>
 <h2 id="laminasconfigprocessorfilter">Laminas\Config\Processor\Filter</h2>
-<h3>Using Laminas\Config\Processor\Filter</h3>
+<h3 id="using-laminasconfigprocessorfilter">Using Laminas\Config\Processor\Filter</h3>
 <p>This example illustrates basic usage of <code>Laminas\Config\Processor\Filter</code>:</p>
 <pre class="highlight"><code class="language-php">use Laminas\Filter\StringToUpper;
 use Laminas\Config\Processor\Filter as FilterProcessor;
@@ -400,10 +405,9 @@ $upperProcessor = new FilterProcessor($upper);
 echo $config-&gt;foo . ',';
 $upperProcessor-&gt;process($config);
 echo $config-&gt;foo;</code></pre>
-
 <p>This example returns the output: <code>bar,BAR</code>.</p>
 <h2 id="laminasconfigprocessorqueue">Laminas\Config\Processor\Queue</h2>
-<h3>Using Laminas\Config\Processor\Queue</h3>
+<h3 id="using-laminasconfigprocessorqueue">Using Laminas\Config\Processor\Queue</h3>
 <p>This example illustrates basic usage of <code>Laminas\Config\Processor\Queue</code>:</p>
 <pre class="highlight"><code class="language-php">use Laminas\Filter\StringToLower;
 use Laminas\Filter\StringToUpper;
@@ -425,11 +429,10 @@ $queue-&gt;insert($lowerProcessor);
 $queue-&gt;process($config);
 
 echo $config-&gt;foo;</code></pre>
-
 <p>This example returns the output: <code>bar</code>. The filters in the queue are applied in
 <em>FIFO</em> (First In, First Out) order .</p>
 <h2 id="laminasconfigprocessortoken">Laminas\Config\Processor\Token</h2>
-<h3>Using Laminas\Config\Processor\Token</h3>
+<h3 id="using-laminasconfigprocessortoken">Using Laminas\Config\Processor\Token</h3>
 <p>This example illustrates basic usage of <code>Laminas\Config\Processor\Token</code>:</p>
 <pre class="highlight"><code class="language-php">use Laminas\Config\Config;
 use Laminas\Config\Processor\Token as TokenProcessor;
@@ -442,7 +445,6 @@ $processor-&gt;addToken('TOKEN', 'bar');
 echo $config-&gt;foo . ',';
 $processor-&gt;process($config);
 echo $config-&gt;foo;</code></pre>
-
 <p>This example returns the output: <code>Value is TOKEN,Value is bar</code>.</p>
 <p>As of version 3.1.0, you can also tell the <code>Token</code> processor to process keys:</p>
 <pre class="highlight"><code class="language-php">// At instantiation:
@@ -450,13 +452,12 @@ $processor = new Laminas\Config\Processor\Token($tokens, '', '', true);
 
 // Or later, via a method call:
 $processor-&gt;enableKeyProcessing();</code></pre>
-
 <p>When enabled, any token values found in keys will also be replaced.</p>
-<h3>Using Token processor as a simple environment processor</h3>
+<h3 id="using-token-processor-as-a-simple-environment-processor">Using Token processor as a simple environment processor</h3>
 <p>Token processor can be utilized to populate config values using common
 format <code>%env(ENV_VAR)%</code> with values from environment by setting Token
 processor <code>$prefix</code> and <code>$suffix</code> parameters to <code>%env(</code> and <code>)%</code> respectively:</p>
-<p><pre class="highlight"><code class="language-php">use Laminas\Config\Config;
+<pre class="highlight"><code class="language-php">use Laminas\Config\Config;
 use Laminas\Config\Processor\Token as TokenProcessor;
 
 putenv('AMQP_PASSWORD=guest');
@@ -483,10 +484,10 @@ print_r($config-&gt;toArray());
 //     [password] =&gt; guest
 //     [vhost] =&gt; /
 // )</code></pre>
-Do note, however, that only values present in environment will be replaced.
+<p>Do note, however, that only values present in environment will be replaced.
 This allows multiple fallback processors to be provided as a queue.</p>
 <h2 id="laminasconfigprocessortranslator">Laminas\Config\Processor\Translator</h2>
-<h3>Using Laminas\Config\Processor\Translator</h3>
+<h3 id="using-laminasconfigprocessortranslator">Using Laminas\Config\Processor\Translator</h3>
 <p>This example illustrates basic usage of <code>Laminas\Config\Processor\Translator</code>:</p>
 <pre class="highlight"><code class="language-php">use Laminas\Config\Config;
 use Laminas\Config\Processor\Translator as TranslatorProcessor;
@@ -511,7 +512,6 @@ $processor = new TranslatorProcessor($translator);
 echo "English: {$config-&gt;animal}, ";
 $processor-&gt;process($config);
 echo "Italian: {$config-&gt;animal}";</code></pre>
-
 <p>This example returns the output: <code>English: dog,Italian: cane</code>.</p>
 
 
@@ -524,7 +524,9 @@ echo "Italian: {$config-&gt;animal}";</code></pre>
         <li class="page-nav__item">
             
                 <a rel="prev" class="page-nav__link page-nav__link--prev" href="../writer/">
-                    <i class="fa fa-chevron-left"></i> Previous
+                    <small class="page-nav__label">Previous</small>
+                    <i class="fa fa-chevron-left"></i>
+                    Laminas\Config\Writer
                 </a>
             
         </li>
@@ -533,7 +535,9 @@ echo "Italian: {$config-&gt;animal}";</code></pre>
         <li class="page-nav__item">
             
                 <a rel="next" class="page-nav__link page-nav__link--next" href="../factory/">
-                    Next <i class="fa fa-chevron-right"></i>
+                    <small class="page-nav__label">Next</small>
+                    Config Factory
+                    <i class="fa fa-chevron-right"></i>
                 </a>
             
         </li>
@@ -541,16 +545,6 @@ echo "Italian: {$config-&gt;animal}";</code></pre>
 </nav>
 
 
-
-
-    <div class="help-wanted">
-        <p>
-            Found a mistake or want to contribute to the documentation?
-            <a href="https://github.com/laminas/laminas-config/edit/master/docs/book/processor.md" target="_blank" class="help-wanted__link">
-                Edit this page on GitHub!
-            </a>
-        </p>
-    </div>
 
                 
             </div>
@@ -669,6 +663,7 @@ echo "Italian: {$config-&gt;animal}";</code></pre>
         </ul>
     </div>
 
+                    
                 
             </div>
         </div>
@@ -709,13 +704,13 @@ echo "Italian: {$config-&gt;animal}";</code></pre>
                                 <a href="https://discourse.laminas.dev" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
                             </li>
                             <li class="support__list-item">
-                                <a href="https://laminas.dev/chat" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                                <a href="https://laminas.dev/chat" class="support__link" title="Chat"><i class="fab fa-slack"></i></a>
                             </li>
                             <li class="support__list-item">
-                                <a href="https://github.com/laminas" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                                <a href="https://github.com/laminas" class="support__link" title="Github"><i class="fab fa-github"></i></a>
                             </li>
                             <li class="support__list-item">
-                                <a href="https://twitter.com/getlaminas" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                                <a href="https://phpc.social/@getlaminas" class="support__link" title="Mastodon"><i class="fab fa-mastodon"></i></a>
                             </li>
                             <li class="support__list-item">
                                 <a href="https://getlaminas.org/blog/rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
@@ -731,7 +726,7 @@ echo "Italian: {$config-&gt;animal}";</code></pre>
                         <h4 class="footer__headline">License</h4>
                         <p>
                             Code licensed under <a
-                                href="https://github.com/laminas/laminas-config/blob/master/LICENSE.md">BSD 3-Clause</a>.
+                                href="https://github.com/laminas/laminas-config/blob/-/LICENSE.md">BSD 3-Clause</a>.
                         </p>
                     </div>
 
@@ -741,7 +736,7 @@ echo "Italian: {$config-&gt;animal}";</code></pre>
                         <p>
                             <!--Built with love by the Laminas team with the help of our
                             <a href="https://github.com/laminas/laminas-config/graphs/contributors">contributors</a>.<br>-->
-                            &copy; 2020 <a href="https://getlaminas.org/">Laminas Project</a> a Series of LF Projects, LLC.
+                            &copy; 2024 <a href="https://getlaminas.org/">Laminas Project</a> a Series of LF Projects, LLC.
                         </p>
                     </div>
                 </div>
