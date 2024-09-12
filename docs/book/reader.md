@@ -10,6 +10,7 @@ concrete implementations of this interface are:
 - `Laminas\Config\Reader\Json`
 - `Laminas\Config\Reader\Yaml`
 - `Laminas\Config\Reader\JavaProperties`
+- `Laminas\Config\Reader\Toml`
 
 `fromFile()` and `fromString()` are expected to return a PHP array containing
 the data from the specified configuration.
@@ -418,4 +419,64 @@ database.params.host = db.example.com
 database.params.username = dbuser
 database.params.password = secret
 database.params.dbname = dbproduction
+```
+
+## Laminas\\Config\\Reader\\Toml
+
+`Laminas\Config\Reader\Toml` enables developers to consume configuration data in
+TOML, and read it in the application by using an array syntax.
+
+The following example illustrates a basic use of `Laminas\Config\Reader\Toml` for
+loading configuration data from a TOML file.
+
+Consider the following TOML configuration file:
+
+```toml
+webhost = "www.example.com"
+
+[database]
+adapter = "pdo_mysql"
+
+[database.params]
+host = "db.example.com"
+username = "dbuser"
+password = "secret"
+dbname = "dbproduction"
+```
+
+We can use `Laminas\Config\Reader\Toml` to read the file:
+
+```php
+$reader = new Laminas\Config\Reader\Toml();
+$data   = $reader->fromFile('/path/to/config.toml');
+
+echo $data['webhost'];  // prints "www.example.com"
+echo $data['database']['params']['dbname'];  // prints "dbproduction"
+```
+
+`Laminas\Config\Reader\Toml` utilizes [devium/toml](https://github.com/vanodevium/toml).
+
+> you have to require it manually: `composer require devium/toml`
+
+Using `Laminas\Config\Reader\Toml`, we can include the content of a TOML file in a
+specific TOML section or element. This is provided using the special syntax
+`@include`. Suppose we have a TOML file that contains only the database
+configuration:
+
+```toml
+[database]
+adapter = "pdo_mysql"
+
+[database.params]
+host = "db.example.com"
+username = "dbuser"
+password = "secret"
+dbname = "dbproduction"
+```
+
+Now let's include it via another configuration file:
+
+```toml
+webhost = "www.example.com"
+"@include" = "database.toml"
 ```

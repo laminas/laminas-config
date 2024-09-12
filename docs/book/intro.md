@@ -4,7 +4,7 @@ laminas-config is designed to simplify access to configuration data within appli
 a nested object, property-based user interface for accessing this configuration data within
 application code. The configuration data may come from a variety of formats supporting hierarchical
 data storage. Currently, laminas-config provides adapters that read and write configuration data
-stored in INI, JSON, YAML, and XML files.
+stored in INI, JSON, YAML, TOML and XML files.
 
 ## Using Reader Classes
 
@@ -53,7 +53,7 @@ they are parsed, and the fact that they can be cached by opcode caches.
 
 The following code illustrates how to use PHP configuration files.
 
-Create a sepatared PHP file which contains the configuration, e.g. `config.php`:
+Create a separated PHP file which contains the configuration, e.g. `config.php`:
 
 ```php
 return [

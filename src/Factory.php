@@ -53,6 +53,7 @@ class Factory
         'yaml'       => 'yaml',
         'yml'        => 'yaml',
         'properties' => 'javaproperties',
+        'toml'       => 'toml',
     ];
 
     /**
@@ -68,6 +69,7 @@ class Factory
         'xml'  => 'xml',
         'yaml' => 'yaml',
         'yml'  => 'yaml',
+        'toml' => 'toml',
     ];
 
     /**

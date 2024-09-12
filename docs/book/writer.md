@@ -13,6 +13,7 @@ We have six writers implementing the interface:
 - `Laminas\Config\Writer\PhpArray`
 - `Laminas\Config\Writer\Xml`
 - `Laminas\Config\Writer\Yaml`
+- `Laminas\Config\Writer\Toml`
 
 ## Laminas\\Config\\Writer\\Ini
 
@@ -325,3 +326,47 @@ require_once 'path/to/spyc.php';
 $writer = new Laminas\Config\Writer\Yaml(['Spyc', 'YAMLDump']);
 echo $writer->toString($config);
 ```
+
+## Laminas\\Config\\Writer\\Toml
+
+`Laminas\Config\Writer\Toml` can be used to generate a TOML representation of
+configuration.
+
+### Using Laminas\\Config\\Writer\\Toml
+
+Consider the following code, which creates a configuration structure:
+
+```php
+// Create the config object
+$config = new Laminas\Config\Config([], true);
+$config->production = [];
+
+$config->production->webhost = 'www.example.com';
+$config->production->database = [];
+$config->production->database->params = [];
+$config->production->database->params->host = 'localhost';
+$config->production->database->params->username = 'production';
+$config->production->database->params->password = 'secret';
+$config->production->database->params->dbname = 'dbproduction';
+
+$writer = new Laminas\Config\Writer\Toml();
+echo $writer->toString($config);
+```
+
+The result of this code is the following TOML string:
+
+```TOML
+webhost = "www.example.com"
+
+[database.params]
+host = "localhost"
+username = "production"
+password = "secret"
+dbname = "dbproduction"
+```
+
+You can use the method `toFile()` to save the TOML data to a file.
+
+`Laminas\Config\Writer\Toml` uses [devium/toml](https://github.com/vanodevium/toml).
+
+> you have to require it manually: `composer require devium/toml`

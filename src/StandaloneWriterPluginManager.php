@@ -22,6 +22,7 @@ class StandaloneWriterPluginManager implements ContainerInterface
         'phparray'       => Writer\PhpArray::class,
         'xml'            => Writer\Xml::class,
         'yaml'           => Writer\Yaml::class,
+        'toml'           => Writer\Toml::class,
     ];
 
     /**

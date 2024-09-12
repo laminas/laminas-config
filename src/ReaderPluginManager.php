@@ -35,6 +35,8 @@ class ReaderPluginManager extends AbstractPluginManager
         'javaproperties' => Reader\JavaProperties::class,
         'javaProperties' => Reader\JavaProperties::class,
         'JavaProperties' => Reader\JavaProperties::class,
+        'toml'           => Reader\Toml::class,
+        'Toml'           => Reader\Toml::class,
 
         // Legacy Zend Framework aliases
         Ini::class            => Reader\Ini::class,
@@ -58,6 +60,7 @@ class ReaderPluginManager extends AbstractPluginManager
         Reader\Xml::class            => InvokableFactory::class,
         Reader\Yaml::class           => InvokableFactory::class,
         Reader\JavaProperties::class => InvokableFactory::class,
+        Reader\Toml::class           => InvokableFactory::class,
         // Legacy (v2) due to alias resolution; canonical form of resolved
         // alias is used to look up the factory, while the non-normalized
         // resolved alias is used as the requested name passed to the factory.

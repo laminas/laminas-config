@@ -20,6 +20,7 @@ class StandaloneReaderPluginManager implements ContainerInterface
         'xml'            => Reader\Xml::class,
         'yaml'           => Reader\Yaml::class,
         'javaproperties' => Reader\JavaProperties::class,
+        'toml'           => Reader\Toml::class,
     ];
 
     /**

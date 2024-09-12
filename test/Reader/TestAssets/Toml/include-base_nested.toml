@@ -1,0 +1,2 @@
+[bar]
+"@include" = "include-target.toml"

@@ -40,6 +40,8 @@ class WriterPluginManager extends AbstractPluginManager
         'javaproperties' => Writer\JavaProperties::class,
         'javaProperties' => Writer\JavaProperties::class,
         'JavaProperties' => Writer\JavaProperties::class,
+        'toml'           => Writer\Toml::class,
+        'Toml'           => Writer\Toml::class,
 
         // Legacy Zend Framework aliases
         Ini::class            => Writer\Ini::class,
@@ -66,6 +68,7 @@ class WriterPluginManager extends AbstractPluginManager
         Writer\PhpArray::class       => InvokableFactory::class,
         Writer\Yaml::class           => InvokableFactory::class,
         Writer\Xml::class            => InvokableFactory::class,
+        Writer\Toml::class           => InvokableFactory::class,
         // Legacy (v2) due to alias resolution; canonical form of resolved
         // alias is used to look up the factory, while the non-normalized
         // resolved alias is used as the requested name passed to the factory.
