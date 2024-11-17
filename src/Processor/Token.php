@@ -250,7 +250,6 @@ class Token implements ProcessorInterface
      * Applies replacement map to the given value by modifying the value itself
      *
      * @param mixed $value
-     * @param array $replacements
      * @return mixed
      * @throws Exception\InvalidArgumentException If the provided value is a read-only {@see Config}.
      */

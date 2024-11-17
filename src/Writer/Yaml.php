@@ -62,7 +62,6 @@ class Yaml extends AbstractWriter
     /**
      * processConfig(): defined by AbstractWriter.
      *
-     * @param  array $config
      * @return string
      * @throws Exception\RuntimeException
      */

@@ -22,6 +22,14 @@ use function range;
  */
 class ConfigTest extends TestCase
 {
+    private array $all;
+    private array $numericData;
+    private array $menuData1;
+    private array $toCombineA;
+    private array $toCombineB;
+    private array $leadingdot;
+    private array $invalidkey;
+
     protected function setUp(): void
     {
         // Arrays representing common config configurations

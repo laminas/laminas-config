@@ -41,7 +41,6 @@ class JavaProperties extends AbstractWriter
     /**
      * processConfig(): defined by AbstractWriter.
      *
-     * @param  array $config
      * @return string
      * @throws Exception\UnprocessableConfigException For non-scalar values in the $config array.
      */

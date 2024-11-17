@@ -18,7 +18,7 @@ class ReaderPluginManagerCompatibilityTest extends TestCase
     /**
      * @return ReaderPluginManager
      */
-    protected function getPluginManager()
+    protected static function getPluginManager()
     {
         return new ReaderPluginManager(new ServiceManager());
     }

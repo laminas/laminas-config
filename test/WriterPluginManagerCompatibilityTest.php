@@ -18,7 +18,7 @@ class WriterPluginManagerCompatibilityTest extends TestCase
     /**
      * @return WriterPluginManager
      */
-    protected function getPluginManager()
+    protected static function getPluginManager()
     {
         return new WriterPluginManager(new ServiceManager());
     }

@@ -14,7 +14,7 @@ use Laminas\Config\StandaloneWriterPluginManager;
 use Laminas\Config\WriterPluginManager;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use ReflectionProperty;
+use ReflectionClass;
 use RuntimeException;
 
 use function chmod;
@@ -43,10 +43,10 @@ class FactoryTest extends TestCase
      */
     protected function getTestAssetFileName($ext)
     {
-        if (empty($this->tmpfiles[$ext])) {
-            $this->tmpfiles[$ext] = tempnam(sys_get_temp_dir(), 'laminas-config-writer') . '.' . $ext;
+        if (empty($this->tmpFiles[$ext])) {
+            $this->tmpFiles[$ext] = tempnam(sys_get_temp_dir(), 'laminas-config-writer') . '.' . $ext;
         }
-        return $this->tmpfiles[$ext];
+        return $this->tmpFiles[$ext];
     }
 
     protected function setUp(): void
@@ -74,11 +74,9 @@ class FactoryTest extends TestCase
 
     public function resetPluginManagers()
     {
-        foreach (['readers', 'writers'] as $pluginManager) {
-            $r = new ReflectionProperty(Factory::class, $pluginManager);
-            $r->setAccessible(true);
-            $r->setValue(null);
-        }
+        $reflectionClass = new ReflectionClass(Factory::class);
+        $reflectionClass->setStaticPropertyValue('writers', null);
+        $reflectionClass->setStaticPropertyValue('readers', null);
     }
 
     public function testFromIni()

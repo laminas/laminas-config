@@ -1,25 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
-    bootstrap="vendor/autoload.php"
-    colors="true">
-    <coverage processUncoveredFiles="true">
-        <include>
-            <directory suffix=".php">./src</directory>
-        </include>
-    </coverage>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="./vendor/autoload.php"
+         colors="true"
+         cacheDirectory=".phpunit.cache"
+         failOnDeprecation="true"
+         failOnNotice="true"
+         failOnWarning="true"
+         failOnPhpunitDeprecation="false"
+         displayDetailsOnPhpunitDeprecations="true"
+         displayDetailsOnTestsThatTriggerDeprecations="true"
+         displayDetailsOnTestsThatTriggerNotices="true"
+         displayDetailsOnTestsThatTriggerWarnings="true">
 
-    <testsuites>
-        <testsuite name="laminas-config Test Suite">
-            <directory>./test</directory>
-        </testsuite>
-    </testsuites>
-
-    <php>
-        <env name="TESTS_LAMINAS_CONFIG_YAML_ENABLED" value="false"/>
-        <env name="TESTS_LAMINAS_CONFIG_YAML_LIB_INCLUDE" value=""/>
-        <env name="TESTS_LAMINAS_CONFIG_WRITER_YAML_CALLBACK" value=""/>
-        <env name="TESTS_LAMINAS_CONFIG_READER_YAML_CALLBACK" value=""/>
-    </php>
+  <testsuites>
+    <testsuite name="laminas-config Test Suite">
+      <directory>./test</directory>
+    </testsuite>
+  </testsuites>
+  <php>
+    <env name="TESTS_LAMINAS_CONFIG_YAML_ENABLED" value="false"/>
+    <env name="TESTS_LAMINAS_CONFIG_YAML_LIB_INCLUDE" value=""/>
+    <env name="TESTS_LAMINAS_CONFIG_WRITER_YAML_CALLBACK" value=""/>
+    <env name="TESTS_LAMINAS_CONFIG_READER_YAML_CALLBACK" value=""/>
+  </php>
+  <source>
+    <include>
+      <directory suffix=".php">./src</directory>
+    </include>
+  </source>
 </phpunit>

@@ -14,7 +14,6 @@ class Xml extends AbstractWriter
     /**
      * processConfig(): defined by AbstractWriter.
      *
-     * @param  array $config
      * @return string
      */
     public function processConfig(array $config)
@@ -45,7 +44,6 @@ class Xml extends AbstractWriter
      * Add a branch to an XML object recursively.
      *
      * @param  string    $branchName
-     * @param  array     $config
      * @return void
      * @throws Exception\RuntimeException
      */

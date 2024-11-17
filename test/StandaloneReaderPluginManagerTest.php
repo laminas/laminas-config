@@ -16,7 +16,7 @@ class StandaloneReaderPluginManagerTest extends TestCase
     /**
      * @return string[][]
      */
-    public function supportedConfigExtensions()
+    public static function supportedConfigExtensions()
     {
         return [
             'ini'            => ['ini', Reader\Ini::class],
@@ -53,7 +53,7 @@ class StandaloneReaderPluginManagerTest extends TestCase
     /**
      * @return string[][]
      */
-    public function supportedConfigClassNames()
+    public static function supportedConfigClassNames()
     {
         return [
             Reader\Ini::class            => [Reader\Ini::class],

@@ -16,7 +16,7 @@ class StandaloneWriterPluginManagerTest extends TestCase
     /**
      * @return string[][]
      */
-    public function supportedConfigTypes()
+    public static function supportedConfigTypes()
     {
         return [
             'ini'      => ['ini', Writer\Ini::class],
@@ -55,7 +55,7 @@ class StandaloneWriterPluginManagerTest extends TestCase
     /**
      * @return string[][]
      */
-    public function supportedConfigClassNames()
+    public static function supportedConfigClassNames()
     {
         return [
             Writer\Ini::class      => [Writer\Ini::class],

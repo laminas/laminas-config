@@ -81,7 +81,6 @@ class AbstractConfigFactory implements AbstractFactoryInterface
      * Create service with name (SM v3)
      *
      * @param string $requestedName
-     * @param array $options
      * @return string|mixed|array
      */
     public function __invoke(Containerinterface $container, $requestedName, ?array $options = null)

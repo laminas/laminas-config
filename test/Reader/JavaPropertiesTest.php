@@ -90,7 +90,7 @@ ASSET;
     /**
      * @return array
      */
-    public function invalidDelimiters()
+    public static function invalidDelimiters()
     {
         return [
             'null'         => [null],

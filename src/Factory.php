@@ -145,7 +145,6 @@ class Factory
     /**
      * Read configuration from multiple files and merge them.
      *
-     * @param  array   $files
      * @param  bool $returnConfigObject
      * @param  bool $useIncludePath
      * @return array|Config

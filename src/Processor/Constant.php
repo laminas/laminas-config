@@ -97,7 +97,6 @@ class Constant extends Token implements ProcessorInterface
      * the class constant value; otherwise, delegates to the parent.
      *
      * @param mixed $value
-     * @param array $replacements
      * @return mixed
      */
     protected function doProcess($value, array $replacements)

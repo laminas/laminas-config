@@ -21,7 +21,7 @@ class ConstantTest extends TestCase
     /**
      * @return array
      */
-    public function constantProvider()
+    public static function constantProvider()
     {
         if (! defined('LAMINAS_CONFIG_PROCESSOR_CONSTANT_TEST')) {
             define('LAMINAS_CONFIG_PROCESSOR_CONSTANT_TEST', 'test-key');

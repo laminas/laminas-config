@@ -80,7 +80,6 @@ class Json implements ReaderInterface
     /**
      * Process the array for @include
      *
-     * @param  array $data
      * @return array
      * @throws Exception\RuntimeException
      */

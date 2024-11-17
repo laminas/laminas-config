@@ -43,7 +43,6 @@ class PhpArray extends AbstractWriter
     /**
      * processConfig(): defined by AbstractWriter.
      *
-     * @param  array $config
      * @return string
      */
     public function processConfig(array $config)
@@ -142,8 +141,6 @@ class PhpArray extends AbstractWriter
     /**
      * Recursively processes a PHP config array structure into a readable format.
      *
-     * @param  array $config
-     * @param  array $arraySyntax
      * @param  int   $indentLevel
      * @return string
      */

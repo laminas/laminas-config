@@ -53,7 +53,6 @@ class Config implements Countable, Iterator, ArrayAccess
      * Data is read-only unless $allowModifications is set to true
      * on construction.
      *
-     * @param  array   $array
      * @param  bool $allowModifications
      */
     public function __construct(array $array, $allowModifications = false)

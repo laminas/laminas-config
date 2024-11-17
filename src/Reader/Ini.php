@@ -214,7 +214,6 @@ class Ini implements ReaderInterface
     /**
      * Process data from the parsed ini file.
      *
-     * @param  array $data
      * @return array
      */
     protected function process(array $data)
@@ -261,7 +260,6 @@ class Ini implements ReaderInterface
     /**
      * Process a section.
      *
-     * @param  array $section
      * @return array
      */
     protected function processSection(array $section)
@@ -280,7 +278,6 @@ class Ini implements ReaderInterface
      *
      * @param  string $key
      * @param  string $value
-     * @param  array  $config
      * @throws Exception\RuntimeException
      */
     protected function processKey($key, $value, array &$config)

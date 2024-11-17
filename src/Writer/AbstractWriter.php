@@ -81,7 +81,6 @@ abstract class AbstractWriter implements WriterInterface
     }
 
     /**
-     * @param array $config
      * @return string
      */
     abstract protected function processConfig(array $config);

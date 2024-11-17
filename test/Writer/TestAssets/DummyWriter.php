@@ -11,7 +11,6 @@ use function serialize;
 class DummyWriter extends AbstractWriter
 {
     /**
-     * @param array $config
      * @return string
      */
     public function processConfig(array $config)
