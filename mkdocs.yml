@@ -11,8 +11,8 @@ nav:
     - "Config Factory": factory.md
     - Migration:
       - "To version 3": migration/to-v3.md
-site_name: laminas-config
-site_description: Laminas\Config
+site_name: laminas-config (Abandoned)
+site_description: Provides a nested object property based user interface for accessing this configuration data within application code
 repo_url: 'https://github.com/laminas/laminas-config'
 extra:
     project: Components
