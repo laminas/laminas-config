@@ -195,8 +195,6 @@ class XmlTest extends AbstractReaderTestCase
     {
         $reflectionReader = new ReflectionProperty(Xml::class, 'reader');
 
-        $reflectionReader->setAccessible(true);
-
         $xmlReader = $reflectionReader->getValue($xml);
 
         self::assertInstanceOf('XMLReader', $xmlReader);

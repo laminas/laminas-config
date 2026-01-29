@@ -16,7 +16,6 @@ trait DeprecatedAssertionTrait
     public static function assertAttributeSame($value, string $property, object $instance, string $message = ''): void
     {
         $r = new ReflectionProperty($instance, $property);
-        $r->setAccessible(true);
 
         if ($message === '') {
             $message = sprintf(

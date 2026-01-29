@@ -299,8 +299,8 @@ class ProcessorTest extends TestCase
                 'trueBoolKey'  => true,
                 'falseBoolKey' => false,
                 'intKey'       => 123,
-                'floatKey'     => (float) 123.456,
-                'doubleKey'    => (double) 456.789,
+                'floatKey'     => 123.456,
+                'doubleKey'    => 456.789,
             ],
             true
         );
@@ -312,8 +312,8 @@ class ProcessorTest extends TestCase
         self::assertTrue($config['trueBoolKey']);
         self::assertFalse($config['falseBoolKey']);
         self::assertSame(123, $config['intKey']);
-        self::assertSame((float) 123.456, $config['floatKey']);
-        self::assertSame((double) 456.789, $config['doubleKey']);
+        self::assertSame(123.456, $config['floatKey']);
+        self::assertSame(456.789, $config['doubleKey']);
     }
 
     /**
@@ -327,8 +327,8 @@ class ProcessorTest extends TestCase
                 'trueBoolKey'  => true,
                 'falseBoolKey' => false,
                 'intKey'       => 123,
-                'floatKey'     => (float) 123.456,
-                'doubleKey'    => (double) 456.789,
+                'floatKey'     => 123.456,
+                'doubleKey'    => 456.789,
             ],
             true
         );
